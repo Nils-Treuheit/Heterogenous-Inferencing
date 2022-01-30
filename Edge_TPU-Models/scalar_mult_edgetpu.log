@@ -1,0 +1,7 @@
+Edge TPU Compiler version 16.0.384591198
+Input: /content/TF_Lite-Models/scalar_mult.tflite
+Output: /content/Edge_TPU-Models/scalar_mult_edgetpu.tflite
+
+Operator                       Count      Status
+
+MUL                            1          Operation is working on an unsupported data type
