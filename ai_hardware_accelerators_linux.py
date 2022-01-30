@@ -19,6 +19,9 @@ pictures = tf.keras.Input(shape=picture_shape, batch_size=BatchSize)
 linear_data = tf.keras.Input(shape=linear_data_shape, batch_size=BatchSize)
 layers,models = ([],[])
 
+openvino_installed=True
+coral_installed=True
+
 print("Create Simple Tensorflow Models")
 
 # relu activation model
@@ -107,14 +110,14 @@ for model in models:
 
 
 print("Compile Models for OpenVINO")
-
-os.system('wget https://apt.repos.intel.com/openvino/2021/GPG-PUB-KEY-INTEL-OPENVINO-2021')
-os.system('sudo apt-key add GPG-PUB-KEY-INTEL-OPENVINO-2021')
-os.system('echo "deb https://apt.repos.intel.com/openvino/2021 all main" | sudo tee /etc/apt/sources.list.d/intel-openvino-2021.list')
-os.system('sudo apt update > /dev/null $2>&1')
-os.system('sudo apt install intel-openvino-dev-ubuntu20-2021.3.394 -y > /dev/null $2>&1')
-os.system('bash /opt/intel/openvino_2021/bin/setupvars.sh')
-os.system('python3 -m pip install openvino-dev')
+if not openvino_installed:
+  os.system('wget https://apt.repos.intel.com/openvino/2021/GPG-PUB-KEY-INTEL-OPENVINO-2021')
+  os.system('sudo apt-key add GPG-PUB-KEY-INTEL-OPENVINO-2021')
+  os.system('echo "deb https://apt.repos.intel.com/openvino/2021 all main" | sudo tee /etc/apt/sources.list.d/intel-openvino-2021.list')
+  os.system('sudo apt update > /dev/null $2>&1')
+  os.system('sudo apt install intel-openvino-dev-ubuntu20-2021.3.394 -y > /dev/null $2>&1')
+  os.system('bash /opt/intel/openvino_2021/bin/setupvars.sh')
+  os.system('python3 -m pip install openvino-dev')
 
 if not os.path.isdir("OpenVINO-Models"): os.mkdir("OpenVINO-Models")
 for model in models:
@@ -132,11 +135,11 @@ for model in models:
 
 
 print("Compile Models for Edge TPU")
-
-os.system('curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -')
-os.system('echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list')
-os.system('sudo apt-get update')
-os.system('sudo apt-get install edgetpu-compiler')
+if not coral_installed:
+  os.system('curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -')
+  os.system('echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list')
+  os.system('sudo apt-get update')
+  os.system('sudo apt-get install edgetpu-compiler')
 
 if not os.path.isdir("Edge_TPU-Models"): os.mkdir("Edge_TPU-Models")
 
