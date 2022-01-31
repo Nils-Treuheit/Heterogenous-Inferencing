@@ -78,7 +78,6 @@ else:   #Iterate over all networks
     
     results=dict()
     for i in range(num_nets):
-        net_dir=os.path.join(".","google_coral")
 
         if os.uname().sysname=="Linux":
             interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
