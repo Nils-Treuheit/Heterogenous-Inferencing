@@ -1,107 +1,27 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <mapping>
 	<map>
-		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
-		<IR name="input_2" output_port_id="0" />
+		<framework name="Identity" out_port_id="0"/>
+		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" out_port_id="1" id="1"/>
 	</map>
 	<map>
-		<framework name="Func/PartitionedCall/input/_0" output_port_id="Func/PartitionedCall/input/_0:0" />
-		<IR name="input_2" output_port_id="0" />
+		<framework name="Func/PartitionedCall/output/_1" out_port_id="0"/>
+		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" out_port_id="1" id="1"/>
 	</map>
 	<map>
-		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
-		<IR name="input_2" output_port_id="0" />
+		<framework name="PartitionedCall/Identity" out_port_id="0"/>
+		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" out_port_id="1" id="1"/>
 	</map>
 	<map>
-		<framework name="input_2" output_port_id="input_2:0" />
-		<IR name="input_2" output_port_id="0" />
+		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" out_port_id="0"/>
+		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" out_port_id="1" id="1"/>
 	</map>
 	<map>
-		<framework name="Func/PartitionedCall/input/_0" output_port_id="input_2:0" />
-		<IR name="input_2" output_port_id="0" />
+		<framework name="Func/PartitionedCall/input/_0" out_port_id="0"/>
+		<IR name="input_2" out_port_id="0" id="0"/>
 	</map>
 	<map>
-		<framework name="input_2" output_port_id="input_2:0" />
-		<IR name="input_2" output_port_id="0" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="Func/PartitionedCall/output/_1:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="Func/PartitionedCall/output/_1:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="Func/PartitionedCall/output/_1:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="Func/PartitionedCall/output/_1:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="Func/PartitionedCall/output/_1:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="PartitionedCall/sigmoid_act/activation_2/Sigmoid:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/sigmoid_act/activation_2/Sigmoid:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/sigmoid_act/activation_2/Sigmoid:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="PartitionedCall/sigmoid_act/activation_2/Sigmoid:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="PartitionedCall/sigmoid_act/activation_2/Sigmoid:0" />
-		<IR name="PartitionedCall/sigmoid_act/activation_2/Sigmoid" output_port_id="1" />
+		<framework name="input_2" out_port_id="0"/>
+		<IR name="input_2" out_port_id="0" id="0"/>
 	</map>
 </mapping>

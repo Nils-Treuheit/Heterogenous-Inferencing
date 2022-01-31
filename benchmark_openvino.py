@@ -1,3 +1,4 @@
+from pathlib import Path
 from openvino.inference_engine import IECore
 import os.path
 import numpy as np
@@ -13,7 +14,7 @@ target="CPU"
 #target="MYRIAD"
 
 #iterations=32
-iterations=8
+iterations=3
 
 def startNet(name):
     model_path=os.path.join(models_openvino,name+".xml")
@@ -107,11 +108,11 @@ if single_net:
     
 else:
     nets_to_run=tf_net_names[:12] #memory problems in many_conv2d, at least at the CPU
-    openvino_nets=[startNet(x) for x in nets_to_run]
+    #openvino_nets=[startNet(x) for x in nets_to_run]
     measurements=dict()
     
     for i in range(len(nets_to_run)):
-        loaded_net=openvino_nets[i]
+        loaded_net=startNet(nets_to_run[i])
         #network_input="input_1"
         network_input=next(iter(loaded_net.input_info))
     
@@ -157,13 +158,19 @@ else:
             single_measurement=(end - start)/iterations
             measurements[nets_to_run[i]]=single_measurement
     print(measurements)
+
     if syn_inference:
-        with open(os.path.join(measurements_openvino,target+"_openvino_sync.csv"),"w") as file:
-            wr=csv.writer(file)
-            wr.writerow(nets_to_run)
-            wr.writerows([[measurements[name][k] for name in nets_to_run] for k in range(iterations)])
+        target_path=os.path.join(measurements_openvino,target+"_openvino_sync.csv")
+        measurements_to_write=[[measurements[name][k] for name in nets_to_run] for k in range(iterations)]
     else:
-        with open(os.path.join(measurements_openvino,target+"_openvino_async.csv"),"w") as file:
+        target_path=os.path.join(measurements_openvino,target+"_openvino_async.csv")
+        measurements_to_write=[[measurements[name] for name in nets_to_run]]
+    
+    if not Path(target_path).exists():
+        with open(target_path,"w") as file:
             wr=csv.writer(file)
             wr.writerow(nets_to_run)
-            wr.writerow([measurements[name] for name in nets_to_run])
+    with open(target_path,"a") as file:
+        wr=csv.writer(file)
+        wr.writerow(['' for _ in nets_to_run])
+        wr.writerows(measurements_to_write)

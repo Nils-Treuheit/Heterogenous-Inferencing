@@ -1,7 +1,7 @@
 Edge TPU Compiler version 16.0.384591198
-Input: /content/TF_Lite-Models/many_conv2d.tflite
-Output: /content/Edge_TPU-Models/many_conv2d_edgetpu.tflite
+Input: /home/martin/Dokumente/test3/Heterogenous-Inferencing/TF_Lite-Models/many_conv2d.tflite
+Output: /home/martin/Dokumente/test3/Heterogenous-Inferencing/Edge_TPU-Models/many_conv2d_edgetpu.tflite
 
 Operator                       Count      Status
 
-CONV_2D                        1          Tensor has unsupported rank (up to 3 innermost dimensions mapped)
+CONV_2D                        1          Mapped to Edge TPU

@@ -1,8 +1,10 @@
 #import tflite_runtime.interpreter as tflite
+import csv
 import tensorflow.lite as tflite
 import os
 import numpy as np
 import time
+from pathlib import Path
 
 tf_net_names=[
 "relu_act",
@@ -24,6 +26,9 @@ tf_net_names=[
 single_net=True
 net_dir=os.path.join(".","Edge_TPU-Models")
 iterations=512
+measurements_coral="Edge_TPU-Measurements"
+
+if not os.path.isdir(measurements_coral): os.mkdir(measurements_coral)
 
 if single_net:
     i=6
@@ -63,7 +68,10 @@ if single_net:
     #    print(tflite_res[j][0][0])
 
     #write to csv
-
+    with open(os.path.join(measurements_coral,tf_net_names[i]+"_coral.csv"),"w") as file:
+        wr=csv.writer(file)
+        wr.writerows(measurements_single)
+        #wr.writerows([[measurements[name][k] for name in nets_to_run] for k in range(iterations)])
 
 else:   #Iterate over all networks
     num_nets=len(tf_net_names)
@@ -103,3 +111,12 @@ else:   #Iterate over all networks
         print(tf_net_names[i])
 
     #write to csv:
+    target_path=os.path.join(measurements_coral,"all_coral.csv")
+    if not Path(target_path).exists():
+        with open(target_path,"w") as file:
+            wr=csv.writer(file)
+            wr.writerows(tf_net_names)    
+    with open(target_path,"a") as file:
+        wr=csv.writer(file)
+        wr.writerow([' ' for k in tf_net_names])
+        wr.writerows([[results[name][k] for name in tf_net_names] for k in range(iterations)])

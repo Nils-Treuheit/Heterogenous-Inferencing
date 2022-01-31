@@ -1,7 +1,7 @@
 Edge TPU Compiler version 16.0.384591198
-Input: /content/TF_Lite-Models/sigmoid_act.tflite
-Output: /content/Edge_TPU-Models/sigmoid_act_edgetpu.tflite
+Input: /home/martin/Dokumente/test3/Heterogenous-Inferencing/TF_Lite-Models/sigmoid_act.tflite
+Output: /home/martin/Dokumente/test3/Heterogenous-Inferencing/Edge_TPU-Models/sigmoid_act_edgetpu.tflite
 
 Operator                       Count      Status
 
-LOGISTIC                       1          Operation is working on an unsupported data type
+LOGISTIC                       1          Mapped to Edge TPU

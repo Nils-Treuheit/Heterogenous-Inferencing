@@ -8,11 +8,13 @@ Original file is located at
 
 """
 
+import numpy as np
 import tensorflow as tf
 import os, subprocess
 current_dir = os.getcwd()
 
-BatchSize = 512
+#BatchSize = 512
+BatchSize = 1 # google coral will das so
 picture_shape = (128,128,3)
 linear_data_shape = (128)
 pictures = tf.keras.Input(shape=picture_shape, batch_size=BatchSize)
@@ -103,7 +105,14 @@ for model in models:
   print("\n")
   model.save(("Tensor_Flow-Models/"+model.name))
   with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file:
+    tmp_shape=model.get_layer(index=0).input_shape[0]
+    data_gen=lambda : (yield [np.random.default_rng().random(size=tmp_shape,dtype=np.float32)])
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    converter.optimizations=[tf.lite.Optimize.DEFAULT]
+    converter.inference_input_type=tf.int8
+    converter.inference_output_type=tf.int8
+    converter.target_spec.supported_ops=[tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+    converter.representative_dataset=data_gen
     tflite_model = converter.convert()
     model_file.write(tflite_model)
 
@@ -120,19 +129,31 @@ if not openvino_installed:
   os.system('python3 -m pip install openvino-dev')
 
 if not os.path.isdir("OpenVINO-Models"): os.mkdir("OpenVINO-Models")
-for model in models:
-  result = subprocess.run(['python3', '-m', 'mo', '--framework', 'tf',
-                           '--progress', '--input_model_is_text',
-                           '--batch', str(BatchSize), '--input_shape',
-                           str(model.get_layer(index=0).input_shape),
-                           '--data_type=FP16', '--model_name', model.name, 
-                           '--saved_model_dir', 
-                           current_dir+'/Tensor_Flow-Models/'+model.name,
-                           '--output_dir', current_dir+'/OpenVINO-Models'],
-                          stdout=subprocess.PIPE)
-  print(result.stdout.decode('ascii'))
-
-
+if not os.getlogin()=="martin": #aus irgendwelchen gruenden funktioniert der Befehl nicht bei mir
+  for model in models:
+    result = subprocess.run(['python3', '-m', 'mo', '--framework', 'tf',
+                             '--progress', '--input_model_is_text',
+                             '--batch', str(BatchSize), '--input_shape',
+                             str(model.get_layer(index=0).input_shape),
+                             '--data_type=FP16', '--model_name', model.name, 
+                             '--saved_model_dir', 
+                             current_dir+'/Tensor_Flow-Models/'+model.name,
+                             '--output_dir', current_dir+'/OpenVINO-Models'],
+                            stdout=subprocess.PIPE)
+    print(result.stdout.decode('ascii'))
+else:
+  for model in models:
+    result = subprocess.run(['python3', '-m', 'mo_tf',
+                             '--progress', '--input_model_is_text',
+                            #'--batch', str(BatchSize),
+                            '--input_shape',
+                             str(model.get_layer(index=0).input_shape[0]),
+                             '--data_type=FP16', '--model_name', model.name, 
+                             '--saved_model_dir', 
+                             current_dir+'/Tensor_Flow-Models/'+model.name,
+                             '--output_dir', current_dir+'/OpenVINO-Models'],
+                            stdout=subprocess.PIPE)
+    print(result.stdout.decode('ascii'))
 
 print("Compile Models for Edge TPU")
 if not coral_installed:
