@@ -1,6 +1,6 @@
 Edge TPU Compiler version 16.0.384591198
-Input: /home/martin/Dokumente/test3/Heterogenous-Inferencing/TF_Lite-Models/scalar_mult.tflite
-Output: /home/martin/Dokumente/test3/Heterogenous-Inferencing/Edge_TPU-Models/scalar_mult_edgetpu.tflite
+Input: /home/martin/Dokumente/HardAccel/Version1/Heterogenous-Inferencing/TF_Lite-Models/scalar_mult.tflite
+Output: /home/martin/Dokumente/HardAccel/Version1/Heterogenous-Inferencing/Edge_TPU-Models/scalar_mult_edgetpu.tflite
 
 Operator                       Count      Status
 

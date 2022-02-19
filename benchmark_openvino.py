@@ -12,6 +12,12 @@ if not os.path.isdir(measurements_openvino): os.mkdir(measurements_openvino)
 #target="GPU"
 target="CPU"
 #target="MYRIAD"
+#
+#
+#
+#
+#
+#
 
 #iterations=32
 iterations=3

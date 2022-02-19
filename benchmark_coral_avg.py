@@ -1,6 +1,7 @@
-#import tflite_runtime.interpreter as tflite
+import gc
+import tflite_runtime.interpreter as tflite
 import csv
-import tensorflow.lite as tflite
+#import tensorflow.lite as tflite
 import os
 import numpy as np
 import time
@@ -23,9 +24,9 @@ tf_net_names=[
 "few_conv2d",
 ]
 
-global_iterations=5
+global_iterations=32
 net_dir=os.path.join(".","Edge_TPU-Models")
-iterations=8
+iterations=350
 measurements_coral="Edge_TPU-Measurements"
 
 if not os.path.isdir(measurements_coral): os.mkdir(measurements_coral)
@@ -42,8 +43,8 @@ for l in range(global_iterations):
     
     for i in range(num_nets):
         if os.uname().sysname=="Linux":
-            #interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
-            interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
+            interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
+            #interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
         else:
             interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("edgetpu.dll")])
 
@@ -54,7 +55,6 @@ for l in range(global_iterations):
         data4TPU=np.random.randint(-127,128,shape2,dtype=np.int8)
         output_tensor=interpreter.get_output_details()[0]['index']
         input_tensor=interpreter.get_input_details()[0]['index']
-
         interpreter.allocate_tensors() #mitmessen?
         
         start_first=time.perf_counter()
@@ -75,6 +75,8 @@ for l in range(global_iterations):
         end=time.perf_counter() #measure time somewhere here stop
         #print(end-start)
         results["avgTail("+tf_net_names[i]+")"].append((end-start)/(iterations-1))
+        data4TPU=None
+        gc.collect()
         print(tf_net_names[i])
 
     #write to csv:

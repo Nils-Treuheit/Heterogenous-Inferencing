@@ -46,6 +46,8 @@ if single_net:
     data4TPU=np.random.randint(-127,128,shape2,dtype=np.int8)
     output_tensor=interpreter.get_output_details()[0]['index']
     input_tensor=interpreter.get_input_details()[0]['index']
+    #interpreter.resize_tensor_input(input_tensor,shape2)?
+
     measurements_single=[]
     for j in range(iterations):
         interpreter.allocate_tensors() 

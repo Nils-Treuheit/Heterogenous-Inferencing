@@ -2,42 +2,42 @@
 <net name="leaky_relu_act" version="10">
 	<layers>
 		<layer id="0" name="input_2" type="Parameter" version="opset1">
-			<data shape="1,128" element_type="f16"/>
+			<data shape="1, 128" element_type="f16"/>
 			<output>
-				<port id="0" precision="FP16">
+				<port id="0" precision="FP16" names="Func/PartitionedCall/input/_0:0,input_2:0">
 					<dim>1</dim>
 					<dim>128</dim>
 				</port>
 			</output>
 		</layer>
-		<layer id="1" name="PartitionedCall/leaky_relu_act/leaky_re_lu/LeakyRelu/Cast_140_const" type="Const" version="opset1">
-			<data offset="0" size="4" shape="1" element_type="f32"/>
+		<layer id="1" name="PartitionedCall/leaky_relu_act/leaky_re_lu/LeakyRelu/weights1745" type="Const" version="opset1">
+			<data element_type="f32" shape="1" offset="0" size="4"/>
 			<output>
-				<port id="1" precision="FP32">
+				<port id="0" precision="FP32">
 					<dim>1</dim>
 				</port>
 			</output>
 		</layer>
 		<layer id="2" name="PartitionedCall/leaky_relu_act/leaky_re_lu/LeakyRelu" type="PReLU" version="opset1">
 			<input>
-				<port id="0">
+				<port id="0" precision="FP16">
 					<dim>1</dim>
 					<dim>128</dim>
 				</port>
-				<port id="1">
+				<port id="1" precision="FP32">
 					<dim>1</dim>
 				</port>
 			</input>
 			<output>
-				<port id="2" precision="FP16">
+				<port id="2" precision="FP16" names="Func/PartitionedCall/output/_1:0,Identity:0,PartitionedCall/Identity:0,PartitionedCall/leaky_relu_act/leaky_re_lu/LeakyRelu:0">
 					<dim>1</dim>
 					<dim>128</dim>
 				</port>
 			</output>
 		</layer>
-		<layer id="3" name="Identity/sink_port_0" type="Result" version="opset1">
+		<layer id="3" name="Func/PartitionedCall/output/_1:0" type="Result" version="opset1">
 			<input>
-				<port id="0">
+				<port id="0" precision="FP16">
 					<dim>1</dim>
 					<dim>128</dim>
 				</port>
@@ -46,11 +46,11 @@
 	</layers>
 	<edges>
 		<edge from-layer="0" from-port="0" to-layer="2" to-port="0"/>
-		<edge from-layer="1" from-port="1" to-layer="2" to-port="1"/>
+		<edge from-layer="1" from-port="0" to-layer="2" to-port="1"/>
 		<edge from-layer="2" from-port="2" to-layer="3" to-port="0"/>
 	</edges>
 	<meta_data>
-		<MO_version value="2021.1.0-1237-bece22ac675-releases/2021/1"/>
+		<MO_version value="2021.4.2-3974-e2a469a3450-releases/2021/4"/>
 		<cli_parameters>
 			<data_type value="FP16"/>
 			<disable_nhwc_to_nchw value="False"/>
@@ -64,6 +64,7 @@
 			<input_model_is_text value="True"/>
 			<input_shape value="(1, 128)"/>
 			<keep_shape_ops value="True"/>
+			<legacy_ir_generation value="False"/>
 			<log_level value="ERROR"/>
 			<mean_scale_values value="{}"/>
 			<mean_values value="()"/>
@@ -78,6 +79,7 @@
 			<silent value="False"/>
 			<static_shape value="False"/>
 			<stream_output value="False"/>
+			<transform value=""/>
 			<unset unset_cli_parameters="batch, disable_fusing, disable_gfusing, finegrain_fusing, input, input_checkpoint, input_meta_graph, input_model, move_to_preprocess, output, saved_model_tags, scale, tensorboard_logdir, tensorflow_custom_layer_libraries, tensorflow_custom_operations_config_update, tensorflow_object_detection_api_pipeline_config, tensorflow_use_custom_operations_config, transformations_config"/>
 		</cli_parameters>
 	</meta_data>

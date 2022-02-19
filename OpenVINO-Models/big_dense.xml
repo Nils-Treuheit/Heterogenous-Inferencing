@@ -2,72 +2,73 @@
 <net name="big_dense" version="10">
 	<layers>
 		<layer id="0" name="input_2" type="Parameter" version="opset1">
-			<data shape="1,128" element_type="f16"/>
+			<data shape="1, 128" element_type="f16"/>
 			<output>
-				<port id="0" precision="FP16">
+				<port id="0" precision="FP16" names="Func/StatefulPartitionedCall/input/_0:0,input_2:0">
 					<dim>1</dim>
 					<dim>128</dim>
 				</port>
 			</output>
 		</layer>
-		<layer id="1" name="StatefulPartitionedCall/big_dense/dense_1/MatMul/1_port_transpose129_const" type="Const" version="opset1">
-			<data offset="0" size="131072" shape="512,128" element_type="f16"/>
+		<layer id="1" name="StatefulPartitionedCall/big_dense/dense_1/MatMul/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" shape="512, 128" offset="0" size="131072"/>
 			<output>
-				<port id="1" precision="FP16">
+				<port id="0" precision="FP16" names="StatefulPartitionedCall/big_dense/dense_1/MatMul/ReadVariableOp:0">
 					<dim>512</dim>
 					<dim>128</dim>
 				</port>
 			</output>
 		</layer>
 		<layer id="2" name="StatefulPartitionedCall/big_dense/dense_1/MatMul" type="MatMul" version="opset1">
-			<data transpose_a="False" transpose_b="True"/>
+			<data transpose_a="false" transpose_b="true"/>
 			<input>
-				<port id="0">
+				<port id="0" precision="FP16">
 					<dim>1</dim>
 					<dim>128</dim>
 				</port>
-				<port id="1">
+				<port id="1" precision="FP16">
 					<dim>512</dim>
 					<dim>128</dim>
 				</port>
 			</input>
 			<output>
-				<port id="2" precision="FP16">
+				<port id="2" precision="FP16" names="StatefulPartitionedCall/big_dense/dense_1/MatMul:0">
 					<dim>1</dim>
 					<dim>512</dim>
 				</port>
 			</output>
 		</layer>
-		<layer id="3" name="StatefulPartitionedCall/big_dense/dense_1/BiasAdd/ReadVariableOp/Output_0/Data_/copy_const" type="Const" version="opset1">
-			<data offset="131072" size="1024" shape="1,512" element_type="f16"/>
+		<layer id="3" name="StatefulPartitionedCall/big_dense/dense_1/BiasAdd/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" shape="1, 512" offset="131072" size="1024"/>
 			<output>
-				<port id="1" precision="FP16">
+				<port id="0" precision="FP16" names="StatefulPartitionedCall/big_dense/dense_1/BiasAdd/ReadVariableOp:0">
 					<dim>1</dim>
 					<dim>512</dim>
 				</port>
 			</output>
 		</layer>
 		<layer id="4" name="StatefulPartitionedCall/big_dense/dense_1/BiasAdd/Add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
 			<input>
-				<port id="0">
+				<port id="0" precision="FP16">
 					<dim>1</dim>
 					<dim>512</dim>
 				</port>
-				<port id="1">
+				<port id="1" precision="FP16">
 					<dim>1</dim>
 					<dim>512</dim>
 				</port>
 			</input>
 			<output>
-				<port id="2" precision="FP16">
+				<port id="2" precision="FP16" names="Func/StatefulPartitionedCall/output/_3:0,Identity:0,StatefulPartitionedCall/Identity:0,StatefulPartitionedCall/big_dense/dense_1/BiasAdd:0">
 					<dim>1</dim>
 					<dim>512</dim>
 				</port>
 			</output>
 		</layer>
-		<layer id="5" name="Identity/sink_port_0" type="Result" version="opset1">
+		<layer id="5" name="Func/StatefulPartitionedCall/output/_3:0" type="Result" version="opset1">
 			<input>
-				<port id="0">
+				<port id="0" precision="FP16">
 					<dim>1</dim>
 					<dim>512</dim>
 				</port>
@@ -76,13 +77,13 @@
 	</layers>
 	<edges>
 		<edge from-layer="0" from-port="0" to-layer="2" to-port="0"/>
-		<edge from-layer="1" from-port="1" to-layer="2" to-port="1"/>
+		<edge from-layer="1" from-port="0" to-layer="2" to-port="1"/>
 		<edge from-layer="2" from-port="2" to-layer="4" to-port="0"/>
-		<edge from-layer="3" from-port="1" to-layer="4" to-port="1"/>
+		<edge from-layer="3" from-port="0" to-layer="4" to-port="1"/>
 		<edge from-layer="4" from-port="2" to-layer="5" to-port="0"/>
 	</edges>
 	<meta_data>
-		<MO_version value="2021.1.0-1237-bece22ac675-releases/2021/1"/>
+		<MO_version value="2021.4.2-3974-e2a469a3450-releases/2021/4"/>
 		<cli_parameters>
 			<data_type value="FP16"/>
 			<disable_nhwc_to_nchw value="False"/>
@@ -96,6 +97,7 @@
 			<input_model_is_text value="True"/>
 			<input_shape value="(1, 128)"/>
 			<keep_shape_ops value="True"/>
+			<legacy_ir_generation value="False"/>
 			<log_level value="ERROR"/>
 			<mean_scale_values value="{}"/>
 			<mean_values value="()"/>
@@ -110,6 +112,7 @@
 			<silent value="False"/>
 			<static_shape value="False"/>
 			<stream_output value="False"/>
+			<transform value=""/>
 			<unset unset_cli_parameters="batch, disable_fusing, disable_gfusing, finegrain_fusing, input, input_checkpoint, input_meta_graph, input_model, move_to_preprocess, output, saved_model_tags, scale, tensorboard_logdir, tensorflow_custom_layer_libraries, tensorflow_custom_operations_config_update, tensorflow_object_detection_api_pipeline_config, tensorflow_use_custom_operations_config, transformations_config"/>
 		</cli_parameters>
 	</meta_data>

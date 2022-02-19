@@ -14,7 +14,11 @@ import os, subprocess
 current_dir = os.getcwd()
 
 #BatchSize = 512
+#512=2^9 -> 2^10
 BatchSize = 1 # google coral will das so
+#scale=4 # muss unter 8 sein, sonst coral Fehler
+#picture_shape = (128*scale,128*scale,3)
+#linear_data_shape = (128*scale)
 picture_shape = (128,128,3)
 linear_data_shape = (128)
 pictures = tf.keras.Input(shape=picture_shape, batch_size=BatchSize)

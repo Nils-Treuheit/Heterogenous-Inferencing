@@ -16,6 +16,7 @@ target="GPU"
 
 #iterations=32
 iterations=350
+#vorher ca. 10000, dann Speicher bei CPU/GPU ausgelastet
 #350-> python braucht 10 GB RAm
 global_iterations=32
 
@@ -46,7 +47,7 @@ tf_net_names=[
 "many_conv2d",
 
 ]
-syn_inference=True
+syn_inference=False
 
 
 nets_to_run=tf_net_names #[:12] #memory problems in many_conv2d, at least at the CPU
@@ -56,8 +57,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",
 
     measurements=dict()
     for name in nets_to_run:
-        measurements["first("+name+")"]=[]
-        measurements["avgTail("+name+")"]=[]
+        measurements[name]=[]
 
     for l in range(global_iterations):
         for i in range(len(nets_to_run)):
@@ -110,7 +110,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",
                 #measure time end
                 end=time.perf_counter()
                 single_measurement=(end - start)/iterations
-                measurements[nets_to_run[i]]=single_measurement
+                measurements[nets_to_run[i]].append(single_measurement)
                 data=None
                 gc.collect()
             print(nets_to_run[i])
@@ -120,7 +120,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",
         measurements_to_write=[[measurements[name][k] for name in list(measurements)] for k in range(global_iterations)]
     else:
         target_path=os.path.join(measurements_openvino,"avg_"+target+"_openvino_async.csv")
-        measurements_to_write=[[measurements[name] for name in nets_to_run]]
+        measurements_to_write=[[measurements[name][k] for name in list(measurements)] for k in range(global_iterations)]
 
     if not Path(target_path).exists():
         with open(target_path,"w") as file:
