@@ -107,8 +107,8 @@ if not os.path.isdir("Tensor_Flow-Models"): os.mkdir("Tensor_Flow-Models")
 for model in models:
   model.summary()
   print("\n")
-  model.save(("Tensor_Flow-Models/"+model.name))
-  with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file:
+  model.save(("Tensor_Flow-Models/"+model.name)) # save tensorflow models 
+  with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file: # Source: https://www.tensorflow.org/lite/performance/post_training_quantization
     tmp_shape=model.get_layer(index=0).input_shape[0]
     data_gen=lambda : (yield [np.random.default_rng().random(size=tmp_shape,dtype=np.float32)])
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
@@ -118,7 +118,7 @@ for model in models:
     converter.target_spec.supported_ops=[tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
     converter.representative_dataset=data_gen
     tflite_model = converter.convert()
-    model_file.write(tflite_model)
+    model_file.write(tflite_model) # save quantizized tf-lite models for Edge-TPU 
 
 
 
