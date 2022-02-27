@@ -91,7 +91,7 @@ small_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="small_con
 models.append(small_conv2d)
 
 # many conv2d model
-layers.append(tf.keras.layers.Conv2D(512,3)(pictures))
+layers.append(tf.keras.layers.Conv2D(256,3)(pictures))
 many_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="many_conv2d")
 models.append(many_conv2d)
 
@@ -114,7 +114,7 @@ for model in models:
     model_file.write(tflite_model)
   with open(("TF_Lite-Models/"+model.name+"_int8.tflite"), 'wb') as model_file:
     tmp_shape=model.get_layer(index=0).input_shape[0]
-    data_gen=lambda : (yield [np.random.default_rng().random(size=tmp_shape,dtype=np.float32)])
+    data_gen=lambda : (yield [tf.random.uniform(shape=tmp_shape,dtype=tf.dtypes.float32)])
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
     converter.optimizations=[tf.lite.Optimize.DEFAULT]
     converter.inference_input_type=tf.int8
