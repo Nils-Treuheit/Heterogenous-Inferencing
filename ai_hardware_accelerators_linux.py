@@ -108,7 +108,11 @@ for model in models:
   model.summary()
   print("\n")
   model.save(("Tensor_Flow-Models/"+model.name)) # save tensorflow models 
-  with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file: # Source: https://www.tensorflow.org/lite/performance/post_training_quantization
+  with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file:
+    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    tflite_model = converter.convert()
+    model_file.write(tflite_model)
+  with open(("TF_Lite-Models/"+model.name+"_int8.tflite"), 'wb') as model_file:
     tmp_shape=model.get_layer(index=0).input_shape[0]
     data_gen=lambda : (yield [np.random.default_rng().random(size=tmp_shape,dtype=np.float32)])
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
@@ -170,7 +174,7 @@ if not os.path.isdir("Edge_TPU-Models"): os.mkdir("Edge_TPU-Models")
 
 filenames = ""
 for model in models:
-  filenames += " "+current_dir+"/TF_Lite-Models/"+model.name+".tflite"
+  filenames += " "+current_dir+"/TF_Lite-Models/"+model.name+"_int8.tflite"
 result = subprocess.run(['edgetpu_compiler','-s','-o',
                          current_dir+'/Edge_TPU-Models',*filenames.split()],
                         stdout=subprocess.PIPE)
