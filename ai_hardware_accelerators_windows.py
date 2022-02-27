@@ -8,146 +8,177 @@ Original file is located at
 
 """
 
-import tensorflow as tf
 import os, subprocess
 current_dir = os.getcwd()
+model_names = []
 
-BatchSize = 512
-picture_shape = (128,128,3)
-linear_data_shape = (128)
-pictures = tf.keras.Input(shape=picture_shape, batch_size=BatchSize)
-linear_data = tf.keras.Input(shape=linear_data_shape, batch_size=BatchSize)
-layers,models = ([],[])
+def create_tf_models():
+  os.system("py -m pip uninstall tensorflow-gpu")
+  os.system("py -m pip uninstall tensorflow")
+  os.system("py -m pip uninstall tf-nightly")
+  os.system("py -m pip uninstall keras")
+  os.system("py -m pip install tensorflow-cpu==2.5.0")
+  import tensorflow as tf
 
-print("Create Simple Tensorflow Models")
+  BatchSize = 1 #512
+  picture_shape = (128,128,3)
+  linear_data_shape = (128)
+  pictures = tf.keras.Input(shape=picture_shape, batch_size=BatchSize)
+  linear_data = tf.keras.Input(shape=linear_data_shape, batch_size=BatchSize)
+  layers,models = ([],[])
 
-# relu activation model
-layers.append(tf.keras.layers.Activation('relu')(linear_data))
-relu_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="relu_act")
-models.append(relu_act)
+  print("Create Simple Tensorflow Models")
 
-# leaky relu activation model
-layers.append(tf.keras.layers.LeakyReLU()(linear_data))
-leaky_relu_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="leaky_relu_act")
-models.append(leaky_relu_act)
+  # relu activation model
+  layers.append(tf.keras.layers.Activation('relu')(linear_data))
+  relu_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="relu_act")
+  models.append(relu_act)
+  model_names.append(relu_act.name)
 
-# tanh activation model
-layers.append(tf.keras.layers.Activation('tanh')(linear_data))
-tanh_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="tanh_act")
-models.append(tanh_act)
+  # leaky relu activation model
+  layers.append(tf.keras.layers.LeakyReLU()(linear_data))
+  leaky_relu_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="leaky_relu_act")
+  models.append(leaky_relu_act)
+  model_names.append(leaky_relu_act.name)
 
-# sigmoid activation model
-layers.append(tf.keras.layers.Activation('sigmoid')(linear_data))
-sigmoid_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="sigmoid_act")
-models.append(sigmoid_act)
+  # tanh activation model
+  layers.append(tf.keras.layers.Activation('tanh')(linear_data))
+  tanh_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="tanh_act")
+  models.append(tanh_act)
+  model_names.append(tanh_act.name)
 
-# scalar_multiply model
-layers.append(tf.keras.layers.Lambda(lambda x: x * 5.0)(linear_data))
-scalar_mult = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="scalar_mult")
-models.append(scalar_mult)
+  # sigmoid activation model
+  layers.append(tf.keras.layers.Activation('sigmoid')(linear_data))
+  sigmoid_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="sigmoid_act")
+  models.append(sigmoid_act)
+  model_names.append(sigmoid_act.name)
 
-# small dense model
-layers.append(tf.keras.layers.Dense(8)(linear_data))
-small_dense = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="small_dense")
-models.append(small_dense)
+  # scalar_multiply model
+  layers.append(tf.keras.layers.Lambda(lambda x: x * 5.0)(linear_data))
+  scalar_mult = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="scalar_mult")
+  models.append(scalar_mult)
+  model_names.append(scalar_mult.name)
 
-# big dense model
-layers.append(tf.keras.layers.Dense(512)(linear_data))
-big_dense = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="big_dense")
-models.append(big_dense)
+  # small dense model
+  layers.append(tf.keras.layers.Dense(8)(linear_data))
+  small_dense = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="small_dense")
+  models.append(small_dense)
+  model_names.append(small_dense.name)
 
-# simple conv2d model
-layers.append(tf.keras.layers.Conv2D(12,3)(pictures))
-simple_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="simple_conv2d")
-models.append(simple_conv2d)
+  # big dense model
+  layers.append(tf.keras.layers.Dense(512)(linear_data))
+  big_dense = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="big_dense")
+  models.append(big_dense)
+  model_names.append(big_dense.name)
 
-# dilated conv2d model
-layers.append(tf.keras.layers.Conv2D(12,3,dilation_rate=2)(pictures))
-dilated_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="dilated_conv2d")
-models.append(dilated_conv2d)
+  # simple conv2d model
+  layers.append(tf.keras.layers.Conv2D(12,3)(pictures))
+  simple_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="simple_conv2d")
+  models.append(simple_conv2d)
+  model_names.append(simple_conv2d.name)
 
-# strided conv2d model
-layers.append(tf.keras.layers.Conv2D(12,3,strides=5)(pictures))
-strided_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="strided_conv2d")
-models.append(strided_conv2d)
+  # dilated conv2d model
+  layers.append(tf.keras.layers.Conv2D(12,3,dilation_rate=2)(pictures))
+  dilated_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="dilated_conv2d")
+  models.append(dilated_conv2d)
+  model_names.append(dilated_conv2d.name)
 
-# big conv2d model
-layers.append(tf.keras.layers.Conv2D(9,7)(pictures))
-big_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="big_conv2d")
-models.append(big_conv2d)
+  # strided conv2d model
+  layers.append(tf.keras.layers.Conv2D(12,3,strides=5)(pictures))
+  strided_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="strided_conv2d")
+  models.append(strided_conv2d)
+  model_names.append(strided_conv2d.name)
 
-# small conv2d model
-layers.append(tf.keras.layers.Conv2D(9,3)(pictures))
-small_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="small_conv2d")
-models.append(small_conv2d)
+  # big conv2d model
+  layers.append(tf.keras.layers.Conv2D(9,7)(pictures))
+  big_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="big_conv2d")
+  models.append(big_conv2d)
+  model_names.append(big_conv2d.name)
 
-# many conv2d model
-layers.append(tf.keras.layers.Conv2D(256,3)(pictures))
-many_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="many_conv2d")
-models.append(many_conv2d)
+  # small conv2d model
+  layers.append(tf.keras.layers.Conv2D(9,3)(pictures))
+  small_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="small_conv2d")
+  models.append(small_conv2d)
+  model_names.append(small_conv2d.name)
 
-# few conv2d model
-layers.append(tf.keras.layers.Conv2D(3,3)(pictures))
-few_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="few_conv2d")
-models.append(few_conv2d)
+  # many conv2d model
+  layers.append(tf.keras.layers.Conv2D(256,3)(pictures))
+  many_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="many_conv2d")
+  models.append(many_conv2d)
+  model_names.append(many_conv2d.name)
 
-
-# convert and store models
-if not os.path.isdir("TF_Lite-Models"): os.mkdir("TF_Lite-Models")
-if not os.path.isdir("Tensor_Flow-Models"): os.mkdir("Tensor_Flow-Models")
-for model in models:
-  model.summary()
-  print("\n")
-  model.save(("Tensor_Flow-Models/"+model.name))
-  with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file:
-    converter = tf.lite.TFLiteConverter.from_keras_model(model)
-    tflite_model = converter.convert()
-    model_file.write(tflite_model)
-  with open(("TF_Lite-Models/"+model.name+"_int8.tflite"), 'wb') as model_file:
-    tmp_shape=model.get_layer(index=0).input_shape[0]
-    data_gen=lambda : (yield [tf.random.uniform(shape=tmp_shape,dtype=tf.dtypes.float32)])
-    converter = tf.lite.TFLiteConverter.from_keras_model(model)
-    converter.optimizations=[tf.lite.Optimize.DEFAULT]
-    converter.inference_input_type=tf.int8
-    converter.inference_output_type=tf.int8
-    converter.target_spec.supported_ops=[tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
-    converter.representative_dataset=data_gen
-    tflite_model = converter.convert()
-    model_file.write(tflite_model) # save quantizized tf-lite models for Edge-TPU
-
+  # few conv2d model
+  layers.append(tf.keras.layers.Conv2D(3,3)(pictures))
+  few_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="few_conv2d")
+  models.append(few_conv2d)
+  model_names.append(few_conv2d.name)
 
 
-print("Compile Models for OpenVINO")
+  # convert and store models
+  if not os.path.isdir("TF_Lite-Models"): os.mkdir("TF_Lite-Models")
+  if not os.path.isdir("Tensor_Flow-Models"): os.mkdir("Tensor_Flow-Models")
+  for model in models:
+    model.summary()
+    print("\n")
+    model.save(("Tensor_Flow-Models/"+model.name))
+    with open(("TF_Lite-Models/"+model.name+".tflite"), 'wb') as model_file:
+      converter = tf.lite.TFLiteConverter.from_keras_model(model)
+      tflite_model = converter.convert()
+      model_file.write(tflite_model)
+    with open(("TF_Lite-Models/"+model.name+"_int8.tflite"), 'wb') as model_file:
+      tmp_shape = model.get_layer(index=0).input_shape[0]
+      data_gen = lambda : (yield [tf.random.uniform(shape=tmp_shape,dtype=tf.dtypes.float32)])
+      converter = tf.lite.TFLiteConverter.from_keras_model(model)
+      converter.optimizations = [tf.lite.Optimize.DEFAULT]
+      converter.inference_input_type = tf.int8
+      converter.inference_output_type = tf.int8
+      converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+      converter.representative_dataset = data_gen
+      tflite_model = converter.convert()
+      model_file.write(tflite_model) # save quantizized tf-lite models for Edge-TPU
 
-openvino_dir = "C:/Program Files (x86)/Intel/openvino_2021.4.689/deployment_tools/model_optimizer"
-if not os.path.isdir("OpenVINO-Models"): os.mkdir("OpenVINO-Models")
-for model in models:
-  result = subprocess.run(['py', openvino_dir+'/mo.py', '--framework', 'tf',
-                           '--progress', '--input_model_is_text',
-                           '--data_type=FP16', '--model_name', model.name, 
-                           '--saved_model_dir', 
-                           current_dir+'/Tensor_Flow-Models/'+model.name,
-                           '--output_dir', current_dir+'/OpenVINO-Models'],
+
+def compile_openvino():
+  os.system("py -m pip install tensorflow==2.4.0")
+  os.system("py -m pip install openvino==2021.4")
+  print("Compile Models for OpenVINO")
+
+  openvino_dir = "C:/Program Files (x86)/Intel/openvino_2021.4.689/deployment_tools/model_optimizer"
+  if not os.path.isdir("OpenVINO-Models"): os.mkdir("OpenVINO-Models")
+  for model_name in model_names:
+    result = subprocess.run(['py', openvino_dir+'/mo.py', '--framework', 'tf',
+                             '--progress', '--input_model_is_text',
+                             '--data_type=FP16', '--model_name', model_name, 
+                             '--saved_model_dir', 
+                             current_dir+'/Tensor_Flow-Models/'+model_name,
+                             '--output_dir', current_dir+'/OpenVINO-Models'],
+                            stdout=subprocess.PIPE)
+    print(result.stdout.decode('ascii'))
+
+
+
+def compile_edgetpu():
+  print("Compile Models for Edge TPU")
+
+  os.system('curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -')
+  os.system('echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list')
+  os.system('sudo apt-get update')
+  os.system('sudo apt-get install edgetpu-compiler')
+
+  if not os.path.isdir("Edge_TPU-Models"): os.mkdir("Edge_TPU-Models")
+
+  filenames = ""
+  for model_name in model_names:
+    filenames += " "+current_dir+"/TF_Lite-Models/"+model_name+"_int8.tflite"
+  result = subprocess.run(['edgetpu_compiler','-s','-o',
+                           current_dir+'/Edge_TPU-Models',*filenames.split()],
                           stdout=subprocess.PIPE)
   print(result.stdout.decode('ascii'))
 
 
 
-"""
-print("Compile Models for Edge TPU")
+create_tf_models()
+#compile_edgetpu()
+compile_openvino()
 
-os.system('curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -')
-os.system('echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list')
-os.system('sudo apt-get update')
-os.system('sudo apt-get install edgetpu-compiler')
 
-if not os.path.isdir("Edge_TPU-Models"): os.mkdir("Edge_TPU-Models")
-
-filenames = ""
-for model in models:
-  filenames += " "+current_dir+"/TF_Lite-Models/"+model.name+".tflite"
-result = subprocess.run(['edgetpu_compiler','-s','-o',
-                         current_dir+'/Edge_TPU-Models',*filenames.split()],
-                        stdout=subprocess.PIPE)
-print(result.stdout.decode('ascii'))
-"""
