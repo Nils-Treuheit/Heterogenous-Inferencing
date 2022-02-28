@@ -22,9 +22,10 @@ tf_net_names=[
 "big_conv2d",
 "few_conv2d",
 "many_conv2d", # TODO: Wieso problematisch?
-
 ]
-iterations=10#350
+
+iterations=10#512
+iterations_single=32
 global_iterations=2#32
 
 models_openvino=os.path.join(".","OpenVINO-Models")
@@ -48,7 +49,8 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
     if not os.path.isdir(directory): os.mkdir(directory)
     time_stamp=str(date.today())+"_"+str(datetime.now().hour)+"-"+str(datetime.now().minute)
     target_path=os.path.join(directory,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp+".csv")
-    measurements_to_write=[[measurements[name][k] for name in list(measurements)] for k in range(global_iterations)]
+    rows=len(measurements[list(measurements)[0]])
+    measurements_to_write=[[measurements[name][k] for name in list(measurements)] for k in range(rows)]
 
     if not Path(target_path).exists():
         with open(target_path,"w") as file:
