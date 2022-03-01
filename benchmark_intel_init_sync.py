@@ -40,8 +40,8 @@ for target in ["GPU","CPU"]:#"GPU","CPU",,"MYRIAD"
             data=common.getOpenvinoExampelData(shapes[nets_to_run[i]])
 
             start=time.perf_counter()
-
-            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
+            infCore2=IECore()
+            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore2,target)
             loaded_net.infer({input_name:data})
                 
             end=time.perf_counter()
