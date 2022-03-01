@@ -30,20 +30,22 @@ iterations=350
 results=dict()
 
 results2=dict()
+results3=dict()
 
 for name in tf_net_names:
     results["first("+name+")"]=[]
     results["avgTail("+name+")"]=[]
     results2["newData("+name+")"]=[]
     results2["noData("+name+")"]=[]
+    results3[name]=[]
 for l in range(common.global_iterations):  
     num_nets=len(tf_net_names)
     
     
     for i in range(num_nets):
         if os.uname().sysname=="Linux":
-            interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
-            #interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
+            #interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
+            interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
         else:
             interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("edgetpu.dll")])
 
@@ -53,7 +55,8 @@ for l in range(common.global_iterations):
         shape2.extend(interpreter.get_input_details()[0]['shape'])
         shape3=[common.iterations_single]
         shape3.extend(interpreter.get_input_details()[0]['shape'])
-        data4TPU=np.random.randint(-128,128,shape3,dtype=np.int8)
+        #data4TPU=np.random.randint(-128,128,shape3,dtype=np.int8)
+        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape3).astype(np.float32)
         output_tensor=interpreter.get_output_details()[0]['index']
         input_tensor=interpreter.get_input_details()[0]['index']
         interpreter.allocate_tensors() #mitmessen?
@@ -64,14 +67,27 @@ for l in range(common.global_iterations):
             interpreter.invoke()
             interpreter.get_tensor(output_tensor)
             end=time.perf_counter()
-            results["newData("+tf_net_names[i]+")"].append(end-start)
+            results2["newData("+tf_net_names[i]+")"].append(end-start)
+        
+        #data4TPU=np.random.randint(-128,128,shape3,dtype=np.int8)
+        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape3).astype(np.float32)
+        for j in range(common.iterations_single):
+            start=time.perf_counter()
+            interpreter.set_tensor(input_tensor,value=data4TPU[j])
+            interpreter.invoke()
+            interpreter.get_tensor(output_tensor)
+            end=time.perf_counter()
+            start_2=time.perf_counter()
+            interpreter.invoke()
+            end_2=time.perf_counter()
+            results3[tf_net_names[i]].append((end-start)-(end_2-start_2))
 
 
         for j in range(common.iterations_single):
             start=time.perf_counter()
             interpreter.invoke()
             end=time.perf_counter()
-            results["noData("+tf_net_names[i]+")"].append(end-start)
+            results2["noData("+tf_net_names[i]+")"].append(end-start)
 
         #TODO Zeiten messen
         #TODO min /max
@@ -98,6 +114,7 @@ for l in range(common.global_iterations):
         #end_first=time.perf_counter()
 
         data4TPU=np.random.randint(-128,128,shape2,dtype=np.int8)
+        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape3).astype(np.float32)
         
         start_first=time.perf_counter()
         interpreter.set_tensor(input_tensor,value=data4TPU[0])
@@ -124,3 +141,4 @@ for l in range(common.global_iterations):
     #write to csv:
 common.writeResults("coral",results,"avg","coral","sync")
 common.writeResults("coral",results2,"single","coral","sync")
+common.writeResults("coral",results3,"setData","coral","sync")
