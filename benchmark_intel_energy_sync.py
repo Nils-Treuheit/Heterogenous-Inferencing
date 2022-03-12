@@ -1,10 +1,9 @@
+import datetime
 import gc
-from pathlib import Path
+from sqlite3 import Timestamp
 from openvino.inference_engine import IECore
 import os.path
-import numpy as np
-import time
-import csv
+from os import system
 import common_benchmark_definitions as common
 
 infCore=IECore()
@@ -23,8 +22,8 @@ target="MYRIAD"
 
 measurements=dict()
 for name in nets_to_run:
-    measurements["first("+name+")"]=[]
-    measurements["avgTail("+name+")"]=[]
+    measurements["start("+name+")"]=[]
+    measurements["end("+name+")"]=[]
 for l in range(global_iterations):
     for i in range(len(nets_to_run)):
         loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
@@ -36,15 +35,23 @@ for l in range(global_iterations):
         
         data=common.getOpenvinoExampelData(data_format)
         
-         
-        
+        #input("start")
+        #encl=common.EnergyMeasurementEnclosure(nets_to_run[i])
+        #encl.start()
+        print("\a")
+        start=datetime.now()
         for j in range(iterations):
             loaded_net.infer({network_input:data[j]})
             # get the request, measure time https://github.com/openvinotoolkit/openvino/blob/master/tools/benchmark_tool/openvino/tools/benchmark/benchmark.py
         
-        print(nets_to_run[i])
+        #encl.end()
+        end=datetime.now()
         print("\a")
-        input("proceed")
+        print(nets_to_run[i])
+        measurements["start("+name+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
+        measurements["end("+name+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
+        #input("end")
         data=None
         gc.collect()
-        
+
+common.writeResults("MYRIAD",measurements,"energy-times","openvino","sync")

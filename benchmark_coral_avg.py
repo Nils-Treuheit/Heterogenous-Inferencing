@@ -6,38 +6,24 @@ import numpy as np
 import time
 import common_benchmark_definitions as common
 
-tf_net_names=[
-"relu_act",
-"leaky_relu_act",
-"tanh_act",
-"sigmoid_act",
-"scalar_mult",
-"small_dense",
-"big_dense",
-"simple_conv2d",
-"strided_conv2d",
-"dilated_conv2d",
-"small_conv2d",
-"big_conv2d",
-"many_conv2d",
-"few_conv2d",
-]
+tf_net_names=common.tf_net_names
 
-global_iterations=32
+
 net_dir=os.path.join(".","Edge_TPU-Models")
-iterations=350
 
+measurements=dict()
+
+measurements2=dict()
 results=dict()
 
-results2=dict()
-results3=dict()
-
 for name in tf_net_names:
-    results["first("+name+")"]=[]
-    results["avgTail("+name+")"]=[]
-    results2["newData("+name+")"]=[]
-    results2["noData("+name+")"]=[]
-    results3[name]=[]
+        measurements[name]=[]
+        results["first("+name+")"]=[]
+        results["avgTail("+name+")"]=[]
+        measurements2["min("+name+")"]=[]
+        measurements2["max("+name+")"]=[]
+        measurements2["avg("+name+")"]=[]
+        measurements2["std("+name+")"]=[]
 for l in range(common.global_iterations):  
     num_nets=len(tf_net_names)
     
@@ -59,62 +45,39 @@ for l in range(common.global_iterations):
         data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape3).astype(np.float32)
         output_tensor=interpreter.get_output_details()[0]['index']
         input_tensor=interpreter.get_input_details()[0]['index']
-        interpreter.allocate_tensors() #mitmessen?
+        interpreter.allocate_tensors() 
 
+        min=2147483647
+        max=-1
+
+        list_measurements=[]
         for j in range(common.iterations_single):
+                
             start=time.perf_counter()
             interpreter.set_tensor(input_tensor,value=data4TPU[j])
             interpreter.invoke()
             interpreter.get_tensor(output_tensor)
             end=time.perf_counter()
-            results2["newData("+tf_net_names[i]+")"].append(end-start)
-        
-        #data4TPU=np.random.randint(-128,128,shape3,dtype=np.int8)
-        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape3).astype(np.float32)
-        for j in range(common.iterations_single):
-            start=time.perf_counter()
-            interpreter.set_tensor(input_tensor,value=data4TPU[j])
-            interpreter.invoke()
-            interpreter.get_tensor(output_tensor)
-            end=time.perf_counter()
-            start_2=time.perf_counter()
-            interpreter.invoke()
-            end_2=time.perf_counter()
-            results3[tf_net_names[i]].append((end-start)-(end_2-start_2))
+            
+            measured_time=end-start
+            
+            if measured_time<min:
+                min=measured_time
+            if measured_time>max:
+                max=measured_time
+            
+            list_measurements.append(measured_time)
+            measurements[tf_net_names[i]].append(measured_time)
+            
+        measurements2["min("+tf_net_names[i]+")"].append(min)
+        measurements2["max("+tf_net_names[i]+")"].append(max)
+        m=np.array(list_measurements)
+        measurements2["std("+tf_net_names[i]+")"].append(np.std(m))
+        measurements2["avg("+tf_net_names[i]+")"].append(np.average(m))
 
-
-        for j in range(common.iterations_single):
-            start=time.perf_counter()
-            interpreter.invoke()
-            end=time.perf_counter()
-            results2["noData("+tf_net_names[i]+")"].append(end-start)
-
-        #TODO Zeiten messen
-        #TODO min /max
-        #TODO Zeiten messen
-        #sudo apt-get install libedgetpu1-max?
-
-        ## set and retrieve data
-        #start_first=time.perf_counter()
-        #interpreter.set_tensor(input_tensor,value=data4TPU[0])
-        #interpreter.invoke()
-        #interpreter.get_tensor(output_tensor)
-        #end_first=time.perf_counter()
-#
-        ## set data
-        #start_first=time.perf_counter()
-        #interpreter.set_tensor(input_tensor,value=data4TPU[0])
-        #interpreter.invoke()
-        #end_first=time.perf_counter()
-#
-        ## only run inference
-        #interpreter.set_tensor(input_tensor,value=data4TPU[0])
-        #start_first=time.perf_counter()
-        #interpreter.invoke()
-        #end_first=time.perf_counter()
 
         data4TPU=np.random.randint(-128,128,shape2,dtype=np.int8)
-        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape3).astype(np.float32)
+        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape2).astype(np.float32)
         
         start_first=time.perf_counter()
         interpreter.set_tensor(input_tensor,value=data4TPU[0])
@@ -140,5 +103,5 @@ for l in range(common.global_iterations):
 
     #write to csv:
 common.writeResults("coral",results,"avg","coral","sync")
-common.writeResults("coral",results2,"single","coral","sync")
-common.writeResults("coral",results3,"setData","coral","sync")
+common.writeResults("coral",measurements,"single","coral","sync")
+common.writeResults("coral",measurements2,"statistic","coral","sync")

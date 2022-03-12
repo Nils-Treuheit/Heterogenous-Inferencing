@@ -9,24 +9,24 @@ import numpy as np
 
 tf_net_names=[
 "relu_act",
-"leaky_relu_act",
-"tanh_act",
-"sigmoid_act",
+#"leaky_relu_act",
+#"tanh_act",
+#"sigmoid_act",
 "scalar_mult",
-"small_dense",
+#"small_dense",
 "big_dense",
 "simple_conv2d",
 "strided_conv2d",
 "dilated_conv2d",
-"small_conv2d",
+#"small_conv2d",
 "big_conv2d",
 "few_conv2d",
-"many_conv2d", # TODO: Wieso problematisch?
+#"many_conv2d", # TODO: Wieso problematisch?
 ]
 
-iterations=10#512
+iterations=1024
 iterations_single=32
-global_iterations=2#32
+global_iterations=3#32
 
 models_openvino=os.path.join(".","OpenVINO-Models")
 
@@ -41,17 +41,64 @@ def startOpenvinoNet(name,infCore,target):
     netw=infCore.load_network(network=n,device_name=target,num_requests=iterations)
     return netw
 
+def getTimeStamp(d,dt):
+    """
+    Gibt einen Zeitstempel zurück (damit wir gleiches Format verwenden).
+    d - date / gewünschtes Datum
+    dt - datetime / gewünschter Zeitpunkt
+    """
+    return str(d)+"_"+str(dt.hour)+"-"+str(dt.minute)
+
+
+def getTagetPath(toolkit,net,mode,target,measured_property,timestamp):
+    """
+    Argumente:
+    toolkit - "openvino" oder "coral" 
+    net - der Name des Netzes
+    mode - "sync" oder "async" 
+    target - "GPU","CPU","MYRIAD","coral"
+    measured_property - "init","avg","single","energy"
+    timestamp - Zeitpunkt der Messung, als String, generiert durch getTimeStamp(d,dt)
+    """
+    if toolkit=="openvino":
+        directory=measurements_openvino
+    else:
+        directory=measurements_coral
+    directory2=os.path.join(directory,net)
+    return os.path.join(directory2,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+timestamp+".csv")
+
 def writeResults(target,measurements,measured_property,toolkit,mode):
     if toolkit=="openvino":
         directory=measurements_openvino
     else:
         directory=measurements_coral
     if not os.path.isdir(directory): os.mkdir(directory)
-    time_stamp=str(date.today())+"_"+str(datetime.now().hour)+"-"+str(datetime.now().minute)
-    target_path=os.path.join(directory,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp+".csv")
     rows=len(measurements[list(measurements)[0]])
-    measurements_to_write=[[measurements[name][k] for name in list(measurements)] for k in range(rows)]
+    criteria=list(measurements)
+    for net in tf_net_names:
+        net_measurements=[]
+        for c in criteria:
+            if c.find(net)!=-1:
+                net_measurements.append(c)
 
+        results=[]
+        for i in range(rows):
+            single_row=[]
+            for c in net_measurements:
+                single_row.append(measurements[c][i])
+
+            results.append(single_row)
+        
+        time_stamp=getTimeStamp(date.today(),datetime.now())
+
+        directory2=os.path.join(directory,net)
+        if not os.path.isdir(directory2): os.mkdir(directory2)
+
+        target_path=os.path.join(directory2,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp+".csv")
+        writeFile(target_path,net_measurements,results)
+
+
+def writeFile(target_path,measurements,measurements_to_write):
     if not Path(target_path).exists():
         with open(target_path,"w") as file:
             wr=csv.writer(file)
@@ -62,3 +109,20 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
 
 def getOpenvinoExampelData(data_format):
     return np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,data_format).astype(np.float16)
+
+
+picture_software="ffmpeg "
+picture_software="streamer -f jpeg -o "
+
+class EnergyMeasurementEnclosure:
+    def __init__(self,netw) -> None:
+        time_stamp=str(datetime.date.today())+"_"+str(datetime.now().hour)+"-"+str(datetime.now().minute)
+        prefix=netw+"_"+time_stamp
+        self.command_start=picture_software+prefix+"_begin.jpeg"
+        self.command_end=picture_software+prefix+"_"+time_stamp+"_end.jpeg"
+
+    def start(self):
+        os.system(self.command_start)
+
+    def end(self):
+        os.system(self.command_end)

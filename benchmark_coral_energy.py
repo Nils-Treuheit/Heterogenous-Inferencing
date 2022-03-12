@@ -1,3 +1,4 @@
+import datetime
 import gc
 import tflite_runtime.interpreter as tflite
 #import tensorflow.lite as tflite
@@ -6,27 +7,14 @@ import numpy as np
 import time
 import common_benchmark_definitions as common
 
-tf_net_names=[
-"relu_act",
-"leaky_relu_act",
-"tanh_act",
-"sigmoid_act",
-"scalar_mult",
-"small_dense",
-"big_dense",
-"simple_conv2d",
-"strided_conv2d",
-"dilated_conv2d",
-"small_conv2d",
-"big_conv2d",
-"many_conv2d",
-"few_conv2d",
-]
+tf_net_names=common.tf_net_names
 
-global_iterations=32
 net_dir=os.path.join(".","Edge_TPU-Models")
-iterations=350
 
+measurements=dict()
+for name in tf_net_names:
+    measurements["start("+name+")"]=[]
+    measurements["end("+name+")"]=[]
 
 for l in range(common.global_iterations):  
     num_nets=len(tf_net_names)
@@ -49,14 +37,20 @@ for l in range(common.global_iterations):
         
         data4TPU=np.random.randint(-128,128,shape2,dtype=np.int8)
         
+        print("\a")
+        start=datetime.now()
         for j in range(common.iterations):
             interpreter.set_tensor(input_tensor,value=data4TPU[j])
             interpreter.invoke()
             interpreter.get_tensor(output_tensor)
-            
-        
+
+        end=datetime.now()
+        print("\a")
+        measurements["start("+name+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
+        measurements["end("+name+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
+
         data4TPU=None
         gc.collect()
         print(tf_net_names[i])
-        print("\a")
-        input("proceed")
+        
+common.writeResults("MYRIAD",measurements,"energy-times","openvino","sync")
