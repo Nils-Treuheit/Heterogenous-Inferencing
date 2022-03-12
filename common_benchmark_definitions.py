@@ -7,6 +7,8 @@ from datetime import datetime
 
 import numpy as np
 
+from csv_helpers import getTimeStamp
+
 tf_net_names=[
 "relu_act",
 #"leaky_relu_act",
@@ -41,31 +43,6 @@ def startOpenvinoNet(name,infCore,target):
     netw=infCore.load_network(network=n,device_name=target,num_requests=iterations)
     return netw
 
-def getTimeStamp(d,dt):
-    """
-    Gibt einen Zeitstempel zurück (damit wir gleiches Format verwenden).
-    d - date / gewünschtes Datum
-    dt - datetime / gewünschter Zeitpunkt
-    """
-    return str(d)+"_"+str(dt.hour)+"-"+str(dt.minute)
-
-
-def getTagetPath(toolkit,net,mode,target,measured_property,timestamp):
-    """
-    Argumente:
-    toolkit - "openvino" oder "coral" 
-    net - der Name des Netzes
-    mode - "sync" oder "async" 
-    target - "GPU","CPU","MYRIAD","coral"
-    measured_property - "init","avg","single","energy"
-    timestamp - Zeitpunkt der Messung, als String, generiert durch getTimeStamp(d,dt)
-    """
-    if toolkit=="openvino":
-        directory=measurements_openvino
-    else:
-        directory=measurements_coral
-    directory2=os.path.join(directory,net)
-    return os.path.join(directory2,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+timestamp+".csv")
 
 def writeResults(target,measurements,measured_property,toolkit,mode):
     if toolkit=="openvino":
@@ -75,11 +52,14 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
     if not os.path.isdir(directory): os.mkdir(directory)
     rows=len(measurements[list(measurements)[0]])
     criteria=list(measurements)
-    for net in tf_net_names:
+    for net in tf_net_names: # Messungen fuer alle gegebennen Netze
         net_measurements=[]
-        for c in criteria:
+        net_measurements_names=[]
+        for c in criteria: 
             if c.find(net)!=-1:
                 net_measurements.append(c)
+                measurement=c[0:str(c).find("(")]
+                net_measurements_names.append(measurement)
 
         results=[]
         for i in range(rows):
@@ -95,7 +75,7 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
         if not os.path.isdir(directory2): os.mkdir(directory2)
 
         target_path=os.path.join(directory2,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp+".csv")
-        writeFile(target_path,net_measurements,results)
+        writeFile(target_path,net_measurements_names,results)
 
 
 def writeFile(target_path,measurements,measurements_to_write):

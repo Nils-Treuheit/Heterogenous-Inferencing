@@ -53,4 +53,4 @@ for l in range(common.global_iterations):
         gc.collect()
         print(tf_net_names[i])
         
-common.writeResults("MYRIAD",measurements,"energy-times","openvino","sync")
+common.writeResults("coral",measurements,"energy-times","coral","sync")

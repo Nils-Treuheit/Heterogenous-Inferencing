@@ -19,7 +19,7 @@ global_iterations=common.global_iterations
 nets_to_run=common.tf_net_names #[:12] #memory problems in many_conv2d, at least at the CPU
 #openvino_nets=[startNet(x) for x in nets_to_run]
 
-for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",
+for target in ["GPU"]:#,"CPU","MYRIAD"]:#"GPU","CPU",
 
     measurements=dict()
     for name in nets_to_run:
