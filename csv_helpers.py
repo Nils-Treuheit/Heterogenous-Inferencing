@@ -10,8 +10,8 @@ measurements_coral="Edge_TPU-Measurements"
 def getTimeStamp(d,dt):
     """
     Gibt einen Zeitstempel zurück (damit wir gleiches Format verwenden).
-    d - date / gewünschtes Datum
-    dt - datetime / gewünschter Zeitpunkt
+    d - date bzw. gewünschtes Datum
+    dt - datetime bzw. gewünschter Zeitpunkt
     """
     return str(d)+"_"+str(dt.hour)+"-"+str(dt.minute)
 
@@ -20,10 +20,11 @@ args_mode=["sync","async"]
 args_target=["GPU","CPU","MYRIAD","coral"]
 args_measured_property= ["init","avg","single","energy-times","statistic"]
 
+single_row_prefix="time"
 prefix_property_mapping=dict() #Praefixe, die die Tabellenkoepfe haben koennen (vllt. Netznamen weglassen)
-prefix_property_mapping["init"]=[]
+prefix_property_mapping["init"]=[single_row_prefix]
 prefix_property_mapping["avg"]=["first","avgTail"]
-prefix_property_mapping["single"]=[]
+prefix_property_mapping["single"]=[single_row_prefix]
 prefix_property_mapping["energy-times"]=["end","start"]
 prefix_property_mapping["statistic"]=["min","max","avg","std"]
 

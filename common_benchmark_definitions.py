@@ -4,7 +4,7 @@ import csv
 from pathlib import Path
 from datetime import date
 from datetime import datetime
-
+import csv_helpers
 import numpy as np
 
 from csv_helpers import getTimeStamp
@@ -58,7 +58,11 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
         for c in criteria: 
             if c.find(net)!=-1:
                 net_measurements.append(c)
-                measurement=c[0:str(c).find("(")]
+                langel=str(c).find("(")
+                if langel==-1:
+                    measurement=csv_helpers.single_row_prefix
+                else:
+                    measurement=c[0:langel]
                 net_measurements_names.append(measurement)
 
         results=[]
