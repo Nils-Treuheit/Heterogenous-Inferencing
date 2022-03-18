@@ -46,8 +46,8 @@ for l in range(common.global_iterations):
 
         end=datetime.now()
         print("\a")
-        measurements["start("+name+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
-        measurements["end("+name+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
+        measurements["start("+tf_net_names[i]+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
+        measurements["end("+tf_net_names[i]+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
 
         data4TPU=None
         gc.collect()

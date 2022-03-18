@@ -1,6 +1,5 @@
-import datetime
 import gc
-from sqlite3 import Timestamp
+from datetime import datetime
 from openvino.inference_engine import IECore
 import os.path
 from os import system
@@ -19,6 +18,7 @@ nets_to_run=common.tf_net_names #[:12] #memory problems in many_conv2d, at least
 #openvino_nets=[startNet(x) for x in nets_to_run]
 
 target="MYRIAD"
+target="CPU"
 
 measurements=dict()
 for name in nets_to_run:
@@ -47,11 +47,13 @@ for l in range(global_iterations):
         #encl.end()
         end=datetime.now()
         print("\a")
+        
         print(nets_to_run[i])
-        measurements["start("+name+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
-        measurements["end("+name+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
+        measurements["start("+nets_to_run[i]+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
+        measurements["end("+nets_to_run[i]+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
         #input("end")
         data=None
         gc.collect()
 
+print(measurements)
 common.writeResults("MYRIAD",measurements,"energy-times","openvino","sync")
