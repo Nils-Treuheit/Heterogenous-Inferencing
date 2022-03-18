@@ -25,93 +25,216 @@ def create_tf_models():
   linear_data_shape = (128)
   pictures = tf.keras.Input(shape=picture_shape, batch_size=BatchSize)
   linear_data = tf.keras.Input(shape=linear_data_shape, batch_size=BatchSize)
-  layers,models = ([],[])
+  models = []
 
   print("Create Simple Tensorflow Models")
 
   # relu activation model
-  layers.append(tf.keras.layers.Activation('relu')(linear_data))
-  relu_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="relu_act")
+  out = tf.keras.layers.Activation('relu')(linear_data)
+  relu_act = tf.keras.Model(inputs=linear_data,
+                          outputs=out,
+                          name="relu_act")
   models.append(relu_act)
-  model_names.append(relu_act.name)
+  for _ in range(2): out = tf.keras.layers.Activation('relu')(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="relu_act_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Activation('relu')(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="relu_act_stacked8"))
 
   # leaky relu activation model
-  layers.append(tf.keras.layers.LeakyReLU()(linear_data))
-  leaky_relu_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="leaky_relu_act")
+  out = tf.keras.layers.LeakyReLU()(linear_data)
+  leaky_relu_act = tf.keras.Model(inputs=linear_data,
+                                  outputs=out,
+                                  name="leaky_relu_act")
   models.append(leaky_relu_act)
-  model_names.append(leaky_relu_act.name)
+  for _ in range(2): out = tf.keras.layers.LeakyReLU()(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="leaky_relu_act_stacked3"))
+  for _ in range(5): out = tf.keras.layers.LeakyReLU()(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="leaky_relu_act_stacked8"))
 
   # tanh activation model
-  layers.append(tf.keras.layers.Activation('tanh')(linear_data))
-  tanh_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="tanh_act")
+  out = tf.keras.layers.Activation('tanh')(linear_data)
+  tanh_act = tf.keras.Model(inputs=linear_data,
+                            outputs=out,
+                            name="tanh_act")
   models.append(tanh_act)
-  model_names.append(tanh_act.name)
+  for _ in range(2): out = tf.keras.layers.Activation('tanh')(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="tanh_act_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Activation('tanh')(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="tanh_act_stacked8"))
+
 
   # sigmoid activation model
-  layers.append(tf.keras.layers.Activation('sigmoid')(linear_data))
-  sigmoid_act = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="sigmoid_act")
+  out = tf.keras.layers.Activation('sigmoid')(linear_data)
+  sigmoid_act = tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="sigmoid_act")
   models.append(sigmoid_act)
-  model_names.append(sigmoid_act.name)
+  for _ in range(2): out = tf.keras.layers.Activation('sigmoid')(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="sigmoid_act_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Activation('sigmoid')(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="sigmoid_act_stacked8"))
 
   # scalar_multiply model
-  layers.append(tf.keras.layers.Lambda(lambda x: x * 5.0)(linear_data))
-  scalar_mult = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="scalar_mult")
+  out = tf.keras.layers.Lambda(lambda x: x * 5.0)(linear_data)
+  scalar_mult = tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="scalar_mult")
   models.append(scalar_mult)
-  model_names.append(scalar_mult.name)
+  for _ in range(2): out = tf.keras.layers.Lambda(lambda x: x * 5.0)(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="scalar_mult_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Lambda(lambda x: x * 5.0)(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="scalar_mult_stacked8"))
 
   # small dense model
-  layers.append(tf.keras.layers.Dense(8)(linear_data))
-  small_dense = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="small_dense")
+  out = tf.keras.layers.Dense(8)(linear_data)
+  small_dense = tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="small_dense")
   models.append(small_dense)
-  model_names.append(small_dense.name)
+  for _ in range(2): out = tf.keras.layers.Dense(8)(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="small_dense_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Dense(8)(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="small_dense_stacked8"))
 
   # big dense model
-  layers.append(tf.keras.layers.Dense(512)(linear_data))
-  big_dense = tf.keras.Model(inputs=linear_data,outputs=layers[-1],name="big_dense")
+  out = tf.keras.layers.Dense(512)(linear_data)
+  big_dense = tf.keras.Model(inputs=linear_data,
+                             outputs=out,
+                             name="big_dense")
   models.append(big_dense)
-  model_names.append(big_dense.name)
+  for _ in range(2): out = tf.keras.layers.Dense(512)(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="big_dense_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Dense(512)(out)
+  models.append(tf.keras.Model(inputs=linear_data,
+                               outputs=out,
+                               name="big_dense_stacked8"))
 
   # simple conv2d model
-  layers.append(tf.keras.layers.Conv2D(12,3)(pictures))
-  simple_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="simple_conv2d")
+  out = tf.keras.layers.Conv2D(12,3)(pictures)
+  simple_conv2d = tf.keras.Model(inputs=pictures,
+                                 outputs=out,
+                                 name="simple_conv2d")
   models.append(simple_conv2d)
-  model_names.append(simple_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(12,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="simple_conv2d_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Conv2D(12,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="simple_conv2d_stacked8"))
 
   # dilated conv2d model
-  layers.append(tf.keras.layers.Conv2D(12,3,dilation_rate=2)(pictures))
-  dilated_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="dilated_conv2d")
+  out = tf.keras.layers.Conv2D(12,3,dilation_rate=2)(pictures)
+  dilated_conv2d = tf.keras.Model(inputs=pictures,
+                                  outputs=out,
+                                  name="dilated_conv2d")
   models.append(dilated_conv2d)
-  model_names.append(dilated_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(12,3,dilation_rate=2)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="dilated_conv2d_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Conv2D(12,3,dilation_rate=2)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="dilated_conv2d_stacked8"))
 
   # strided conv2d model
-  layers.append(tf.keras.layers.Conv2D(12,3,strides=5)(pictures))
-  strided_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="strided_conv2d")
+  out = tf.keras.layers.Conv2D(12,3,strides=5)(pictures)
+  strided_conv2d = tf.keras.Model(inputs=pictures,
+                                  outputs=out,
+                                  name="strided_conv2d")
   models.append(strided_conv2d)
-  model_names.append(strided_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(12,3,strides=5)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="strided_conv2d_stacked3"))
 
   # big conv2d model
-  layers.append(tf.keras.layers.Conv2D(9,7)(pictures))
-  big_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="big_conv2d")
+  out = tf.keras.layers.Conv2D(9,7)(pictures)
+  big_conv2d = tf.keras.Model(inputs=pictures,
+                              outputs=out,
+                              name="big_conv2d")
   models.append(big_conv2d)
-  model_names.append(big_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(9,7)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="big_conv2d_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Conv2D(9,7)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="big_conv2d_stacked8"))
 
   # small conv2d model
-  layers.append(tf.keras.layers.Conv2D(9,3)(pictures))
-  small_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="small_conv2d")
+  out = tf.keras.layers.Conv2D(9,3)(pictures)
+  small_conv2d = tf.keras.Model(inputs=pictures,
+                                outputs=out,
+                                name="small_conv2d")
   models.append(small_conv2d)
-  model_names.append(small_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(9,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="small_conv2d_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Conv2D(9,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="small_conv2d_stacked8"))
 
   # many conv2d model
-  layers.append(tf.keras.layers.Conv2D(256,3)(pictures))
-  many_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="many_conv2d")
+  out = tf.keras.layers.Conv2D(256,3)(pictures)
+  many_conv2d = tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="many_conv2d")
   models.append(many_conv2d)
-  model_names.append(many_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(256,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="many_conv2d_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Conv2D(256,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="many_conv2d_stacked8"))
 
   # few conv2d model
-  layers.append(tf.keras.layers.Conv2D(3,3)(pictures))
-  few_conv2d = tf.keras.Model(inputs=pictures,outputs=layers[-1],name="few_conv2d")
+  out = tf.keras.layers.Conv2D(3,3)(pictures)
+  few_conv2d = tf.keras.Model(inputs=pictures,
+                              outputs=out,
+                              name="few_conv2d")
   models.append(few_conv2d)
-  model_names.append(few_conv2d.name)
+  for _ in range(2): out = tf.keras.layers.Conv2D(3,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="few_conv2d_stacked3"))
+  for _ in range(5): out = tf.keras.layers.Conv2D(3,3)(out)
+  models.append(tf.keras.Model(inputs=pictures,
+                               outputs=out,
+                               name="few_conv2d_stacked8"))
 
 
   # convert and store models
@@ -136,6 +259,7 @@ def create_tf_models():
       converter.representative_dataset = data_gen
       tflite_model = converter.convert()
       model_file.write(tflite_model) # save quantizized tf-lite models for Edge-TPU
+    model_names.append(model.name)
 
 
 def compile_openvino():

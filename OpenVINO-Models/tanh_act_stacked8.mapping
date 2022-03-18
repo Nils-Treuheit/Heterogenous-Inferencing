@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<mapping>
+	<map>
+		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/input/_0" output_port_id="Func/PartitionedCall/input/_0:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input_2" output_port_id="input_2:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/input/_0" output_port_id="input_2:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input_2" output_port_id="input_2:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_8/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_8/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_8/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_8/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_8/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_8/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_9/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_9/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_9/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_9/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_9/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_9/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_10/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_10/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_10/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_10/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_10/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_10/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_11/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_11/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_11/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_11/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_11/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_11/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_12/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_12/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_12/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_12/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_12/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_12/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_13/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_13/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_13/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_13/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_13/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_13/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_14/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_14/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_14/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_14/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_14/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_14/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_15/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/tanh_act_stacked8/activation_15/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/tanh_act_stacked8/activation_15/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="PartitionedCall/tanh_act_stacked8/activation_15/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="PartitionedCall/tanh_act_stacked8/activation_15/Tanh:0" />
+		<IR name="PartitionedCall/tanh_act_stacked8/activation_15/Tanh" output_port_id="1" />
+	</map>
+</mapping>

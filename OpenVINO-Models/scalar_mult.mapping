@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <mapping>
 	<map>
-		<framework name="input_2" output_port_id="input_2:0" />
+		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/input/_0" output_port_id="Func/PartitionedCall/input/_0:0" />
+		<IR name="input_2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
 		<IR name="input_2" output_port_id="0" />
 	</map>
 	<map>
@@ -13,15 +21,7 @@
 		<IR name="input_2" output_port_id="0" />
 	</map>
 	<map>
-		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
-		<IR name="input_2" output_port_id="0" />
-	</map>
-	<map>
-		<framework name="input_2" output_port_id="Func/PartitionedCall/input/_0:0" />
-		<IR name="input_2" output_port_id="0" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/input/_0" output_port_id="Func/PartitionedCall/input/_0:0" />
+		<framework name="input_2" output_port_id="input_2:0" />
 		<IR name="input_2" output_port_id="0" />
 	</map>
 	<map>
@@ -31,69 +31,13 @@
 	<map>
 		<framework name="PartitionedCall/scalar_mult/lambda/mul/y" output_port_id="PartitionedCall/scalar_mult/lambda/mul/y:0" />
 		<IR name="PartitionedCall/scalar_mult/lambda/mul/y" output_port_id="0" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="PartitionedCall/Identity" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="Identity" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
-	</map>
-	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="Identity:0" />
-		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
 	</map>
 	<map>
 		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="Func/PartitionedCall/output/_1:0" />
 		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
 	</map>
 	<map>
@@ -109,7 +53,63 @@
 		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
 	</map>
 	<map>
-		<framework name="Func/PartitionedCall/output/_1" output_port_id="Func/PartitionedCall/output/_1:0" />
+		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="PartitionedCall/scalar_mult/lambda/mul:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="PartitionedCall/Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Func/PartitionedCall/output/_1" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="PartitionedCall/Identity" output_port_id="Identity:0" />
+		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Identity" output_port_id="Identity:0" />
 		<IR name="PartitionedCall/scalar_mult/lambda/mul" output_port_id="2" />
 	</map>
 </mapping>
