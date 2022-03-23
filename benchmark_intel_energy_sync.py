@@ -49,8 +49,8 @@ for l in range(global_iterations):
         print("\a")
         
         print(nets_to_run[i])
-        measurements["start("+nets_to_run[i]+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
-        measurements["end("+nets_to_run[i]+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
+        measurements["start("+nets_to_run[i]+")"].append(common.getDStr(start))
+        measurements["end("+nets_to_run[i]+")"].append(common.getDStr(end))
         #input("end")
         data=None
         gc.collect()

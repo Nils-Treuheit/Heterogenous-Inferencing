@@ -1,10 +1,9 @@
-import datetime
+from datetime import datetime
 import gc
 import tflite_runtime.interpreter as tflite
 #import tensorflow.lite as tflite
 import os
 import numpy as np
-import time
 import common_benchmark_definitions as common
 
 tf_net_names=common.tf_net_names
@@ -22,8 +21,8 @@ for l in range(common.global_iterations):
     
     for i in range(num_nets):
         if os.uname().sysname=="Linux":
-            interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
-            #interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
+            #interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
+            interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
         else:
             interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("edgetpu.dll")])
 
@@ -36,7 +35,7 @@ for l in range(common.global_iterations):
 
         
         data4TPU=np.random.randint(-128,128,shape2,dtype=np.int8)
-        
+        data4TPU=np.random.uniform(np.finfo(np.half).min,np.finfo(np.half).max,shape2).astype(np.float32)
         print("\a")
         start=datetime.now()
         for j in range(common.iterations):
@@ -46,8 +45,8 @@ for l in range(common.global_iterations):
 
         end=datetime.now()
         print("\a")
-        measurements["start("+tf_net_names[i]+")"].append(str(start.hour)+"-"+str(start.minute)+"-"+str(start.second)+"-"+str(start.microsecond))
-        measurements["end("+tf_net_names[i]+")"].append(str(end.hour)+"-"+str(end.minute)+"-"+str(end.second)+"-"+str(end.microsecond))
+        measurements["start("+tf_net_names[i]+")"].append(common.getDStr(start))
+        measurements["end("+tf_net_names[i]+")"].append(common.getDStr(end))
 
         data4TPU=None
         gc.collect()

@@ -80,6 +80,33 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
 
         target_path=os.path.join(directory2,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp+".csv")
         writeFile(target_path,net_measurements_names,results)
+        writeConfig(measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp)
+
+config_list="confs.txt"
+measurments_conf="measurements_conf"
+
+def writeConfig(file_name):
+    """
+    write numbers of iterations used for measurements into a seperate file,
+    so we know how much iterations we used.  
+    """
+    open_option="w"
+    config_list_path=os.path.join(measurments_conf,config_list)
+
+    if not os.path.isdir(measurments_conf): os.mkdir(measurments_conf)
+
+    if Path(config_list_path).exists():
+        open_option="a"
+    outp=[
+            file_name,
+            "iterations: "+str(iterations),
+            "iterations_single: "+str(iterations_single),
+            "global_iterations: "+str(global_iterations),
+            ""
+        ]
+    outp2=map(lambda s:s+"\n",outp)
+    with open(config_list_path,open_option) as file:
+            file.writelines(outp2)
 
 
 def writeFile(target_path,measurements,measurements_to_write):
@@ -110,3 +137,8 @@ class EnergyMeasurementEnclosure:
 
     def end(self):
         os.system(self.command_end)
+
+def getDStr(t:datetime)->str:
+    #return str(t.hour)+":"+str(t.minute)+":"+str(t.second)+"."+str(t.microsecond)
+    return t.isoformat(sep=" ")
+
