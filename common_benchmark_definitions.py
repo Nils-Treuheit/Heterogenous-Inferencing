@@ -9,26 +9,88 @@ import numpy as np
 
 from csv_helpers import getTimeStamp
 
+#tf_net_names=[
+#"relu_act",
+##"leaky_relu_act",
+##"tanh_act",
+##"sigmoid_act",
+#"scalar_mult",
+##"small_dense",
+##"big_dense",
+##"simple_conv2d",
+##"strided_conv2d",
+##"dilated_conv2d",
+##"small_conv2d",
+#"big_conv2d",
+##"few_conv2d",
+##"many_conv2d", # TODO: Wieso problematisch?
+#]
 tf_net_names=[
-"relu_act",
-#"leaky_relu_act",
-#"tanh_act",
-#"sigmoid_act",
-"scalar_mult",
-#"small_dense",
-"big_dense",
-"simple_conv2d",
-"strided_conv2d",
-"dilated_conv2d",
-#"small_conv2d",
-"big_conv2d",
-"few_conv2d",
-#"many_conv2d", # TODO: Wieso problematisch?
-]
+    'big_conv2d',
+    'big_conv2d_stacked3',
+    'big_conv2d_stacked8',
+    
+    'big_dense', 
+    'big_dense_stacked3',
+    'big_dense_stacked8',
+    
+    'dilated_conv2d',
+    'dilated_conv2d_stacked3',
+    'dilated_conv2d_stacked8',
+    
+    'few_conv2d',
+    'few_conv2d_stacked3',
+    'few_conv2d_stacked8', 
+    
+    'leaky_relu_act',
+    'leaky_relu_act_stacked3',
+    'leaky_relu_act_stacked8',
+    
+    'many_conv2d',
+    'many_conv2d_stacked3',
+    'many_conv2d_stacked8',
+    
+    'relu_act',
+    'relu_act_stacked3',
+    'relu_act_stacked8',
+    
+    'scalar_mult',
+    'scalar_mult_stacked3',
+    'scalar_mult_stacked8',
+    
+    'sigmoid_act',
+    'sigmoid_act_stacked3',
+    'sigmoid_act_stacked8',
+    
+    'simple_conv2d',
+    'simple_conv2d_stacked3',
+    'simple_conv2d_stacked8',
+    
+    'small_conv2d',
+    'small_conv2d_stacked3',
+    'small_conv2d_stacked8',
+    
+    'small_dense',
+    'small_dense_stacked3',
+    'small_dense_stacked8',
 
-iterations=1024
+    'strided_conv2d',
+    'strided_conv2d_stacked3',
+    
+    'tanh_act',
+    'tanh_act_stacked3',
+    'tanh_act_stacked8'
+]
+#alternate way:
+#a=[]
+#for x in Path(".").glob("*"):
+#     a.append(str(x)) 
+#sorted(a)
+#
+
+iterations=2#1024
 iterations_single=32
-global_iterations=3#32
+global_iterations=2#32
 
 models_openvino=os.path.join(".","OpenVINO-Models")
 

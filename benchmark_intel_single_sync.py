@@ -64,16 +64,16 @@ nets_to_run=common.tf_net_names #[:12] #memory problems in many_conv2d, at least
 #    common.writeResults(target,measurements2,"setData","openvino","sync")
 #    common.writeResults(target,measurements,"single","openvino","sync")
 
-for target in ["GPU",]:#"GPU","CPU",,"CPU","MYRIAD"
+for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",,"CPU","MYRIAD"
 
     measurements=dict()
-    measurements2=dict()
+    #measurements2=dict()
     for name in nets_to_run:
         measurements[name]=[]
-        measurements2["min("+name+")"]=[]
-        measurements2["max("+name+")"]=[]
-        measurements2["avg("+name+")"]=[]
-        measurements2["std("+name+")"]=[]
+        #measurements2["min("+name+")"]=[]
+        #measurements2["max("+name+")"]=[]
+        #measurements2["avg("+name+")"]=[]
+        #measurements2["std("+name+")"]=[]
 
     for l in range(global_iterations):
         for i in range(len(nets_to_run)):
@@ -87,9 +87,9 @@ for target in ["GPU",]:#"GPU","CPU",,"CPU","MYRIAD"
             
             data=common.getOpenvinoExampelData(data_format)
             #supply new data with every inference
-            min=2147483647
-            max=-1
-            list_measurements=[]
+            #min=2147483647
+            #max=-1
+            #list_measurements=[]
             for j in range(common.iterations_single):
                 
                 start=time.perf_counter()
@@ -97,20 +97,20 @@ for target in ["GPU",]:#"GPU","CPU",,"CPU","MYRIAD"
                 end=time.perf_counter()
                 
                 measured_time=end-start
-                
-                if measured_time<min:
-                    min=measured_time
-                if measured_time>max:
-                    max=measured_time
-                
-                list_measurements.append(measured_time)
                 measurements[nets_to_run[i]].append(measured_time)
+                #if measured_time<min:
+                #    min=measured_time
+                #if measured_time>max:
+                #    max=measured_time
+                #
+                #list_measurements.append(measured_time)
+                
             
-            measurements2["min("+nets_to_run[i]+")"].append(min)
-            measurements2["max("+nets_to_run[i]+")"].append(max)
-            m=np.array(list_measurements)
-            measurements2["std("+nets_to_run[i]+")"].append(np.std(m))
-            measurements2["avg("+nets_to_run[i]+")"].append(np.average(m))
+            #measurements2["min("+nets_to_run[i]+")"].append(min)
+            #measurements2["max("+nets_to_run[i]+")"].append(max)
+            #m=np.array(list_measurements)
+            #measurements2["std("+nets_to_run[i]+")"].append(np.std(m))
+            #measurements2["avg("+nets_to_run[i]+")"].append(np.average(m))
 
 
             data=None
@@ -118,5 +118,5 @@ for target in ["GPU",]:#"GPU","CPU",,"CPU","MYRIAD"
             
             print(nets_to_run[i])
             
-    common.writeResults(target,measurements2,"statistic","openvino","sync")
+    #common.writeResults(target,measurements2,"statistic","openvino","sync")
     common.writeResults(target,measurements,"single","openvino","sync")
