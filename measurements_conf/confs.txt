@@ -1,0 +1,1025 @@
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+avg_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-25_3-18
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-25_17-6
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-25_18-56
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-26_2-38
+iterations: 512
+iterations_single: 512
+global_iterations: 32
+

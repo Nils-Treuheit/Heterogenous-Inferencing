@@ -1,0 +1,7 @@
+Edge TPU Compiler version 16.0.384591198
+Input: /home/martin/Dokumente/HardAccel/Version3/Heterogenous-Inferencing/TF_Lite-Models/leaky_relu_act_stacked3_int8.tflite
+Output: /home/martin/Dokumente/HardAccel/Version3/Heterogenous-Inferencing/Edge_TPU-Models/leaky_relu_act_stacked3_int8_edgetpu.tflite
+
+Operator                       Count      Status
+
+LEAKY_RELU                     3          Operation not supported

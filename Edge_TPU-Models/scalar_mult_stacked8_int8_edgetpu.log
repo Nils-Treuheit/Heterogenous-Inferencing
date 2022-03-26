@@ -1,0 +1,7 @@
+Edge TPU Compiler version 16.0.384591198
+Input: /home/martin/Dokumente/HardAccel/Version3/Heterogenous-Inferencing/TF_Lite-Models/scalar_mult_stacked8_int8.tflite
+Output: /home/martin/Dokumente/HardAccel/Version3/Heterogenous-Inferencing/Edge_TPU-Models/scalar_mult_stacked8_int8_edgetpu.tflite
+
+Operator                       Count      Status
+
+MUL                            8          Mapped to Edge TPU
