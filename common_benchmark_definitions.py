@@ -88,8 +88,8 @@ tf_net_names=[
 #sorted(a)
 #
 
-iterations=512 
-iterations_single=512
+iterations=64 
+iterations_single=64
 global_iterations=32
 
 models_openvino=os.path.join(".","OpenVINO-Models")
@@ -113,19 +113,27 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
         directory=measurements_coral
     if not os.path.isdir(directory): os.mkdir(directory)
     rows=len(measurements[list(measurements)[0]])
+    time_stamp=getTimeStamp(date.today(),datetime.now())
+    writeConfig(measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp)
     criteria=list(measurements)
     for net in tf_net_names: # Messungen fuer alle gegebennen Netze
         net_measurements=[]
         net_measurements_names=[]
         for c in criteria: 
+            c: str=c
             if c.find(net)!=-1:
-                net_measurements.append(c)
                 langel=str(c).find("(")
+                
                 if langel==-1:
-                    measurement=csv_helpers.single_row_prefix
+                    if c==net:
+                        net_measurements.append(c)
+                        net_measurements_names.append(
+                            csv_helpers.single_row_prefix
+                        )
                 else:
-                    measurement=c[0:langel]
-                net_measurements_names.append(measurement)
+                    if c[langel+1:-1]==net:
+                        net_measurements.append(c)
+                        net_measurements_names.append(c[0:langel])
 
         results=[]
         for i in range(rows):
@@ -134,15 +142,12 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
                 single_row.append(measurements[c][i])
 
             results.append(single_row)
-        
-        time_stamp=getTimeStamp(date.today(),datetime.now())
 
         directory2=os.path.join(directory,net)
         if not os.path.isdir(directory2): os.mkdir(directory2)
 
         target_path=os.path.join(directory2,measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp+".csv")
         writeFile(target_path,net_measurements_names,results)
-        writeConfig(measured_property+"_"+target+"_"+toolkit+"_"+mode+"_"+time_stamp)
 
 config_list="confs.txt"
 measurments_conf="measurements_conf"

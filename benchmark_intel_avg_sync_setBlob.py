@@ -66,5 +66,5 @@ for target in ["GPU","CPU"]:#,"CPU","MYRIAD"]:#"GPU","CPU",
             
             print(nets_to_run[i])
 
-    
+#common.writeResults(target,measurements,"avg","openvino","sync_blob")
 

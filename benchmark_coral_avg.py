@@ -24,7 +24,8 @@ for name in tf_net_names:
         #measurements2["max("+name+")"]=[]
         #measurements2["avg("+name+")"]=[]
         #measurements2["std("+name+")"]=[]
-for l in range(common.global_iterations):  
+for l in range(common.global_iterations):
+    print(l)  
     num_nets=len(tf_net_names)
     
     

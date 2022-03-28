@@ -65,7 +65,7 @@ nets_to_run=common.tf_net_names #[:12] #memory problems in many_conv2d, at least
 #    common.writeResults(target,measurements,"single","openvino","sync")
 
 for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",,"CPU","MYRIAD"
-
+    print(target)
     measurements=dict()
     #measurements2=dict()
     for name in nets_to_run:
@@ -76,6 +76,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",,"CPU","MYRIAD"
         #measurements2["std("+name+")"]=[]
 
     for l in range(global_iterations):
+        print(l)
         for i in range(len(nets_to_run)):
 
             loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
