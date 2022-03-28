@@ -1,0 +1,25 @@
+avg_coral_coral_sync_2022-03-28_15-59
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_coral_coral_sync_2022-03-28_15-59
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-03-28_16-44
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-03-28_16-58
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-03-28_19-29
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
