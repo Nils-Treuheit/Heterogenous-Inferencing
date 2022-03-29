@@ -23,3 +23,8 @@ iterations: 64
 iterations_single: 64
 global_iterations: 32
 
+energy-times_MYRIAD_openvino_sync_2022-03-29_21-36
+iterations: 1024
+iterations_single: 1024
+global_iterations: 8
+

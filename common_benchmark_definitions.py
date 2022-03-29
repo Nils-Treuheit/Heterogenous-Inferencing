@@ -23,7 +23,10 @@ from csv_helpers import getTimeStamp
 ##"small_conv2d",
 #"big_conv2d",
 ##"few_conv2d",
-##"many_conv2d", # TODO: Wieso problematisch?
+#   "many_conv2d",
+#   'many_conv2d_stacked3',
+#   'many_conv2d_stacked8',#TODO: Wieso problematisch?
+#
 #]
 tf_net_names=[
     'big_conv2d',
@@ -46,9 +49,9 @@ tf_net_names=[
     'leaky_relu_act_stacked3',
     'leaky_relu_act_stacked8',
     
-    'many_conv2d',
-    'many_conv2d_stacked3',
-    'many_conv2d_stacked8',
+#    'many_conv2d',
+#    'many_conv2d_stacked3',
+#    'many_conv2d_stacked8',
     
     'relu_act',
     'relu_act_stacked3',
@@ -88,9 +91,9 @@ tf_net_names=[
 #sorted(a)
 #
 
-iterations=64 
-iterations_single=64
-global_iterations=32
+iterations=1024#64 
+iterations_single=1024#64
+global_iterations=8#16#32
 
 models_openvino=os.path.join(".","OpenVINO-Models")
 

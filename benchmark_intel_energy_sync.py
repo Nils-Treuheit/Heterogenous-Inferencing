@@ -18,13 +18,13 @@ nets_to_run=common.tf_net_names #[:12] #memory problems in many_conv2d, at least
 #openvino_nets=[startNet(x) for x in nets_to_run]
 
 target="MYRIAD"
-target="CPU"
 
 measurements=dict()
 for name in nets_to_run:
     measurements["start("+name+")"]=[]
     measurements["end("+name+")"]=[]
 for l in range(global_iterations):
+    print(l)
     for i in range(len(nets_to_run)):
         loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
         #network_input="input_1"
