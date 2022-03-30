@@ -28,3 +28,13 @@ iterations: 1024
 iterations_single: 1024
 global_iterations: 8
 
+energy-times_coral_coral_sync_2022-03-30_18-44
+iterations: 1024
+iterations_single: 1024
+global_iterations: 8
+
+energy-times_coral_coral_sync_2022-03-30_19-41
+iterations: 2048
+iterations_single: 2048
+global_iterations: 8
+
