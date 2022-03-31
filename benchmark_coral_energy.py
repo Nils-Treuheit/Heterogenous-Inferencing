@@ -20,11 +20,12 @@ for l in range(common.global_iterations):
     print(l)    
     
     for i in range(num_nets):
-        if os.uname().sysname=="Linux":
-            interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_int8_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
-            #interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
-        else:
-            interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("edgetpu.dll")])
+        interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_int8_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
+        #if os.uname().sysname=="Linux":
+        #    interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_int8_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("libedgetpu.so.1")])
+        #    #interpreter=tflite.Interpreter(model_path=os.path.join("TF_Lite-Models",tf_net_names[i]+".tflite"))
+        #else:
+        #    interpreter=tflite.Interpreter(model_path=os.path.join(net_dir,tf_net_names[i]+"_edgetpu.tflite"),experimental_delegates=[tflite.load_delegate("edgetpu.dll")])
 
         #tflite_res=[]
         shape2=[common.iterations] # ich denke es macht sinn die selben Iterationen wie bei openvino zu verwenden 

@@ -1,7 +1,10 @@
 import csv
 from datetime import datetime
 from datetime import timedelta
-
+from io import IOBase
+import common_benchmark_definitions as common 
+from pathlib import Path
+import csv_helpers
 import os
 
 
@@ -51,7 +54,7 @@ def extractFrames(video: str,target: str,start_measurements,end_measurements):
         start_str:str=getDt(start).isoformat(sep=" ")
         start_t=start_str.split(" ")[1]
         #os.system("ffmpeg -i "+video+" -ss "+start_t+" -vframes 1 "+target+"_start_"+i+".jpg")
-        print("ffmpeg -i "+video+" -ss "+start_t+" -vframes 1 "+target+"_start_"+str(i)+".jpg")
+        os.system("ffmpeg -ss "+start_t+" -i "+video+" -vframes 1 "+target+str(i)+"_begin"+".jpg")
         i+=1
     
     i=0
@@ -59,7 +62,7 @@ def extractFrames(video: str,target: str,start_measurements,end_measurements):
         end_str:str=getDt(end).isoformat(sep=" ")
         end_t=end_str.split(" ")[1]
         #os.system("ffmpeg -i "+video+" -ss "+end_t+" -vframes 1 "+target+"_end_"+i+".jpg")
-        print("ffmpeg -i "+video+" -ss "+end_t+" -vframes 1 "+target+"_end_"+str(i)+".jpg")
+        os.system("ffmpeg -ss "+end_t+" -i "+video+" -vframes 1 "+target+str(i)+"_end"+".jpg")
         i+=1
 
 def createWhCsvPerFile(file):
@@ -75,9 +78,43 @@ def createWhCsvPerFile(file):
 
     return measurements
         
+def getAllPictures(video,time_stamp,tk):
+    time_offset=readTime()
+    
+    for target in csv_helpers.args_target:
+        regex="energy-times_*"+target+"*_"+time_stamp+".csv"
+        for name in common.tf_net_names:
+            path_net=Path(csv_helpers.getNetPath(tk,name))
+            if not os.path.isdir(path_net):
+                continue
+            files=path_net.glob(regex)
+            for f in files:
+                start2,end2=getTimeStamps(
+                    f,
+                    time_offset
+                )
+                path_pictures="/home/martin/Bilder/"+tk+"_"+name
+                if not os.path.isdir(path_pictures):
+                    os.mkdir(path_pictures)
+                    #with open("/home/martin/Bilder/"):
+                    #    os.mkdir(path_pictures,dir_fd=IOBase.fileno())
+                    #
+                extractFrames(
+                    video,
+                    path_pictures+"/p"+time_stamp,
+                    start2,
+                    end2
+                )
 
-start1,end1=getTimeStamps(
-    "Edge_TPU-Measurements/few_conv2d/energy-times_coral_coral_sync_2022-03-23_18-15.csv",
-    readTime()
-)
-extractFrames("video.mp4","folder/net",start1,end1)
+#start1,end1=getTimeStamps(
+#    "/home/martin/Dokumente/HardAccel/Version3/Heterogenous-Inferencing/Edge_TPU-Measurements/big_conv2d/energy-times_coral_coral_sync_2022-03-30_19-41.csv",
+#    readTime()
+#)
+#extractFrames(
+#    "/home/martin/Videos/20220330_185122.mp4",
+#    "pictures/big_conv2d_coral_b",
+#    start1,
+#    end1
+#)
+#2022-03-30 18:51:23.001190
+getAllPictures("/home/martin/Videos/20220330_185122.mp4","2022-03-30_19-41","coral")
