@@ -43,3 +43,18 @@ iterations: 2048
 iterations_single: 2048
 global_iterations: 8
 
+wh_TPU_coral_sync_2022-04-05_17-12
+iterations: 2048
+iterations_single: 2048
+global_iterations: 8
+
+wh_MYRIAD_openvino_sync_2022-04-05_17-15
+iterations: 2048
+iterations_single: 2048
+global_iterations: 8
+
+wh_MYRIAD_openvino_sync_2022-04-05_17-24
+iterations: 2048
+iterations_single: 2048
+global_iterations: 8
+

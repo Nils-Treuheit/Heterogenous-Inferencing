@@ -139,7 +139,7 @@ def writeResults(target,measurements,measured_property,toolkit,mode):
                         net_measurements_names.append(c[0:langel])
 
         results=[]
-        for i in range(rows):
+        for i in range(len(measurements[c])):
             single_row=[]
             for c in net_measurements:
                 single_row.append(measurements[c][i])
