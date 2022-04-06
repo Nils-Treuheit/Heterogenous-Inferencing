@@ -104,6 +104,6 @@ for l in range(common.global_iterations):
         print(tf_net_names[i])
 
     #write to csv:
-common.writeResults("coral",results,"avg","coral","sync")
-common.writeResults("coral",measurements,"single","coral","sync")
+common.writeResults("TPU",results,"avg","coral","sync")
+common.writeResults("TPU",measurements,"single","coral","sync")
 #common.writeResults("coral",measurements2,"statistic","coral","sync")

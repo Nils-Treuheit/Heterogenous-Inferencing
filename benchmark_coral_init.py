@@ -79,5 +79,5 @@ for l in range(common.iterations_single):
         print(tf_net_names[i])
 
     #write to csv:
-common.writeResults("coral",results,"init","coral","sync")
+common.writeResults("TPU",results,"init","coral","sync")
 
