@@ -91,9 +91,9 @@ tf_net_names=[
 #sorted(a)
 #
 
-iterations=2048#64 
-iterations_single=2048#64
-global_iterations=8#16#32
+iterations=64#2048#64 
+iterations_single=64#2048#64
+global_iterations=32#16#32
 
 models_openvino=os.path.join(".","OpenVINO-Models")
 

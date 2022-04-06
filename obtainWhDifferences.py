@@ -48,7 +48,7 @@ def getDt(x:timedelta)->datetime:
     return d+x
 
 def extractFrames(video: str,target: str,start_measurements,end_measurements):
-    i=0
+    i=20
     for start in start_measurements:
 
         start_str:str=getDt(start).isoformat(sep=" ")
@@ -57,7 +57,7 @@ def extractFrames(video: str,target: str,start_measurements,end_measurements):
         os.system("ffmpeg -ss "+start_t+" -i "+video+" -vframes 1 "+target+str(i)+"_begin"+".jpg")
         i+=1
     
-    i=0
+    i=20
     for end in end_measurements:
         end_str:str=getDt(end).isoformat(sep=" ")
         end_t=end_str.split(" ")[1]
@@ -117,4 +117,4 @@ def getAllPictures(video,time_stamp,tk):
 #    end1
 #)
 #2022-03-30 18:51:23.001190
-getAllPictures("/home/martin/Videos/20220330_185122.mp4","2022-03-30_19-41","coral")
+getAllPictures("/home/martin/Videos/20220330_222858.mp4","2022-03-30_23-4","openvino")

@@ -58,3 +58,33 @@ iterations: 2048
 iterations_single: 2048
 global_iterations: 8
 
+avg_GPU_openvino_sync_2022-04-06_8-24
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_CPU_openvino_sync_2022-04-06_8-25
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_MYRIAD_openvino_sync_2022-04-06_10-15
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_GPU_openvino_async_2022-04-06_10-41
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_CPU_openvino_async_2022-04-06_10-42
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_MYRIAD_openvino_async_2022-04-06_12-28
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
