@@ -61,7 +61,7 @@ for model in models:
     if PRINT_STATS: print(model+':')
     for device in devices:
         new_list = list()
-        for array in wh[device][model]: new_list.extend(array.tolist())
+        for array in wh[device][model]: new_list.extend((array/2048).tolist())
         wh[device][model] = new_list
         if len(new_list)>0:
             fig = plt.figure(1)
@@ -81,14 +81,14 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("Single Inference on")
+    fig.suptitle("Energy Consumption per Single Inference on")
     plt.ylabel('Frequency')
-    plt.xlabel('Runtime')
+    plt.xlabel('Watts/hour')
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
         fig = plt.figure(2)
-        fig.suptitle("Single Inference on")
+        fig.suptitle("Energy Consumption per Single Inference on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
@@ -112,7 +112,7 @@ for model in models:
         whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
-        plt.ylabel('Runtime')
+        plt.ylabel('Watts/hour')
         plt.title(model)
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
@@ -142,9 +142,9 @@ for part in range(3):
         ax.set_title(dev)
         ax.legend()
         ax.set_xticks(x,ticks)
-        ax.set_ylabel('Runtime')
+        ax.set_ylabel('Watts/hour')
         #ax.set_xlabel('Models')
-    fig.suptitle('Single Inference on')
+    fig.suptitle('Energy Consumption per Single Inference on')
 plt.show()
 
 
