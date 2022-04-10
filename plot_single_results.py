@@ -8,7 +8,6 @@ from sys import argv
 def adjacent_values(vals, q1, q3):
     upper_adjacent_value = q3 + (q3 - q1) * 1.5
     upper_adjacent_value = np.clip(upper_adjacent_value, q3, vals[-1])
-
     lower_adjacent_value = q1 - (q3 - q1) * 1.5
     lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
     return lower_adjacent_value, upper_adjacent_value
@@ -18,6 +17,7 @@ PLOT_SINGLE = False
 AUTO_RUN = True
 PRINT_STATS = True
 
+lf_name = "logs/single_infer_analysis.log"
 model_list = "relu_act,relu_act_stacked3,relu_act_stacked8,"+ \
              "leaky_relu_act,leaky_relu_act_stacked3,leaky_relu_act_stacked8,"+ \
              "tanh_act,tanh_act_stacked3,tanh_act_stacked8,"+ \
@@ -54,11 +54,16 @@ for device in devices:
                 data = pd.read_csv(file,header=0)
                 infer_times[device][model].append(data['time'].values) 
 
+log_file = open(lf_name,"w")
+log_file.close()
+
 statMap = dict()
 for model in models:
     mini,maxi = (1,0)
     data,stats = ([],[])
+    log_file = open(lf_name,"a")
     if PRINT_STATS: print(model+':')
+    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for array in infer_times[device][model]: new_list.extend(array.tolist())
@@ -68,13 +73,19 @@ for model in models:
             plt.hist(infer_times[device][model],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]),sum(infer_times[device][model])/len(infer_times[device][model]), \
                 np.percentile(infer_times[device][model],50),max(infer_times[device][model]),np.std(infer_times[device][model]))
-            if PRINT_STATS: 
+            if PRINT_STATS:
                 print('->'+device+':')
                 print("\tmin:   ",dev_stats[0])
                 print("\tmean:  ",dev_stats[1])
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
+            log_file.write('->'+device+':\n')
+            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -114,6 +125,8 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        log_file.write("\n")
+        log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -129,8 +142,9 @@ for idx in range(1,4):
 subplot_pos = [221,222,223,224]
 statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
+fname = ['single-op','dense','conv']
 for part in range(3):
-    fig = plt.figure(part+1)
+    fig = plt.figure(part+1, figsize=(25.5,13.25))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -145,6 +159,7 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('Single Inference on')
+    plt.savefig("plots/single_runtime_"+fname[part]+"_stats.png")
 plt.show()
 
 
