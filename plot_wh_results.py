@@ -129,8 +129,9 @@ for idx in range(1,4):
 subplot_pos = [211,212]
 statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
+fname = ['single-op','dense','conv']
 for part in range(3):
-    fig = plt.figure(part+1)
+    fig = plt.figure(part+1, figsize=(25.5,13.25))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -145,6 +146,7 @@ for part in range(3):
         ax.set_ylabel('Watts/hour')
         #ax.set_xlabel('Models')
     fig.suptitle('Energy Consumption per Single Inference on')
+    plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")
 plt.show()
 
 
