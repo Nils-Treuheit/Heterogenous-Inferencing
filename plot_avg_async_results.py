@@ -8,7 +8,6 @@ from sys import argv
 def adjacent_values(vals, q1, q3):
     upper_adjacent_value = q3 + (q3 - q1) * 1.5
     upper_adjacent_value = np.clip(upper_adjacent_value, q3, vals[-1])
-
     lower_adjacent_value = q1 - (q3 - q1) * 1.5
     lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
     return lower_adjacent_value, upper_adjacent_value
@@ -18,7 +17,7 @@ PLOT_SINGLE = False
 AUTO_RUN = True
 PRINT_STATS = True
 
-lf_name = "logs/energy_infer_analysis.log"
+lf_name = "logs/async_batch_infer_analysis.log"
 model_list = "relu_act,relu_act_stacked3,relu_act_stacked8,"+ \
              "leaky_relu_act,leaky_relu_act_stacked3,leaky_relu_act_stacked8,"+ \
              "tanh_act,tanh_act_stacked3,tanh_act_stacked8,"+ \
@@ -33,7 +32,7 @@ model_list = "relu_act,relu_act_stacked3,relu_act_stacked8,"+ \
              "small_conv2d,small_conv2d_stacked3,small_conv2d_stacked8,"+ \
              "many_conv2d,many_conv2d_stacked3,many_conv2d_stacked8,"+ \
              "few_conv2d,few_conv2d_stacked3,few_conv2d_stacked8"
-device_list = "MYRIAD,TPU"
+device_list = "CPU,GPU,MYRIAD"
 
 if len(argv)>1: model_list = argv[1]
 if len(argv)>2: device_list = argv[2]
@@ -41,40 +40,40 @@ if len(argv)>2: device_list = argv[2]
 devices = device_list.split(",")
 models = model_list.split(",")
  
-wh = dict()
+infer_times = dict()
 for device in devices:
-    wh[device] = dict()
+    infer_times[device] = dict()
     #folder = "OpenVINO" if device in "CPU,GPU,MYRIAD" else "Edge_TPU" 
-    files = glob("*/*/wh_"+device+"_*.csv")
+    files = glob("*/*/avg_"+device+"_*_async_*.csv")
     for model in models:
-        wh[device][model] = list()
+        infer_times[device][model] = list()
         mask = [model in file for file in files]
         model_files = [files[idx] for idx,marker in enumerate(mask) if marker]
         for file_name in model_files:
             with open(file_name,"r") as file:
                 data = pd.read_csv(file,header=0)
-                wh[device][model].append(data['time'].values) 
+                infer_times[device][model].append(data['time'].values) 
 
 log_file = open(lf_name,"w")
 log_file.close()
 
 statMap = dict()
 for model in models:
-    mini,maxi = (100,0)
+    mini,maxi = (1,0)
     data,stats = ([],[])
     log_file = open(lf_name,"a")
     if PRINT_STATS: print(model+':')
     log_file.write(model+':\n')
     for device in devices:
         new_list = list()
-        for array in wh[device][model]: new_list.extend((array/2048).tolist())
-        wh[device][model] = new_list
+        for array in infer_times[device][model]: new_list.extend(array.tolist())
+        infer_times[device][model] = new_list
         if len(new_list)>0:
             fig = plt.figure(1)
-            plt.hist(wh[device][model],bins=16,edgecolor='None', alpha = 0.4)
-            dev_stats = (min(wh[device][model]),sum(wh[device][model])/len(wh[device][model]), \
-                np.percentile(wh[device][model],50),max(wh[device][model]),np.std(wh[device][model]))
-            if PRINT_STATS: 
+            plt.hist(infer_times[device][model],bins=16,edgecolor='None', alpha = 0.4)
+            dev_stats = (min(infer_times[device][model]),sum(infer_times[device][model])/len(infer_times[device][model]), \
+                np.percentile(infer_times[device][model],50),max(infer_times[device][model]),np.std(infer_times[device][model]))
+            if PRINT_STATS:
                 print('->'+device+':')
                 print("\tmin:   ",dev_stats[0])
                 print("\tmean:  ",dev_stats[1])
@@ -93,14 +92,14 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("Energy Consumption per Single Inference on")
+    fig.suptitle("AVG in batch of 64 Inferences on")
     plt.ylabel('Frequency')
-    plt.xlabel('Watts/hour')
+    plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
         fig = plt.figure(2)
-        fig.suptitle("Energy Consumption per Single Inference on")
+        fig.suptitle("AVG in batch of 64 Inferences on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
@@ -124,7 +123,7 @@ for model in models:
         whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
-        plt.ylabel('Watts/hour')
+        plt.ylabel('Runtime')
         plt.title(model)
         log_file.write("\n")
         log_file.close()
@@ -140,7 +139,7 @@ for idx in range(1,4):
     plt.clf()
     plt.cla()
     plt.close()
-subplot_pos = [211,212]
+subplot_pos = [311,312,313]
 statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
 fname = ['single-op','dense','conv']
@@ -157,10 +156,10 @@ for part in range(3):
         ax.set_title(dev)
         ax.legend()
         ax.set_xticks(x,ticks)
-        ax.set_ylabel('Watts/hour')
+        ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('Energy Consumption per Single Inference on')
-    plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")
+    fig.suptitle('AVG in batch of 64 Inferences on')
+    plt.savefig("plots/async_batch_avg_runtime_"+fname[part]+"_stats.png")
 plt.show()
 
 

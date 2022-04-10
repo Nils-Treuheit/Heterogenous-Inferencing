@@ -18,6 +18,7 @@ PLOT_SINGLE = False
 AUTO_RUN = True
 PRINT_STATS = True
 
+lf_name = "logs/sync_batch_infer_analysis.log"
 subplot_pos = [221,222,223,224]
 statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
@@ -59,12 +60,21 @@ for device in devices:
                 infer_times[device][model]["first"].append(data['first'].values)
                 infer_times[device][model]["avg"].append(data['avgTail'].values) 
 
+log_file = open(lf_name,"w")
+log_file.close()
+
+log_file = open(lf_name,"a")
 if PRINT_STATS: print("AVG of Inference Batch Tail:\n----------------------------")
+log_file.write("AVG of Inference Batch Tail:\n----------------------------\n")
+log_file.close()
+
 statMap = dict()
 for model in models:
+    log_file = open(lf_name,"a")
     mini,maxi = (1,0)
     data,stats = ([],[])
     if PRINT_STATS: print(model+':')
+    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for array in infer_times[device][model]["avg"]: new_list.extend(array.tolist())
@@ -81,6 +91,12 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
+            log_file.write('->'+device+':\n')
+            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -120,6 +136,8 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        log_file.write("\n")
+        log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -148,16 +166,21 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('AVG in the last 63 out of a 64 Inferences batch on')
-    plt.savefig("plots/batch_avg_"+fname[part]+"_stats.png")
+    plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
-
+log_file = open(lf_name,"a")
 if PRINT_STATS: print("First of Inference Batch:\n-------------------------")
+log_file.write("\n\nFirst of Inference Batch:\n-------------------------\n")
+log_file.close()
+
 statMap = dict()
 for model in models:
+    log_file = open(lf_name,"a")
     mini,maxi = (1,0)
     data,stats = ([],[])
     if PRINT_STATS: print(model+':')
+    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for array in infer_times[device][model]["first"]: new_list.extend(array.tolist())
@@ -174,6 +197,12 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
+            log_file.write('->'+device+':\n')
+            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -213,6 +242,8 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        log_file.write("\n")
+        log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -241,17 +272,22 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('First Inference out of a 64 Inferences batch on')
-    plt.savefig("plots/batch_first_"+fname[part]+"_stats.png")
+    plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
 
-
+log_file = open(lf_name,"a")
 if PRINT_STATS: print("Differnce between First and AVG of the Tail in Inference Batch:\n---------------------------------------------------------------")
+log_file.write("\n\nDiffernce between First and AVG of the Tail in Inference Batch:\n---------------------------------------------------------------\n")
+log_file.close()
+
 statMap = dict()
 for model in models:
+    log_file = open(lf_name,"a")
     mini,maxi = (1,0)
     data,stats = ([],[])
     if PRINT_STATS: print(model+':')
+    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for first_arr,avg_arr in zip(infer_times[device][model]["first"],infer_times[device][model]["avg"]): 
@@ -267,6 +303,12 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
+            log_file.write('->'+device+':\n')
+            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -306,6 +348,8 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        log_file.write("\n")
+        log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -334,5 +378,5 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('Differnce between First and AVG in a 64 Inference batch batch on')
-    plt.savefig("plots/batch_diff_"+fname[part]+"_stats.png")
+    plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
 plt.show()
