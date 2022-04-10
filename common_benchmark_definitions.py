@@ -29,60 +29,60 @@ from csv_helpers import getTimeStamp
 #
 #]
 tf_net_names=[
-    'big_conv2d',
-    'big_conv2d_stacked3',
-    'big_conv2d_stacked8',
+#    'big_conv2d',
+#    'big_conv2d_stacked3',
+#    'big_conv2d_stacked8',
+#    
+#    'big_dense', 
+#    'big_dense_stacked3',
+#    'big_dense_stacked8',
+#    
+#    'dilated_conv2d',
+#    'dilated_conv2d_stacked3',
+#    'dilated_conv2d_stacked8',
+#    
+#    'few_conv2d',
+#    'few_conv2d_stacked3',
+#    'few_conv2d_stacked8', 
+#    
+#    'leaky_relu_act',
+#    'leaky_relu_act_stacked3',
+#    'leaky_relu_act_stacked8',
+#    
+    'many_conv2d',
+    'many_conv2d_stacked3',
+    'many_conv2d_stacked8',
     
-    'big_dense', 
-    'big_dense_stacked3',
-    'big_dense_stacked8',
-    
-    'dilated_conv2d',
-    'dilated_conv2d_stacked3',
-    'dilated_conv2d_stacked8',
-    
-    'few_conv2d',
-    'few_conv2d_stacked3',
-    'few_conv2d_stacked8', 
-    
-    'leaky_relu_act',
-    'leaky_relu_act_stacked3',
-    'leaky_relu_act_stacked8',
-    
-#    'many_conv2d',
-#    'many_conv2d_stacked3',
-#    'many_conv2d_stacked8',
-    
-    'relu_act',
-    'relu_act_stacked3',
-    'relu_act_stacked8',
-    
-    'scalar_mult',
-    'scalar_mult_stacked3',
-    'scalar_mult_stacked8',
-    
-    'sigmoid_act',
-    'sigmoid_act_stacked3',
-    'sigmoid_act_stacked8',
-    
-    'simple_conv2d',
-    'simple_conv2d_stacked3',
-    'simple_conv2d_stacked8',
-    
-    'small_conv2d',
-    'small_conv2d_stacked3',
-    'small_conv2d_stacked8',
-    
-    'small_dense',
-    'small_dense_stacked3',
-    'small_dense_stacked8',
-
-    'strided_conv2d',
-    'strided_conv2d_stacked3',
-    
-    'tanh_act',
-    'tanh_act_stacked3',
-    'tanh_act_stacked8'
+#    'relu_act',
+#    'relu_act_stacked3',
+#    'relu_act_stacked8',
+#    
+#    'scalar_mult',
+#    'scalar_mult_stacked3',
+#    'scalar_mult_stacked8',
+#    
+#    'sigmoid_act',
+#    'sigmoid_act_stacked3',
+#    'sigmoid_act_stacked8',
+#    
+#    'simple_conv2d',
+#    'simple_conv2d_stacked3',
+#    'simple_conv2d_stacked8',
+#    
+#    'small_conv2d',
+#    'small_conv2d_stacked3',
+#    'small_conv2d_stacked8',
+#    
+#    'small_dense',
+#    'small_dense_stacked3',
+#    'small_dense_stacked8',
+#
+#    'strided_conv2d',
+#    'strided_conv2d_stacked3',
+#    
+#    'tanh_act',
+#    'tanh_act_stacked3',
+#    'tanh_act_stacked8'
 ]
 #alternate way:
 #a=[]

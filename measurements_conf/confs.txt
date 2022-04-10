@@ -88,3 +88,43 @@ iterations: 64
 iterations_single: 64
 global_iterations: 32
 
+avg_TPU_coral_sync_2022-04-10_17-39
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_TPU_coral_sync_2022-04-10_17-39
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_GPU_openvino_sync_2022-04-10_17-56
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_CPU_openvino_sync_2022-04-10_18-9
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_MYRIAD_openvino_sync_2022-04-10_18-50
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_GPU_openvino_async_2022-04-10_19-1
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_CPU_openvino_async_2022-04-10_19-13
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_MYRIAD_openvino_async_2022-04-10_19-40
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
