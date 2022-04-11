@@ -17,7 +17,7 @@ def getTimeStamp(d,dt):
 
 args_toolkits=["openvino","coral"] #vllt. durch Enums besser
 args_mode=["sync","async"]
-args_target=["GPU","CPU","MYRIAD","coral"]
+args_target=["GPU","CPU","MYRIAD","TPU"]
 args_measured_property= ["init","avg","single","energy-times","statistic"]
 
 single_row_prefix="time"
