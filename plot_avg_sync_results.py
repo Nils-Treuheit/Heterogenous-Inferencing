@@ -8,15 +8,18 @@ from sys import argv
 def adjacent_values(vals, q1, q3):
     upper_adjacent_value = q3 + (q3 - q1) * 1.5
     upper_adjacent_value = np.clip(upper_adjacent_value, q3, vals[-1])
-
     lower_adjacent_value = q1 - (q3 - q1) * 1.5
     lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
     return lower_adjacent_value, upper_adjacent_value
 
 # Parameters to toggle activation of information output and plots
 PLOT_SINGLE = False
+PLOT_FINAL = False
 AUTO_RUN = True
 PRINT_STATS = True
+LOG_STATS = True
+SAVE_VIOLIN = True
+SAVE_STATS = True
 
 lf_name = "logs/sync_batch_infer_analysis.log"
 subplot_pos = [221,222,223,224]
@@ -60,27 +63,29 @@ for device in devices:
                 infer_times[device][model]["first"].append(data['first'].values)
                 infer_times[device][model]["avg"].append(data['avgTail'].values) 
 
-log_file = open(lf_name,"w")
-log_file.close()
+if LOG_STATS:
+    log_file = open(lf_name,"w")
+    log_file.close()
 
-log_file = open(lf_name,"a")
+    log_file = open(lf_name,"a")
+    log_file.write("AVG of Inference Batch Tail:\n----------------------------\n")
+    log_file.close()
 if PRINT_STATS: print("AVG of Inference Batch Tail:\n----------------------------")
-log_file.write("AVG of Inference Batch Tail:\n----------------------------\n")
-log_file.close()
 
 statMap = dict()
 for model in models:
-    log_file = open(lf_name,"a")
     mini,maxi = (1,0)
     data,stats = ([],[])
+    if LOG_STATS:
+        log_file = open(lf_name,"a")
+        log_file.write(model+':\n')
     if PRINT_STATS: print(model+':')
-    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for array in infer_times[device][model]["avg"]: new_list.extend(array.tolist())
         infer_times[device][model]["avg"] = new_list
         if len(new_list)>0:
-            fig = plt.figure(1)
+            fig = plt.figure(1, figsize=(25.5,13.25))
             plt.hist(infer_times[device][model]["avg"],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]["avg"]),sum(infer_times[device][model]["avg"])/len(infer_times[device][model]["avg"]), \
                 np.percentile(infer_times[device][model]["avg"],50),max(infer_times[device][model]["avg"]),np.std(infer_times[device][model]["avg"]))
@@ -91,12 +96,13 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
-            log_file.write('->'+device+':\n')
-            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
-            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
-            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
-            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
-            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
+            if LOG_STATS:
+                log_file.write('->'+device+':\n')
+                log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+                log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+                log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+                log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+                log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -109,7 +115,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
-        fig = plt.figure(2)
+        fig = plt.figure(2, figsize=(25.5,13.25))
         fig.suptitle("AVG in the last 63 out of a 64 Inferences batch on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
         for pc in parts['bodies']:
@@ -136,8 +142,10 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        log_file.write("\n")
-        log_file.close()
+        if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
+        if LOG_STATS:
+            log_file.write("\n")
+            log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -166,27 +174,29 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('AVG in the last 63 out of a 64 Inferences batch on')
-    plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
+    if SAVE_STATS: plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
-log_file = open(lf_name,"a")
+if LOG_STATS:
+    log_file = open(lf_name,"a")
+    log_file.write("\n\nFirst of Inference Batch:\n-------------------------\n")
+    log_file.close()
 if PRINT_STATS: print("First of Inference Batch:\n-------------------------")
-log_file.write("\n\nFirst of Inference Batch:\n-------------------------\n")
-log_file.close()
 
 statMap = dict()
 for model in models:
-    log_file = open(lf_name,"a")
     mini,maxi = (1,0)
     data,stats = ([],[])
+    if LOG_STATS:
+        log_file = open(lf_name,"a")
+        log_file.write(model+':\n')
     if PRINT_STATS: print(model+':')
-    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for array in infer_times[device][model]["first"]: new_list.extend(array.tolist())
         infer_times[device][model]["first"] = new_list
         if len(new_list)>0:
-            fig = plt.figure(4)
+            fig = plt.figure(4, figsize=(25.5,13.25))
             plt.hist(infer_times[device][model]["first"],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]["first"]),sum(infer_times[device][model]["first"])/len(infer_times[device][model]["first"]), \
                 np.percentile(infer_times[device][model]["first"],50),max(infer_times[device][model]["first"]),np.std(infer_times[device][model]["first"]))
@@ -197,12 +207,13 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
-            log_file.write('->'+device+':\n')
-            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
-            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
-            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
-            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
-            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
+            if LOG_STATS:
+                log_file.write('->'+device+':\n')
+                log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+                log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+                log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+                log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+                log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -215,7 +226,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
-        fig = plt.figure(5)
+        fig = plt.figure(5, figsize=(25.5,13.25))
         fig.suptitle("First Inference out of a 64 Inferences batch on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
         for pc in parts['bodies']:
@@ -242,8 +253,10 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        log_file.write("\n")
-        log_file.close()
+        if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_first_"+model+".png")
+        if LOG_STATS:
+            log_file.write("\n")
+            log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -272,28 +285,29 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('First Inference out of a 64 Inferences batch on')
-    plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
+    if SAVE_STATS: plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
-
-log_file = open(lf_name,"a")
+if LOG_STATS:
+    log_file = open(lf_name,"a")
+    log_file.write("\n\nDiffernce between First and AVG of the Tail in Inference Batch:\n---------------------------------------------------------------\n")
+    log_file.close()
 if PRINT_STATS: print("Differnce between First and AVG of the Tail in Inference Batch:\n---------------------------------------------------------------")
-log_file.write("\n\nDiffernce between First and AVG of the Tail in Inference Batch:\n---------------------------------------------------------------\n")
-log_file.close()
 
 statMap = dict()
 for model in models:
-    log_file = open(lf_name,"a")
     mini,maxi = (1,0)
     data,stats = ([],[])
+    if LOG_STATS:
+        log_file = open(lf_name,"a")
+        log_file.write(model+':\n')
     if PRINT_STATS: print(model+':')
-    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for first_arr,avg_arr in zip(infer_times[device][model]["first"],infer_times[device][model]["avg"]): 
             new_list.append(first_arr-avg_arr)
         if len(new_list)>0:
-            fig = plt.figure(7)
+            fig = plt.figure(7, figsize=(25.5,13.25))
             plt.hist(new_list,bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(new_list),sum(new_list)/len(new_list),np.percentile(new_list,50),max(new_list),np.std(new_list))
             if PRINT_STATS: 
@@ -303,12 +317,13 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
-            log_file.write('->'+device+':\n')
-            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
-            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
-            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
-            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
-            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
+            if LOG_STATS:
+                log_file.write('->'+device+':\n')
+                log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+                log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+                log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+                log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+                log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -321,7 +336,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
-        fig = plt.figure(8)
+        fig = plt.figure(8, figsize=(25.5,13.25))
         fig.suptitle("Differnce between First and AVG in a 64 Inference batch batch on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
         for pc in parts['bodies']:
@@ -348,8 +363,10 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        log_file.write("\n")
-        log_file.close()
+        if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
+        if LOG_STATS:
+            log_file.write("\n")
+            log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -378,5 +395,5 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('Differnce between First and AVG in a 64 Inference batch batch on')
-    plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
-plt.show()
+    if SAVE_STATS: plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
+if PLOT_FINAL: plt.show()

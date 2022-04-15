@@ -15,8 +15,12 @@ def adjacent_values(vals, q1, q3):
 
 # Parameters to toggle activation of information output and plots
 PLOT_SINGLE = False
+PLOT_FINAL = False
 AUTO_RUN = True
 PRINT_STATS = True
+LOG_STATS = True
+SAVE_VIOLIN = True
+SAVE_STATS = True
 
 lf_name = "logs/energy_infer_analysis.log"
 model_list = "relu_act,relu_act_stacked3,relu_act_stacked8,"+ \
@@ -55,22 +59,24 @@ for device in devices:
                 data = pd.read_csv(file,header=0)
                 wh[device][model].append(data['time'].values) 
 
-log_file = open(lf_name,"w")
-log_file.close()
+if LOG_STATS:
+    log_file = open(lf_name,"w")
+    log_file.close()
 
 statMap = dict()
 for model in models:
     mini,maxi = (100,0)
     data,stats = ([],[])
-    log_file = open(lf_name,"a")
+    if LOG_STATS: 
+        log_file = open(lf_name,"a")
+        log_file.write(model+':\n')
     if PRINT_STATS: print(model+':')
-    log_file.write(model+':\n')
     for device in devices:
         new_list = list()
         for array in wh[device][model]: new_list.extend((array/2048).tolist())
         wh[device][model] = new_list
         if len(new_list)>0:
-            fig = plt.figure(1)
+            fig = plt.figure(1,figsize=(25.5,13.25))
             plt.hist(wh[device][model],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(wh[device][model]),sum(wh[device][model])/len(wh[device][model]), \
                 np.percentile(wh[device][model],50),max(wh[device][model]),np.std(wh[device][model]))
@@ -81,12 +87,13 @@ for model in models:
                 print("\tmedian:",dev_stats[2])
                 print("\tmax:   ",dev_stats[3])
                 print("\tstd:   ",dev_stats[4])
-            log_file.write('->'+device+':\n')
-            log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
-            log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
-            log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
-            log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
-            log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
+            if LOG_STATS:
+                log_file.write('->'+device+':\n')
+                log_file.write("\tmin:   "+str(dev_stats[0])+"\n")
+                log_file.write("\tmean:  "+str(dev_stats[1])+"\n")
+                log_file.write("\tmedian:"+str(dev_stats[2])+"\n")
+                log_file.write("\tmax:   "+str(dev_stats[3])+"\n")
+                log_file.write("\tstd:   "+str(dev_stats[4])+"\n")
             mini = dev_stats[0] if dev_stats[0]<mini else mini
             maxi = dev_stats[3] if dev_stats[3]>maxi else maxi    
             data.append(new_list) 
@@ -99,7 +106,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
-        fig = plt.figure(2)
+        fig = plt.figure(2,figsize=(25.5,13.25))
         fig.suptitle("Energy Consumption per Single Inference on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
         for pc in parts['bodies']:
@@ -126,8 +133,10 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Watts/hour')
         plt.title(model)
-        log_file.write("\n")
-        log_file.close()
+        if SAVE_VIOLIN: plt.savefig("violin_plots/single_energy_"+model+".png")
+        if LOG_STATS:
+            log_file.write("\n")
+            log_file.close()
         if PLOT_SINGLE: plt.show()
     if not(AUTO_RUN):
         ui = input("To cancel enter 'q', otherwise you will continue with the next model!")
@@ -160,7 +169,7 @@ for part in range(3):
         ax.set_ylabel('Watts/hour')
         #ax.set_xlabel('Models')
     fig.suptitle('Energy Consumption per Single Inference on')
-    plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")
-plt.show()
+    if SAVE_STATS: plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")
+if PLOT_FINAL: plt.show()
 
 
