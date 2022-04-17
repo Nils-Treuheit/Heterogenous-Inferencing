@@ -13,6 +13,12 @@ def adjacent_values(vals, q1, q3):
     lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
     return lower_adjacent_value, upper_adjacent_value
 
+def clean_figure(idx):
+    plt.figure(idx)
+    plt.clf()
+    plt.cla()
+    plt.close()
+
 # Parameters to toggle activation of information output and plots
 PLOT_SINGLE = False
 PLOT_FINAL = False
@@ -76,6 +82,7 @@ for model in models:
         for array in wh[device][model]: new_list.extend((array/2048).tolist())
         wh[device][model] = new_list
         if len(new_list)>0:
+            clean_figure(1)
             fig = plt.figure(1,figsize=(25.5,13.25))
             plt.hist(wh[device][model],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(wh[device][model]),sum(wh[device][model])/len(wh[device][model]), \
@@ -102,10 +109,11 @@ for model in models:
     statMap[model] = stats
     fig.suptitle("Energy Consumption per Single Inference on")
     plt.ylabel('Frequency')
-    plt.xlabel('Watts/hour')
+    plt.xlabel('Milliwatt/Hour')
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
+        clean_figure(2)
         fig = plt.figure(2,figsize=(25.5,13.25))
         fig.suptitle("Energy Consumption per Single Inference on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
@@ -131,7 +139,7 @@ for model in models:
         whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
-        plt.ylabel('Watts/hour')
+        plt.ylabel('Milliwatt/Hour')
         plt.title(model)
         if SAVE_VIOLIN: plt.savefig("violin_plots/single_energy_"+model+".png")
         if LOG_STATS:
@@ -144,11 +152,7 @@ for model in models:
     print("\n")
 
 
-for idx in range(1,4):
-    plt.figure(idx)
-    plt.clf()
-    plt.cla()
-    plt.close()
+for idx in range(1,4): clean_figure(idx)
 subplot_pos = [211,212]
 statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
@@ -166,7 +170,7 @@ for part in range(3):
         ax.set_title(dev)
         ax.legend()
         ax.set_xticks(x,ticks)
-        ax.set_ylabel('Watts/hour')
+        ax.set_ylabel('Milliwatt/Hour')
         #ax.set_xlabel('Models')
     fig.suptitle('Energy Consumption per Single Inference on')
     if SAVE_STATS: plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")

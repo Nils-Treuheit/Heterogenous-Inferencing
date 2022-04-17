@@ -12,6 +12,12 @@ def adjacent_values(vals, q1, q3):
     lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
     return lower_adjacent_value, upper_adjacent_value
 
+def clean_figure(idx):
+    plt.figure(idx)
+    plt.clf()
+    plt.cla()
+    plt.close()
+
 # Parameters to toggle activation of information output and plots
 PLOT_SINGLE = False
 PLOT_FINAL = False
@@ -75,6 +81,7 @@ for model in models:
         for array in infer_times[device][model]: new_list.extend(array.tolist())
         infer_times[device][model] = new_list
         if len(new_list)>0:
+            clean_figure(1)
             fig = plt.figure(1,figsize=(25.5,13.25))
             plt.hist(infer_times[device][model],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]),sum(infer_times[device][model])/len(infer_times[device][model]), \
@@ -105,6 +112,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
+        clean_figure(2)
         fig = plt.figure(2,figsize=(25.5,13.25))
         fig.suptitle("Single Inference on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
@@ -143,11 +151,7 @@ for model in models:
     print("\n")
 
 
-for idx in range(1,4):
-    plt.figure(idx)
-    plt.clf()
-    plt.cla()
-    plt.close()
+for idx in range(1,4): clean_figure(idx)
 subplot_pos = [221,222,223,224]
 statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]

@@ -12,6 +12,12 @@ def adjacent_values(vals, q1, q3):
     lower_adjacent_value = np.clip(lower_adjacent_value, vals[0], q1)
     return lower_adjacent_value, upper_adjacent_value
 
+def clean_figure(idx):
+    plt.figure(idx)
+    plt.clf()
+    plt.cla()
+    plt.close()
+
 # Parameters to toggle activation of information output and plots
 PLOT_SINGLE = False
 PLOT_FINAL = False
@@ -85,6 +91,7 @@ for model in models:
         for array in infer_times[device][model]["avg"]: new_list.extend(array.tolist())
         infer_times[device][model]["avg"] = new_list
         if len(new_list)>0:
+            clean_figure(1)
             fig = plt.figure(1, figsize=(25.5,13.25))
             plt.hist(infer_times[device][model]["avg"],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]["avg"]),sum(infer_times[device][model]["avg"])/len(infer_times[device][model]["avg"]), \
@@ -115,6 +122,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
+        clean_figure(2)
         fig = plt.figure(2, figsize=(25.5,13.25))
         fig.suptitle("AVG in the last 63 out of a 64 Inferences batch on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
@@ -153,11 +161,7 @@ for model in models:
     print("\n")
 
 
-for idx in range(1,4):
-    plt.figure(idx)
-    plt.clf()
-    plt.cla()
-    plt.close()
+for idx in range(1,4): clean_figure(idx)
 for part in range(3):
     fig = plt.figure(part+1, figsize=(25.5,13.25))
     for idx,dev in enumerate(devices):
@@ -196,6 +200,7 @@ for model in models:
         for array in infer_times[device][model]["first"]: new_list.extend(array.tolist())
         infer_times[device][model]["first"] = new_list
         if len(new_list)>0:
+            clean_figure(4)
             fig = plt.figure(4, figsize=(25.5,13.25))
             plt.hist(infer_times[device][model]["first"],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]["first"]),sum(infer_times[device][model]["first"])/len(infer_times[device][model]["first"]), \
@@ -226,6 +231,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
+        clean_figure(5)
         fig = plt.figure(5, figsize=(25.5,13.25))
         fig.suptitle("First Inference out of a 64 Inferences batch on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
@@ -264,11 +270,7 @@ for model in models:
     print("\n")
 
 
-for idx in range(4,7):
-    plt.figure(idx)
-    plt.clf()
-    plt.cla()
-    plt.close()
+for idx in range(4,7): clean_figure(idx)
 for part in range(3):
     fig = plt.figure(part+4, figsize=(25.5,13.25))
     for idx,dev in enumerate(devices):
@@ -307,6 +309,7 @@ for model in models:
         for first_arr,avg_arr in zip(infer_times[device][model]["first"],infer_times[device][model]["avg"]): 
             new_list.append(first_arr-avg_arr)
         if len(new_list)>0:
+            clean_figure(7)
             fig = plt.figure(7, figsize=(25.5,13.25))
             plt.hist(new_list,bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(new_list),sum(new_list)/len(new_list),np.percentile(new_list,50),max(new_list),np.std(new_list))
@@ -336,6 +339,7 @@ for model in models:
     plt.legend(devices)
     plt.title(model)
     if len(data)>0:
+        clean_figure(8)
         fig = plt.figure(8, figsize=(25.5,13.25))
         fig.suptitle("Differnce between First and AVG in a 64 Inference batch batch on")
         parts = plt.violinplot(data,showmeans=False,showextrema=False)
@@ -374,11 +378,7 @@ for model in models:
     print("\n")
 
 
-for idx in range(7,10):
-    plt.figure(idx)
-    plt.clf()
-    plt.cla()
-    plt.close()
+for idx in range(7,10): clean_figure(idx)
 for part in range(3):
     fig = plt.figure(part+7, figsize=(25.5,13.25))
     for idx,dev in enumerate(devices):
