@@ -2,8 +2,11 @@ from tkinter import SINGLE
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import use
 from glob import glob
 from sys import argv
+
+use('Agg')
 
 def adjacent_values(vals, q1, q3):
     upper_adjacent_value = q3 + (q3 - q1) * 1.5
