@@ -107,7 +107,7 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("Energy Consumption per Single Inference on")
+    fig.suptitle("                  Energy Consumption per Single Inference on")
     plt.ylabel('Frequency')
     plt.xlabel('Milliwatt/Hour')
     plt.legend(devices)
@@ -116,8 +116,8 @@ for model in models:
     if len(data)>0:
         clean_figure(2)
         fig = plt.figure(2,figsize=(25.5,13.25))
-        fig.suptitle("Energy Consumption per Single Inference on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False)
+        fig.suptitle("                  Energy Consumption per Single Inference on")
+        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -174,7 +174,7 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Milliwatt/Hour')
         #ax.set_xlabel('Models')
-    fig.suptitle('Energy Consumption per Single Inference on')
+    fig.suptitle('                  Energy Consumption per Single Inference on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()

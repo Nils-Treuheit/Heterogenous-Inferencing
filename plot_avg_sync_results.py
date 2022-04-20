@@ -121,7 +121,7 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("AVG in the last 63 out of a 64 Inferences batch on")
+    fig.suptitle("                  AVG in the last 63 out of a 64 Inferences batch on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
@@ -130,8 +130,8 @@ for model in models:
     if len(data)>0:
         clean_figure(2)
         fig = plt.figure(2, figsize=(25.5,13.25))
-        fig.suptitle("AVG in the last 63 out of a 64 Inferences batch on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False)
+        fig.suptitle("                  AVG in the last 63 out of a 64 Inferences batch on")
+        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -184,7 +184,7 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('AVG in the last 63 out of a 64 Inferences batch on')
+    fig.suptitle('                  AVG in the last 63 out of a 64 Inferences batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
@@ -233,7 +233,7 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("First Inference out of a 64 Inferences batch on")
+    fig.suptitle("                  First Inference out of a 64 Inferences batch on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
@@ -242,8 +242,8 @@ for model in models:
     if len(data)>0:
         clean_figure(5)
         fig = plt.figure(5, figsize=(25.5,13.25))
-        fig.suptitle("First Inference out of a 64 Inferences batch on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False)
+        fig.suptitle("                  First Inference out of a 64 Inferences batch on")
+        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -296,7 +296,7 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('First Inference out of a 64 Inferences batch on')
+    fig.suptitle('                  First Inference out of a 64 Inferences batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
@@ -344,7 +344,7 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("Differnce between First and AVG in a 64 Inference batch batch on")
+    fig.suptitle("                  Differnce between First and AVG in a 64 Inference batch batch on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
@@ -353,8 +353,8 @@ for model in models:
     if len(data)>0:
         clean_figure(8)
         fig = plt.figure(8, figsize=(25.5,13.25))
-        fig.suptitle("Differnce between First and AVG in a 64 Inference batch batch on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False)
+        fig.suptitle("                  Differnce between First and AVG in a 64 Inference batch batch on")
+        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -407,7 +407,7 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('Differnce between First and AVG in a 64 Inference batch batch on')
+    fig.suptitle('                  Differnce between First and AVG in a 64 Inference batch batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()
