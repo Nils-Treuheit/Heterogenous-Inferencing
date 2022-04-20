@@ -6,7 +6,7 @@ from matplotlib import use
 from glob import glob
 from sys import argv
 
-use('Agg')
+
 
 def adjacent_values(vals, q1, q3):
     upper_adjacent_value = q3 + (q3 - q1) * 1.5
@@ -22,13 +22,15 @@ def clean_figure(idx):
     plt.close()
 
 # Parameters to toggle activation of information output and plots
-PLOT_SINGLE = False
+PLOT_SINGLE = True
 PLOT_FINAL = False
 AUTO_RUN = True
 PRINT_STATS = True
 LOG_STATS = True
 SAVE_VIOLIN = True
 SAVE_STATS = True
+
+if AUTO_RUN: use('Agg')
 
 lf_name = "logs/sync_batch_infer_analysis.log"
 subplot_pos = [221,222,223,224]
@@ -124,6 +126,7 @@ for model in models:
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if len(data)>0:
         clean_figure(2)
         fig = plt.figure(2, figsize=(25.5,13.25))
@@ -153,6 +156,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -181,6 +185,7 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('AVG in the last 63 out of a 64 Inferences batch on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
@@ -233,6 +238,7 @@ for model in models:
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if len(data)>0:
         clean_figure(5)
         fig = plt.figure(5, figsize=(25.5,13.25))
@@ -262,6 +268,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_first_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -290,6 +297,7 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('First Inference out of a 64 Inferences batch on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
@@ -341,6 +349,7 @@ for model in models:
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if len(data)>0:
         clean_figure(8)
         fig = plt.figure(8, figsize=(25.5,13.25))
@@ -370,6 +379,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -398,5 +408,6 @@ for part in range(3):
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
     fig.suptitle('Differnce between First and AVG in a 64 Inference batch batch on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()

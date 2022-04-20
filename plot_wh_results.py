@@ -112,6 +112,7 @@ for model in models:
     plt.xlabel('Milliwatt/Hour')
     plt.legend(devices)
     plt.title(model)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if len(data)>0:
         clean_figure(2)
         fig = plt.figure(2,figsize=(25.5,13.25))
@@ -141,6 +142,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Milliwatt/Hour')
         plt.title(model)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/single_energy_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -173,6 +175,7 @@ for part in range(3):
         ax.set_ylabel('Milliwatt/Hour')
         #ax.set_xlabel('Models')
     fig.suptitle('Energy Consumption per Single Inference on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
     if SAVE_STATS: plt.savefig("plots/single_energy_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()
 
