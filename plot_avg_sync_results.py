@@ -1,4 +1,3 @@
-from tkinter import SINGLE
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -97,7 +96,7 @@ for model in models:
         infer_times[device][model]["avg"] = new_list
         if len(new_list)>0:
             clean_figure(1)
-            fig = plt.figure(1, figsize=(25.5,13.25))
+            fig = plt.figure(1,figsize=(12.5,9))
             plt.hist(infer_times[device][model]["avg"],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]["avg"]),sum(infer_times[device][model]["avg"])/len(infer_times[device][model]["avg"]), \
                 np.percentile(infer_times[device][model]["avg"],50),max(infer_times[device][model]["avg"]),np.std(infer_times[device][model]["avg"]))
@@ -121,17 +120,19 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("                  AVG in the last 63 out of a 64 Inferences batch on")
+    fig.suptitle("         AVG in the last 63 out of a 64 Inferences batch on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    partslist = []
     if len(data)>0:
         clean_figure(2)
-        fig = plt.figure(2, figsize=(25.5,13.25))
-        fig.suptitle("                  AVG in the last 63 out of a 64 Inferences batch on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
+        fig = plt.figure(2,figsize=(12.5,9))
+        fig.suptitle("         AVG in the last 63 out of a 64 Inferences batch on")
+        partslist.append(plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9))
+    for parts in partslist:
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -148,15 +149,15 @@ for model in models:
             for sorted_array, q1, q3 in zip(data, quartile1, quartile3)])
         whiskers_min, whiskers_max = whiskers[:, 0], whiskers[:, 1]
         inds = np.arange(1, len(medians) + 1)
-        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=3)
-        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=4)
-        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5)
-        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
+        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5, zorder=10)
+        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1, zorder=11)
+        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=12)
+        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -170,7 +171,7 @@ for model in models:
 
 for idx in range(1,4): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+1, figsize=(25.5,13.25))
+    fig = plt.figure(part+1,figsize=(12.5,9))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -184,8 +185,8 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('                  AVG in the last 63 out of a 64 Inferences batch on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    fig.suptitle('         AVG in the last 63 out of a 64 Inferences batch on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
@@ -209,7 +210,7 @@ for model in models:
         infer_times[device][model]["first"] = new_list
         if len(new_list)>0:
             clean_figure(4)
-            fig = plt.figure(4, figsize=(25.5,13.25))
+            fig = plt.figure(4,figsize=(12.5,9))
             plt.hist(infer_times[device][model]["first"],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]["first"]),sum(infer_times[device][model]["first"])/len(infer_times[device][model]["first"]), \
                 np.percentile(infer_times[device][model]["first"],50),max(infer_times[device][model]["first"]),np.std(infer_times[device][model]["first"]))
@@ -233,17 +234,19 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("                  First Inference out of a 64 Inferences batch on")
+    fig.suptitle("         First Inference out of a 64 Inferences batch on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    partslist = []
     if len(data)>0:
         clean_figure(5)
-        fig = plt.figure(5, figsize=(25.5,13.25))
-        fig.suptitle("                  First Inference out of a 64 Inferences batch on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
+        fig = plt.figure(5,figsize=(12.5,9))
+        fig.suptitle("         First Inference out of a 64 Inferences batch on")
+        partslist.append(plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9))
+    for parts in partslist:
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -260,15 +263,15 @@ for model in models:
             for sorted_array, q1, q3 in zip(data, quartile1, quartile3)])
         whiskers_min, whiskers_max = whiskers[:, 0], whiskers[:, 1]
         inds = np.arange(1, len(medians) + 1)
-        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=3)
-        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=4)
-        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5)
-        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
+        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5, zorder=10)
+        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1, zorder=11)
+        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=12)
+        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_first_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -282,7 +285,7 @@ for model in models:
 
 for idx in range(4,7): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+4, figsize=(25.5,13.25))
+    fig = plt.figure(part+4,figsize=(12.5,9))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -296,8 +299,8 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('                  First Inference out of a 64 Inferences batch on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    fig.suptitle('         First Inference out of a 64 Inferences batch on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
@@ -321,7 +324,7 @@ for model in models:
             new_list.append(first_arr-avg_arr)
         if len(new_list)>0:
             clean_figure(7)
-            fig = plt.figure(7, figsize=(25.5,13.25))
+            fig = plt.figure(7,figsize=(12.5,9))
             plt.hist(new_list,bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(new_list),sum(new_list)/len(new_list),np.percentile(new_list,50),max(new_list),np.std(new_list))
             if PRINT_STATS: 
@@ -344,17 +347,19 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("                  Differnce between First and AVG in a 64 Inference batch batch on")
+    fig.suptitle("         Differnce between First and AVG in a 64 Inference batch batch on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    partslist = []
     if len(data)>0:
         clean_figure(8)
-        fig = plt.figure(8, figsize=(25.5,13.25))
+        fig = plt.figure(8,figsize=(12.5,9))
         fig.suptitle("                  Differnce between First and AVG in a 64 Inference batch batch on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
+        partslist.append(plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9))
+    for parts in partslist:
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -371,15 +376,15 @@ for model in models:
             for sorted_array, q1, q3 in zip(data, quartile1, quartile3)])
         whiskers_min, whiskers_max = whiskers[:, 0], whiskers[:, 1]
         inds = np.arange(1, len(medians) + 1)
-        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=3)
-        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=4)
-        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5)
-        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
+        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5, zorder=10)
+        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1, zorder=11)
+        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=12)
+        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
@@ -393,7 +398,7 @@ for model in models:
 
 for idx in range(7,10): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+7, figsize=(25.5,13.25))
+    fig = plt.figure(part+7,figsize=(12.5,9))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -407,7 +412,7 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('                  Differnce between First and AVG in a 64 Inference batch batch on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    fig.suptitle('         Differnce between First and AVG in a 64 Inference batch batch on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
     if SAVE_STATS: plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()

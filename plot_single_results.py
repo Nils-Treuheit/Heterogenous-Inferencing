@@ -1,4 +1,3 @@
-from tkinter import SINGLE
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -82,7 +81,7 @@ for model in models:
         infer_times[device][model] = new_list
         if len(new_list)>0:
             clean_figure(1)
-            fig = plt.figure(1,figsize=(25.5,13.25))
+            fig = plt.figure(1,figsize=(12.5,9))
             plt.hist(infer_times[device][model],bins=16,edgecolor='None', alpha = 0.4)
             dev_stats = (min(infer_times[device][model]),sum(infer_times[device][model])/len(infer_times[device][model]), \
                 np.percentile(infer_times[device][model],50),max(infer_times[device][model]),np.std(infer_times[device][model]))
@@ -106,17 +105,19 @@ for model in models:
             stats.append(dev_stats)  
             plt.xlim(mini,maxi)
     statMap[model] = stats
-    fig.suptitle("                  Single Inference on")
+    fig.suptitle("         Single Inference on")
     plt.ylabel('Frequency')
     plt.xlabel('Runtime')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    partslist = []
     if len(data)>0:
         clean_figure(2)
-        fig = plt.figure(2,figsize=(25.5,13.25))
-        fig.suptitle("                  Single Inference on")
-        parts = plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9)
+        fig = plt.figure(2,figsize=(12.5,9))
+        fig.suptitle("         Single Inference on")
+        partslist.append(plt.violinplot(data,showmeans=False,showextrema=False,widths=0.9))
+    for parts in partslist:
         for pc in parts['bodies']:
             pc.set_facecolor('#D43F3A')
             pc.set_edgecolor('black')
@@ -133,15 +134,15 @@ for model in models:
             for sorted_array, q1, q3 in zip(data, quartile1, quartile3)])
         whiskers_min, whiskers_max = whiskers[:, 0], whiskers[:, 1]
         inds = np.arange(1, len(medians) + 1)
-        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=3)
-        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=4)
-        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5)
-        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1)
+        quart = plt.vlines(inds, quartile1, quartile3, color='k', linestyle='-', lw=5, zorder=10)
+        whisk = plt.vlines(inds, whiskers_min, whiskers_max, color='y', linestyle='-', lw=1, zorder=11)
+        medi = plt.scatter(inds, medians, marker='o', color='lime', s=35, zorder=12)
+        mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/single_runtime_"+model+".png")
         if LOG_STATS: 
             log_file.write("\n")
@@ -159,7 +160,7 @@ statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
 fname = ['single-op','dense','conv']
 for part in range(3):
-    fig = plt.figure(part+1, figsize=(25.5,13.25))
+    fig = plt.figure(part+1, figsize=(12.5,9))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -173,8 +174,8 @@ for part in range(3):
         ax.set_xticks(x,ticks)
         ax.set_ylabel('Runtime')
         #ax.set_xlabel('Models')
-    fig.suptitle('                  Single Inference on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.95,right=0.98)
+    fig.suptitle('         Single Inference on')
+    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
     if SAVE_STATS: plt.savefig("plots/single_runtime_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()
 
