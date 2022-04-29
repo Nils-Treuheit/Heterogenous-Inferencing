@@ -78,7 +78,7 @@ for model in models:
     if PRINT_STATS: print(model+':')
     for device in devices:
         new_list = list()
-        for array in wh[device][model]: new_list.extend((array/2048).tolist())
+        for array in wh[device][model]: new_list.extend((array/8192).tolist())
         wh[device][model] = new_list
         if len(new_list)>0:
             clean_figure(1)

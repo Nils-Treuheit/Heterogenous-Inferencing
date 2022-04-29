@@ -21,7 +21,7 @@ def clean_figure(idx):
     plt.close()
 
 # Parameters to toggle activation of information output and plots
-PLOT_SINGLE = True
+PLOT_SINGLE = False
 PLOT_FINAL = False
 AUTO_RUN = True
 PRINT_STATS = True
@@ -122,7 +122,7 @@ for model in models:
     statMap[model] = stats
     fig.suptitle("         AVG in the last 63 out of a 64 Inferences batch on")
     plt.ylabel('Frequency')
-    plt.xlabel('Runtime')
+    plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
@@ -155,7 +155,7 @@ for model in models:
         mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
-        plt.ylabel('Runtime')
+        plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
@@ -183,7 +183,7 @@ for part in range(3):
         ax.set_title(dev)
         ax.legend()
         ax.set_xticks(x,ticks)
-        ax.set_ylabel('Runtime')
+        ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         AVG in the last 63 out of a 64 Inferences batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
@@ -236,7 +236,7 @@ for model in models:
     statMap[model] = stats
     fig.suptitle("         First Inference out of a 64 Inferences batch on")
     plt.ylabel('Frequency')
-    plt.xlabel('Runtime')
+    plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
@@ -269,7 +269,7 @@ for model in models:
         mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
-        plt.ylabel('Runtime')
+        plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_first_"+model+".png")
@@ -297,7 +297,7 @@ for part in range(3):
         ax.set_title(dev)
         ax.legend()
         ax.set_xticks(x,ticks)
-        ax.set_ylabel('Runtime')
+        ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         First Inference out of a 64 Inferences batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
@@ -349,7 +349,7 @@ for model in models:
     statMap[model] = stats
     fig.suptitle("         Differnce between First and AVG in a 64 Inference batch batch on")
     plt.ylabel('Frequency')
-    plt.xlabel('Runtime')
+    plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
@@ -382,7 +382,7 @@ for model in models:
         mean = plt.scatter(inds, means, marker='o', color='cyan', s=25, zorder=13)
         plt.xticks([*range(1,len(devices)+1)],devices)
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
-        plt.ylabel('Runtime')
+        plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
         if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
@@ -410,7 +410,7 @@ for part in range(3):
         ax.set_title(dev)
         ax.legend()
         ax.set_xticks(x,ticks)
-        ax.set_ylabel('Runtime')
+        ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         Differnce between First and AVG in a 64 Inference batch batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
