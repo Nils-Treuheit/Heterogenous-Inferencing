@@ -143,7 +143,9 @@ for model in models:
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-        if SAVE_VIOLIN: plt.savefig("violin_plots/single_runtime_"+model+".png")
+        if SAVE_VIOLIN: 
+            plt.savefig("violin_plots/single_runtime_"+model+".pdf")
+            plt.savefig("violin_plots/single_runtime_"+model+".png")
         if LOG_STATS: 
             log_file.write("\n")
             log_file.close()
@@ -176,7 +178,9 @@ for part in range(3):
         #ax.set_xlabel('Models')
     fig.suptitle('         Single Inference on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-    if SAVE_STATS: plt.savefig("plots/single_runtime_"+fname[part]+"_stats.png")
+    if SAVE_STATS: 
+        plt.savefig("plots/single_runtime_"+fname[part]+"_stats.pdf")
+        plt.savefig("plots/single_runtime_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()
 
 

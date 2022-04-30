@@ -158,7 +158,9 @@ for model in models:
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-        if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
+        if SAVE_VIOLIN: 
+            plt.savefig("violin_plots/sync_batch_avg_"+model+".pdf")
+            plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
             log_file.close()
@@ -187,7 +189,9 @@ for part in range(3):
         #ax.set_xlabel('Models')
     fig.suptitle('         AVG in the last 63 out of a 64 Inferences batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-    if SAVE_STATS: plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
+    if SAVE_STATS: 
+        plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.pdf")
+        plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
 if LOG_STATS:
@@ -272,7 +276,9 @@ for model in models:
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-        if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_first_"+model+".png")
+        if SAVE_VIOLIN: 
+            plt.savefig("violin_plots/sync_batch_first_"+model+".pdf")
+            plt.savefig("violin_plots/sync_batch_first_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
             log_file.close()
@@ -301,7 +307,9 @@ for part in range(3):
         #ax.set_xlabel('Models')
     fig.suptitle('         First Inference out of a 64 Inferences batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-    if SAVE_STATS: plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
+    if SAVE_STATS: 
+        plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.pdf")
+        plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
 if PLOT_SINGLE: plt.show()
 
 if LOG_STATS:
@@ -385,7 +393,9 @@ for model in models:
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
         plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-        if SAVE_VIOLIN: plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
+        if SAVE_VIOLIN: 
+            plt.savefig("violin_plots/sync_batch_diff_"+model+".pdf")
+            plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
         if LOG_STATS:
             log_file.write("\n")
             log_file.close()
@@ -414,5 +424,7 @@ for part in range(3):
         #ax.set_xlabel('Models')
     fig.suptitle('         Differnce between First and AVG in a 64 Inference batch batch on')
     plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
-    if SAVE_STATS: plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
+    if SAVE_STATS: 
+        plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.pdf")
+        plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")
 if PLOT_FINAL: plt.show()
