@@ -125,7 +125,7 @@ for model in models:
     plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.09,bottom=0.06,top=0.92,right=0.96)
     partslist = []
     if len(data)>0:
         clean_figure(2)
@@ -157,7 +157,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+        plt.subplots_adjust(left=0.09,bottom=0.06,top=0.92,right=0.96)
         if SAVE_VIOLIN: 
             plt.savefig("violin_plots/sync_batch_avg_"+model+".pdf")
             plt.savefig("violin_plots/sync_batch_avg_"+model+".png")
@@ -173,7 +173,7 @@ for model in models:
 
 for idx in range(1,4): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+1,figsize=(12.5,9))
+    fig = plt.figure(part+1, figsize=(21.5,14))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -188,7 +188,7 @@ for part in range(3):
         ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         AVG in the last 63 out of a 64 Inferences batch on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.05,bottom=0.07,top=0.93,right=0.97)
     if SAVE_STATS: 
         plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.pdf")
         plt.savefig("plots/sync_batch_avg_"+fname[part]+"_stats.png")
@@ -243,7 +243,7 @@ for model in models:
     plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.09,bottom=0.06,top=0.92,right=0.96)
     partslist = []
     if len(data)>0:
         clean_figure(5)
@@ -275,7 +275,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+        plt.subplots_adjust(left=0.09,bottom=0.06,top=0.92,right=0.96)
         if SAVE_VIOLIN: 
             plt.savefig("violin_plots/sync_batch_first_"+model+".pdf")
             plt.savefig("violin_plots/sync_batch_first_"+model+".png")
@@ -291,7 +291,7 @@ for model in models:
 
 for idx in range(4,7): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+4,figsize=(12.5,9))
+    fig = plt.figure(part+1, figsize=(21.5,14))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -306,7 +306,7 @@ for part in range(3):
         ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         First Inference out of a 64 Inferences batch on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.05,bottom=0.07,top=0.93,right=0.97)
     if SAVE_STATS: 
         plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.pdf")
         plt.savefig("plots/sync_batch_first_"+fname[part]+"_stats.png")
@@ -360,7 +360,7 @@ for model in models:
     plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.10,bottom=0.06,top=0.92,right=0.96)
     partslist = []
     if len(data)>0:
         clean_figure(8)
@@ -392,7 +392,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+        plt.subplots_adjust(left=0.10,bottom=0.06,top=0.92,right=0.96)
         if SAVE_VIOLIN: 
             plt.savefig("violin_plots/sync_batch_diff_"+model+".pdf")
             plt.savefig("violin_plots/sync_batch_diff_"+model+".png")
@@ -408,7 +408,7 @@ for model in models:
 
 for idx in range(7,10): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+7,figsize=(12.5,9))
+    fig = plt.figure(part+1, figsize=(21.5,14))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -423,7 +423,7 @@ for part in range(3):
         ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         Differnce between First and AVG in a 64 Inference batch batch on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.05,bottom=0.07,top=0.93,right=0.97)
     if SAVE_STATS: 
         plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.pdf")
         plt.savefig("plots/sync_batch_diff_"+fname[part]+"_stats.png")

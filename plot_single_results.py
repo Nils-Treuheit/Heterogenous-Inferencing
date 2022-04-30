@@ -110,7 +110,7 @@ for model in models:
     plt.xlabel('Runtime in Seconds')
     plt.legend(devices)
     plt.title(model)
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.08,bottom=0.06,top=0.92,right=0.96)
     partslist = []
     if len(data)>0:
         clean_figure(2)
@@ -142,7 +142,7 @@ for model in models:
         plt.legend(handles=[mean,medi,quart,whisk],labels=['mean','median','quartile','whiskers'])
         plt.ylabel('Runtime in Seconds')
         plt.title(model)
-        plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+        plt.subplots_adjust(left=0.08,bottom=0.06,top=0.92,right=0.96)
         if SAVE_VIOLIN: 
             plt.savefig("violin_plots/single_runtime_"+model+".pdf")
             plt.savefig("violin_plots/single_runtime_"+model+".png")
@@ -162,7 +162,7 @@ statEnum = ['min','mean','median','max','std']
 partList = [(0,15),(15,21),(21,-1)]
 fname = ['single-op','dense','conv']
 for part in range(3):
-    fig = plt.figure(part+1, figsize=(12.5,9))
+    fig = plt.figure(part+1, figsize=(21.5,14))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -177,7 +177,7 @@ for part in range(3):
         ax.set_ylabel('Runtime in Seconds')
         #ax.set_xlabel('Models')
     fig.suptitle('         Single Inference on')
-    plt.subplots_adjust(left=0.06,bottom=0.06,top=0.92,right=0.98)
+    plt.subplots_adjust(left=0.05,bottom=0.07,top=0.93,right=0.97)
     if SAVE_STATS: 
         plt.savefig("plots/single_runtime_"+fname[part]+"_stats.pdf")
         plt.savefig("plots/single_runtime_"+fname[part]+"_stats.png")
