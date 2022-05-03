@@ -53,6 +53,7 @@ def scan_single_infer():
         elif idx%26==21:
             runtimes[layer_conf][model]["TPU"] = \
                 float(line.split(":")[-1].strip())
+    f.close()
     return runtimes
 
 def single_infer_res():
@@ -122,6 +123,7 @@ def scan_batch_infer():
         elif lid%26==21:
             runtimes[key][layer_conf][model]["TPU"] = \
                 float(line.split(":")[-1].strip())
+    f.close()
     return runtimes
 
 def batch_infer_res():
@@ -201,7 +203,73 @@ def batch_infer_res():
         results.write("\n")
     results.close()
 
+def scan_async_infer():
+    f = open(log_folder+"async_batch_infer_analysis.log","r")
+    lines = f.readlines()
+    runtimes = {1:{},3:{},8:{}}
+    layer_conf = 0
+    model = ""
+    for idx, line in enumerate(lines):
+        if idx%20==0: 
+            model = line.split(":")[0].strip()
+            if "stacked" not in model: layer_conf = 1
+            elif "stacked3" in model: layer_conf = 3
+            else: layer_conf = 8
+            runtimes[layer_conf][model] = dict() 
+        elif idx%20==3: 
+            runtimes[layer_conf][model]["CPU"] = \
+                float(line.split(":")[-1].strip())
+        elif idx%20==9: 
+            runtimes[layer_conf][model]["GPU"] = \
+                float(line.split(":")[-1].strip())
+        elif idx%20==15: 
+            runtimes[layer_conf][model]["MYRIAD"] = \
+                float(line.split(":")[-1].strip())
+    f.close()
+    return runtimes
+
+def async_infer_res():
+    runtimes = scan_async_infer()
+    devices = ["CPU","GPU","MYRIAD"]
+    models = [key.split("_stacked")[0] for key in runtimes[8].keys()]
+    incomplete_models = [key for key in runtimes[1].keys() if key not in models]
+    results = open(result_folder+"async_batch_infer_res.txt","w")
+
+    for model in models:
+        results.write(model+":\n")
+        for device in devices:
+            vals = [runtimes[1][model][device],
+                    runtimes[3][model+"_stacked3"][device],
+                    runtimes[8][model+"_stacked8"][device]]
+            lat = latency_advanced(*vals)
+            fps = throughput_advanced(*vals,lat)
+            fps1,fps3,fps8 = (1/vals[0], 1/vals[1], 1/vals[2])
+            results.write(" -> "+device+"\n")
+            results.write("\tlatency: "+str(lat)+" sec\n")
+            results.write("\tthroughput: "+str(fps)+" fps\n")
+            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(fps8)+" fps\n")
+        results.write("\n")
+
+    for model in incomplete_models:
+        results.write(model+":\n")
+        for device in devices:
+            vals = [runtimes[1][model][device],
+                    runtimes[3][model+"_stacked3"][device]]
+            lat = latency_simple(*vals)
+            fps = throughput_simple(*vals,lat)
+            fps1,fps3 = (1/vals[0], 1/vals[1])
+            results.write(" -> "+device+"\n")
+            results.write("\tlatency: "+str(lat)+" sec\n")
+            results.write("\tthroughput: "+str(fps)+" fps\n")
+            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
+        results.write("\n")
+    results.close()
+
 
 # main
 single_infer_res()
 batch_infer_res()
+async_infer_res()
