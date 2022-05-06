@@ -128,3 +128,128 @@ iterations: 64
 iterations_single: 64
 global_iterations: 32
 
+avg_GPU_openvino_sync_2022-04-15_18-31
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_CPU_openvino_sync_2022-04-15_18-45
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_MYRIAD_openvino_sync_2022-04-15_21-15
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+energy-times_TPU_coral_sync_2022-04-15_21-39
+iterations: 8192
+iterations_single: 8192
+global_iterations: 1
+
+energy-times_TPU_coral_sync_2022-04-15_21-39
+iterations: 8192
+iterations_single: 8192
+global_iterations: 1
+
+energy-times_TPU_coral_sync_2022-04-15_21-41
+iterations: 32768
+iterations_single: 32768
+global_iterations: 1
+
+energy-times_TPU_coral_sync_2022-04-15_21-44
+iterations: 65536
+iterations_single: 65536
+global_iterations: 1
+
+energy-times_TPU_coral_sync_2022-04-16_3-44
+iterations: 65536
+iterations_single: 65536
+global_iterations: 8
+
+energy-times_TPU_coral_sync_2022-04-16_14-25
+iterations: 65536
+iterations_single: 65536
+global_iterations: 1
+
+energy-times_MYRIAD_openvino_sync_2022-04-16_20-23
+iterations: 65536
+iterations_single: 65536
+global_iterations: 8
+
+energy-times_TPU_coral_sync_2022-04-17_20-13
+iterations: 65536
+iterations_single: 65536
+global_iterations: 2
+
+energy-times_TPU_coral_sync_2022-04-18_11-51
+iterations: 8192
+iterations_single: 8192
+global_iterations: 8
+
+energy-times_MYRIAD_openvino_sync_2022-04-20_8-35
+iterations: 8192
+iterations_single: 8192
+global_iterations: 8
+
+energy-times_MYRIAD_openvino_sync_2022-04-20_19-12
+iterations: 8192
+iterations_single: 8192
+global_iterations: 1
+
+avg_GPU_openvino_sync_2022-04-25_13-43
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_CPU_openvino_sync_2022-04-25_13-56
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+avg_MYRIAD_openvino_sync_2022-04-25_16-27
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_GPU_openvino_sync_2022-04-25_17-5
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_CPU_openvino_sync_2022-04-25_17-18
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+single_MYRIAD_openvino_sync_2022-04-25_19-49
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+wh_MYRIAD_openvino_sync_2022-05-06_23-7
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+wh_MYRIAD_openvino_sync_2022-05-06_23-16
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+wh_TPU_coral_sync_2022-05-06_23-19
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+wh_TPU_coral_sync_2022-05-06_23-24
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+
+wh_TPU_coral_sync_2022-05-06_23-28
+iterations: 64
+iterations_single: 64
+global_iterations: 32
+

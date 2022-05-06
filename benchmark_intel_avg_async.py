@@ -1,5 +1,5 @@
 import gc
-from openvino.inference_engine import IECore
+from openvino.inference_engine import IECore,ExecutableNetwork
 import numpy as np
 import time
 import common_benchmark_definitions as common
@@ -21,7 +21,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU"
 
     for l in range(global_iterations):
         for i in range(len(nets_to_run)):
-            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
+            loaded_net:ExecutableNetwork=common.startOpenvinoNet(nets_to_run[i],infCore,target,0)
             #network_input="input_1"
             network_input=next(iter(loaded_net.input_info))
 
@@ -31,24 +31,37 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU"
 
             #res2=[]
             
-            res=[]
+            
             data=common.getOpenvinoExampelData(data_format)
+            max_requests=len(loaded_net.requests)
+            print(max_requests)
+            blocks=iterations//max_requests +1
             #measure time start 
             start=time.perf_counter()
-            for j in range(iterations):
-                r=loaded_net.start_async(request_id=j,inputs={network_input:data[j]})
-                res.append(r)
-            #loaded_net.wait() #entweder das oder die for-Schleife:
-            for x in res:
-                x.wait()
+            for j in range(blocks):
+                res=[]
+                #for k in range(max_requests):
+                #    position=j*max_requests+k
+                #    if position>=iterations:
+                #        break
+                #    
+                for k in range(max_requests):
+                    position=j*max_requests+k
+                    if position>=iterations:
+                        break
+                    r=loaded_net.start_async(request_id=k,inputs={network_input:data[position]})
+                    res.append(r)
+                for x in res:
+                    x.wait()
             #measure time end
             end=time.perf_counter()
             single_measurement=(end - start)/iterations
+            print(single_measurement)
             measurements[nets_to_run[i]].append(single_measurement)
             data=None
             gc.collect()
             print(nets_to_run[i])
 
  
-    common.writeResults(target,measurements,"avg","openvino","async")
+    #common.writeResults(target,measurements,"avg","openvino","async")
 

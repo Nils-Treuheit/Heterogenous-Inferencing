@@ -1,5 +1,7 @@
 import gc
 from datetime import datetime
+
+import numpy as np
 from openvino.inference_engine import IECore
 import os.path
 from os import system
@@ -26,7 +28,7 @@ for name in nets_to_run:
 for l in range(global_iterations):
     print(l)
     for i in range(len(nets_to_run)):
-        loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
+        loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target,1)
         #network_input="input_1"
         network_input=next(iter(loaded_net.input_info))
         data_format=[iterations]

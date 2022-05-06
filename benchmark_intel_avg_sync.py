@@ -29,7 +29,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",
     for l in range(global_iterations):
         print(l)
         for i in range(len(nets_to_run)):
-            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
+            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target,1)
             #network_input="input_1"
             network_input=next(iter(loaded_net.input_info))
 
@@ -48,9 +48,9 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",
             start=time.perf_counter()
             for j in range(1,iterations):
                 loaded_net.infer({network_input:data[j]})
-                # get the request, measure time https://github.com/openvinotoolkit/openvino/blob/master/tools/benchmark_tool/openvino/tools/benchmark/benchmark.py
-            #measure time end
             end=time.perf_counter()
+            # get the request, measure time https://github.com/openvinotoolkit/openvino/blob/master/tools/benchmark_tool/openvino/tools/benchmark/benchmark.py
+            #measure time end
             data=None
             gc.collect()
             measurements["avgTail("+nets_to_run[i]+")"].append((end-start)/(iterations-1))

@@ -79,7 +79,7 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",,"CPU","MYRIAD"
         print(l)
         for i in range(len(nets_to_run)):
 
-            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target)
+            loaded_net=common.startOpenvinoNet(nets_to_run[i],infCore,target,1)
             #network_input="input_1"
             network_input=next(iter(loaded_net.input_info))
 
@@ -99,12 +99,6 @@ for target in ["GPU","CPU","MYRIAD"]:#"GPU","CPU",,"CPU","MYRIAD"
                 
                 measured_time=end-start
                 measurements[nets_to_run[i]].append(measured_time)
-                #if measured_time<min:
-                #    min=measured_time
-                #if measured_time>max:
-                #    max=measured_time
-                #
-                #list_measurements.append(measured_time)
                 
             
             #measurements2["min("+nets_to_run[i]+")"].append(min)
