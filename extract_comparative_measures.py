@@ -1,28 +1,36 @@
 import pandas as pd
 import numpy as np
 from glob import glob
+import math
 
 
 def latency_advanced(one_run, three_run, eight_run):
-    lat2 = one_run * 3 - three_run
-    lat8 = one_run * 8 - eight_run
-    lat2 = lat8 - lat2 * 3
-    return lat2/2
+    lat23 = one_run - (three_run/3)
+    lat78 = one_run - (eight_run/8)  
+    lat_merge1 = ((lat78 * (8/14)) + (lat23 * (3/4)))
+    lat2 = (one_run*3) - three_run
+    lat7 = (one_run*8) - eight_run  
+    lat_merge2 = lat7 - (lat2 * 3)
+    return (lat_merge1+lat_merge2)/2
 
 def throughput_advanced(one_run, three_run, eight_run, lat):
-    fps1 = 1/(one_run - lat)
-    fps3 = 1/((three_run - lat)/3)
-    fps8 = 1/((eight_run - lat)/8)
-    return (fps1+fps3+fps8)/3
+    fps = 1/((one_run*8+(three_run-lat)/3+(eight_run-lat)/8+2*lat)/10)
+    if lat > one_run: return (math.inf, fps)
+    if lat < 0: return (None, fps)
+    tfps = 1/(((one_run-lat)*8+(three_run-lat)/3+(eight_run-lat)/8)/10)
+    return (tfps, fps)
 
 def latency_simple(one_run, three_run):
-    lat2 = one_run * 3 - three_run
-    return lat2/2
+    lat_v1 = ((one_run * 3) - three_run)/2
+    lat_v2 = (one_run - (three_run/3))*(3/2)
+    return (lat_v1+lat_v2)/2
 
 def throughput_simple(one_run, three_run, lat):
-    fps1 = 1/(one_run - lat)
-    fps3 = 1/((three_run - lat)/3)
-    return (fps1+fps3)/2
+    fps = 1/((one_run*4+(three_run-lat)/3+lat)/5)
+    if lat > one_run: return (math.inf, fps)
+    if lat < 0: return (None, fps)
+    tfps = 1/(((one_run-lat)*4+(three_run-lat)/3)/5)
+    return (tfps, fps)
 
 
 log_folder = "./logs/"
@@ -31,15 +39,15 @@ result_folder = "./res/"
 def scan_single_infer():
     f = open(log_folder+"single_infer_analysis.log","r")
     lines = f.readlines()
-    runtimes = {1:{},3:{},8:{}}
+    runtimes = {"1":{},"3":{},"8":{}}
     layer_conf = 0
     model = ""
     for idx, line in enumerate(lines):
         if idx%26==0: 
             model = line.split(":")[0].strip()
-            if "stacked" not in model: layer_conf = 1
-            elif "stacked3" in model: layer_conf = 3
-            else: layer_conf = 8
+            if "stacked" not in model: layer_conf = "1"
+            elif "stacked3" in model: layer_conf = "3"
+            else: layer_conf = "8"
             runtimes[layer_conf][model] = dict() 
         elif idx%26==3: 
             runtimes[layer_conf][model]["CPU"] = \
@@ -59,47 +67,50 @@ def scan_single_infer():
 def single_infer_res():
     runtimes = scan_single_infer()
     devices = ["CPU","GPU","MYRIAD","TPU"]
-    models = [key.split("_stacked")[0] for key in runtimes[8].keys()]
-    incomplete_models = [key for key in runtimes[1].keys() if key not in models]
+    models = [key.split("_stacked")[0] for key in runtimes["8"].keys()]
+    incomplete_models = [key for key in runtimes["1"].keys() if key not in models]
     results = open(result_folder+"single_infer_res.txt","w")
 
     for model in models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes[1][model][device],
-                    runtimes[3][model+"_stacked3"][device],
-                    runtimes[8][model+"_stacked8"][device]]
+            vals = [runtimes["1"][model][device],
+                    runtimes["3"][model+"_stacked3"][device],
+                    runtimes["8"][model+"_stacked8"][device]]
             lat = latency_advanced(*vals)
-            fps = throughput_advanced(*vals,lat)
+            tfps,fps = throughput_advanced(*vals,lat)
             fps1,fps3,fps8 = (1/vals[0], 1/vals[1], 1/vals[2])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
-            results.write("\traw_eightLayer_throughput:  "+str(fps8)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
 
     for model in incomplete_models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes[1][model][device],
-                    runtimes[3][model+"_stacked3"][device]]
+            vals = [runtimes["1"][model][device],
+                    runtimes["3"][model+"_stacked3"][device]]
             lat = latency_simple(*vals)
-            fps = throughput_simple(*vals,lat)
+            tfps,fps =  throughput_simple(*vals,lat)
             fps1,fps3 = (1/vals[0], 1/vals[1])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
     results.close()        
         
 def scan_batch_infer():
     f = open(log_folder+"sync_batch_infer_analysis.log","r")
     lines = f.readlines()
-    runtimes = {"first":{1:{},3:{},8:{}},"batch":{1:{},3:{},8:{}}}
+    runtimes = {"first":{"1":{},"3":{},"8":{}},"batch":{"1":{},"3":{},"8":{}}}
     layer_conf,model = (0,"")
     key = "batch"
     for idx, line in enumerate(lines):
@@ -107,9 +118,9 @@ def scan_batch_infer():
         if idx>1071: key = "first"
         if lid%26==0:
             model = line.split(":")[0].strip()
-            if "stacked" not in model: layer_conf = 1
-            elif "stacked3" in model: layer_conf = 3
-            else: layer_conf = 8
+            if "stacked" not in model: layer_conf = "1"
+            elif "stacked3" in model: layer_conf = "3"
+            else: layer_conf = "8"
             runtimes[key][layer_conf][model] = dict()
         elif lid%26==3: 
             runtimes[key][layer_conf][model]["CPU"] = \
@@ -129,92 +140,98 @@ def scan_batch_infer():
 def batch_infer_res():
     runtimes = scan_batch_infer()
     devices = ["CPU","GPU","MYRIAD","TPU"]
-    models = [key.split("_stacked")[0] for key in runtimes["batch"][8].keys()]
-    incomplete_models = [key for key in runtimes["batch"][1].keys() if key not in models]
+    models = [key.split("_stacked")[0] for key in runtimes["batch"]["8"].keys()]
+    incomplete_models = [key for key in runtimes["batch"]["1"].keys() if key not in models]
     results = open(result_folder+"batch_infer_res.txt","w")
 
     for model in models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes["batch"][1][model][device],
-                    runtimes["batch"][3][model+"_stacked3"][device],
-                    runtimes["batch"][8][model+"_stacked8"][device]]
+            vals = [runtimes["batch"]["1"][model][device],
+                    runtimes["batch"]["3"][model+"_stacked3"][device],
+                    runtimes["batch"]["8"][model+"_stacked8"][device]]
             lat = latency_advanced(*vals)
-            fps = throughput_advanced(*vals,lat)
+            tfps,fps = throughput_advanced(*vals,lat)
             fps1,fps3,fps8 = (1/vals[0], 1/vals[1], 1/vals[2])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
-            results.write("\traw_eightLayer_throughput:  "+str(fps8)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
 
     for model in incomplete_models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes["batch"][1][model][device],
-                    runtimes["batch"][3][model+"_stacked3"][device]]
+            vals = [runtimes["batch"]["1"][model][device],
+                    runtimes["batch"]["3"][model+"_stacked3"][device]]
             lat = latency_simple(*vals)
-            fps = throughput_simple(*vals,lat)
+            tfps,fps = throughput_simple(*vals,lat)
             fps1,fps3 = (1/vals[0], 1/vals[1])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
     results.close()
 
-    models = [key.split("_stacked")[0] for key in runtimes["batch"][8].keys()]
-    incomplete_models = [key for key in runtimes["batch"][1].keys() if key not in models]
+    models = [key.split("_stacked")[0] for key in runtimes["batch"]["8"].keys()]
+    incomplete_models = [key for key in runtimes["batch"]["1"].keys() if key not in models]
     results = open(result_folder+"first_batch_infer_res.txt","w")
 
     for model in models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes["first"][1][model][device],
-                    runtimes["first"][3][model+"_stacked3"][device],
-                    runtimes["first"][8][model+"_stacked8"][device]]
+            vals = [runtimes["first"]["1"][model][device],
+                    runtimes["first"]["3"][model+"_stacked3"][device],
+                    runtimes["first"]["8"][model+"_stacked8"][device]]
             lat = latency_advanced(*vals)
-            fps = throughput_advanced(*vals,lat)
+            tfps,fps = throughput_advanced(*vals,lat)
             fps1,fps3,fps8 = (1/vals[0], 1/vals[1], 1/vals[2])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
-            results.write("\traw_eightLayer_throughput:  "+str(fps8)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
 
     for model in incomplete_models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes["first"][1][model][device],
-                    runtimes["first"][3][model+"_stacked3"][device]]
+            vals = [runtimes["first"]["1"][model][device],
+                    runtimes["first"]["3"][model+"_stacked3"][device]]
             lat = latency_simple(*vals)
-            fps = throughput_simple(*vals,lat)
+            tfps,fps = throughput_simple(*vals,lat)
             fps1,fps3 = (1/vals[0], 1/vals[1])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
     results.close()
 
 def scan_async_infer():
     f = open(log_folder+"async_batch_infer_analysis.log","r")
     lines = f.readlines()
-    runtimes = {1:{},3:{},8:{}}
+    runtimes = {"1":{},"3":{},"8":{}}
     layer_conf = 0
     model = ""
     for idx, line in enumerate(lines):
         if idx%20==0: 
             model = line.split(":")[0].strip()
-            if "stacked" not in model: layer_conf = 1
-            elif "stacked3" in model: layer_conf = 3
-            else: layer_conf = 8
+            if "stacked" not in model: layer_conf = "1"
+            elif "stacked3" in model: layer_conf = "3"
+            else: layer_conf = "8"
             runtimes[layer_conf][model] = dict() 
         elif idx%20==3: 
             runtimes[layer_conf][model]["CPU"] = \
@@ -231,40 +248,43 @@ def scan_async_infer():
 def async_infer_res():
     runtimes = scan_async_infer()
     devices = ["CPU","GPU","MYRIAD"]
-    models = [key.split("_stacked")[0] for key in runtimes[8].keys()]
-    incomplete_models = [key for key in runtimes[1].keys() if key not in models]
+    models = [key.split("_stacked")[0] for key in runtimes["8"].keys()]
+    incomplete_models = [key for key in runtimes["1"].keys() if key not in models]
     results = open(result_folder+"async_batch_infer_res.txt","w")
 
     for model in models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes[1][model][device],
-                    runtimes[3][model+"_stacked3"][device],
-                    runtimes[8][model+"_stacked8"][device]]
+            vals = [runtimes["1"][model][device],
+                    runtimes["3"][model+"_stacked3"][device],
+                    runtimes["8"][model+"_stacked8"][device]]
             lat = latency_advanced(*vals)
-            fps = throughput_advanced(*vals,lat)
+            tfps,fps = throughput_advanced(*vals,lat)
             fps1,fps3,fps8 = (1/vals[0], 1/vals[1], 1/vals[2])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
-            results.write("\traw_eightLayer_throughput:  "+str(fps8)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
 
     for model in incomplete_models:
         results.write(model+":\n")
         for device in devices:
-            vals = [runtimes[1][model][device],
-                    runtimes[3][model+"_stacked3"][device]]
+            vals = [runtimes["1"][model][device],
+                    runtimes["3"][model+"_stacked3"][device]]
             lat = latency_simple(*vals)
-            fps = throughput_simple(*vals,lat)
+            tfps,fps = throughput_simple(*vals,lat)
             fps1,fps3 = (1/vals[0], 1/vals[1])
             results.write(" -> "+device+"\n")
-            results.write("\tlatency: "+str(lat)+" sec\n")
-            results.write("\tthroughput: "+str(fps)+" fps\n")
-            results.write("\traw_singleLayer_throughput: "+str(fps1)+" fps\n")
-            results.write("\traw_threeLayer_throughput:  "+str(fps3)+" fps\n")
+            results.write("\tlatency: "+("no estimate possible" if lat<0 else ("{0:.12f} sec".format(round(lat,12)) if lat<vals[0] else "to close to runtime({0:.12f} sec)".format(round(vals[0],12))))+"\n")
+            results.write("\tthroughput: {0:d} fps\n".format(round(fps)))
+            results.write("\traw_singleLayer_throughput: "+str(round(fps1))+" fps\n")
+            results.write("\traw_threeLayer_throughput:  "+str(round(fps3))+" fps\n")
+            results.write("\traw_eightLayer_throughput:  "+str(round(fps8))+" fps\n")
+            results.write("\ttheoratical latency-free single-op throughput: "+("no estimate possible" if tfps==None else ("enormous" if tfps==math.inf else str(round(tfps))+" fps"))+"\n")
         results.write("\n")
     results.close()
 
