@@ -1,27 +1,27 @@
 relu_act:
  -> CPU
-	latency: 0.000053215337 sec
+	latency: 53.215337 탎ec
 	throughput: 18587 fps
 	raw_singleLayer_throughput: 18542 fps
 	raw_threeLayer_throughput:  18738 fps
 	raw_eightLayer_throughput:  18581 fps
 	theoratical latency-free single-op throughput: 1706724 fps
  -> GPU
-	latency: to close to runtime(0.000181191444 sec)
+	latency: to close to runtime(181.191444 탎ec)
 	throughput: 5483 fps
 	raw_singleLayer_throughput: 5519 fps
 	raw_threeLayer_throughput:  5280 fps
 	raw_eightLayer_throughput:  5187 fps
 	theoratical latency-free single-op throughput: enormous
  -> MYRIAD
-	latency: 0.001767890458 sec
+	latency: 1767.890458 탎ec
 	throughput: 533 fps
 	raw_singleLayer_throughput: 528 fps
 	raw_threeLayer_throughput:  545 fps
 	raw_eightLayer_throughput:  506 fps
 	theoratical latency-free single-op throughput: 9370 fps
  -> TPU
-	latency: 0.000100512488 sec
+	latency: 100.512488 탎ec
 	throughput: 9183 fps
 	raw_singleLayer_throughput: 9051 fps
 	raw_threeLayer_throughput:  9423 fps
@@ -30,28 +30,28 @@ relu_act:
 
 leaky_relu_act:
  -> CPU
-	latency: 0.000053141518 sec
+	latency: 53.141518 탎ec
 	throughput: 18595 fps
 	raw_singleLayer_throughput: 18550 fps
 	raw_threeLayer_throughput:  18707 fps
 	raw_eightLayer_throughput:  18459 fps
 	theoratical latency-free single-op throughput: 1571383 fps
  -> GPU
-	latency: to close to runtime(0.000182360595 sec)
+	latency: to close to runtime(182.360595 탎ec)
 	throughput: 5446 fps
 	raw_singleLayer_throughput: 5484 fps
 	raw_threeLayer_throughput:  5196 fps
 	raw_eightLayer_throughput:  5004 fps
 	theoratical latency-free single-op throughput: enormous
  -> MYRIAD
-	latency: 0.001713781088 sec
+	latency: 1713.781088 탎ec
 	throughput: 549 fps
 	raw_singleLayer_throughput: 543 fps
 	raw_threeLayer_throughput:  555 fps
 	raw_eightLayer_throughput:  506 fps
 	theoratical latency-free single-op throughput: 9214 fps
  -> TPU
-	latency: 0.000007970793 sec
+	latency: 7.970793 탎ec
 	throughput: 95715 fps
 	raw_singleLayer_throughput: 92122 fps
 	raw_threeLayer_throughput:  96191 fps
@@ -60,28 +60,28 @@ leaky_relu_act:
 
 tanh_act:
  -> CPU
-	latency: 0.000053780003 sec
+	latency: 53.780003 탎ec
 	throughput: 18167 fps
 	raw_singleLayer_throughput: 18088 fps
 	raw_threeLayer_throughput:  18308 fps
 	raw_eightLayer_throughput:  17733 fps
 	theoratical latency-free single-op throughput: 790693 fps
  -> GPU
-	latency: to close to runtime(0.000203532530 sec)
+	latency: to close to runtime(203.532530 탎ec)
 	throughput: 4852 fps
 	raw_singleLayer_throughput: 4913 fps
 	raw_threeLayer_throughput:  4464 fps
 	raw_eightLayer_throughput:  4197 fps
 	theoratical latency-free single-op throughput: enormous
  -> MYRIAD
-	latency: 0.001820683306 sec
+	latency: 1820.683306 탎ec
 	throughput: 531 fps
 	raw_singleLayer_throughput: 529 fps
 	raw_threeLayer_throughput:  531 fps
 	raw_eightLayer_throughput:  500 fps
 	theoratical latency-free single-op throughput: 16396 fps
  -> TPU
-	latency: 0.000257964861 sec
+	latency: 257.964861 탎ec
 	throughput: 3356 fps
 	raw_singleLayer_throughput: 3261 fps
 	raw_threeLayer_throughput:  3684 fps
@@ -90,28 +90,28 @@ tanh_act:
 
 sigmoid_act:
  -> CPU
-	latency: 0.000053201823 sec
+	latency: 53.201823 탎ec
 	throughput: 18502 fps
 	raw_singleLayer_throughput: 18451 fps
 	raw_threeLayer_throughput:  18556 fps
 	raw_eightLayer_throughput:  18092 fps
 	theoratical latency-free single-op throughput: 1182085 fps
  -> GPU
-	latency: 0.000188491024 sec
+	latency: 188.491024 탎ec
 	throughput: 5184 fps
 	raw_singleLayer_throughput: 5190 fps
 	raw_threeLayer_throughput:  4887 fps
 	raw_eightLayer_throughput:  4327 fps
 	theoratical latency-free single-op throughput: 226168 fps
  -> MYRIAD
-	latency: 0.001835755714 sec
+	latency: 1835.755714 탎ec
 	throughput: 538 fps
 	raw_singleLayer_throughput: 537 fps
 	raw_threeLayer_throughput:  533 fps
 	raw_eightLayer_throughput:  513 fps
 	theoratical latency-free single-op throughput: 42408 fps
  -> TPU
-	latency: 0.000216668568 sec
+	latency: 216.668568 탎ec
 	throughput: 3951 fps
 	raw_singleLayer_throughput: 3854 fps
 	raw_threeLayer_throughput:  4038 fps
@@ -120,28 +120,28 @@ sigmoid_act:
 
 scalar_mult:
  -> CPU
-	latency: 0.000053392556 sec
+	latency: 53.392556 탎ec
 	throughput: 18582 fps
 	raw_singleLayer_throughput: 18543 fps
 	raw_threeLayer_throughput:  18765 fps
 	raw_eightLayer_throughput:  18765 fps
 	theoratical latency-free single-op throughput: 2357127 fps
  -> GPU
-	latency: 0.000183104728 sec
+	latency: 183.104728 탎ec
 	throughput: 5327 fps
 	raw_singleLayer_throughput: 5298 fps
 	raw_threeLayer_throughput:  5425 fps
 	raw_eightLayer_throughput:  5321 fps
 	theoratical latency-free single-op throughput: 216415 fps
  -> MYRIAD
-	latency: 0.001767635074 sec
+	latency: 1767.635074 탎ec
 	throughput: 562 fps
 	raw_singleLayer_throughput: 561 fps
 	raw_threeLayer_throughput:  562 fps
 	raw_eightLayer_throughput:  555 fps
 	theoratical latency-free single-op throughput: 85526 fps
  -> TPU
-	latency: 0.000198085112 sec
+	latency: 198.085112 탎ec
 	throughput: 4270 fps
 	raw_singleLayer_throughput: 4154 fps
 	raw_threeLayer_throughput:  4423 fps
@@ -150,28 +150,28 @@ scalar_mult:
 
 small_dense:
  -> CPU
-	latency: 0.000067170109 sec
+	latency: 67.170109 탎ec
 	throughput: 13630 fps
 	raw_singleLayer_throughput: 13432 fps
 	raw_threeLayer_throughput:  13798 fps
 	raw_eightLayer_throughput:  12052 fps
 	theoratical latency-free single-op throughput: 161304 fps
  -> GPU
-	latency: 0.000204695551 sec
+	latency: 204.695551 탎ec
 	throughput: 3869 fps
 	raw_singleLayer_throughput: 3729 fps
 	raw_threeLayer_throughput:  4048 fps
 	raw_eightLayer_throughput:  3009 fps
 	theoratical latency-free single-op throughput: 18592 fps
  -> MYRIAD
-	latency: 0.001755414832 sec
+	latency: 1755.414832 탎ec
 	throughput: 528 fps
 	raw_singleLayer_throughput: 522 fps
 	raw_threeLayer_throughput:  530 fps
 	raw_eightLayer_throughput:  467 fps
 	theoratical latency-free single-op throughput: 7207 fps
  -> TPU
-	latency: 0.000193172163 sec
+	latency: 193.172163 탎ec
 	throughput: 3625 fps
 	raw_singleLayer_throughput: 3440 fps
 	raw_threeLayer_throughput:  3864 fps
@@ -180,21 +180,21 @@ small_dense:
 
 big_dense:
  -> CPU
-	latency: 0.000019208624 sec
+	latency: 19.208624 탎ec
 	throughput: 8338 fps
 	raw_singleLayer_throughput: 7222 fps
 	raw_threeLayer_throughput:  10661 fps
 	raw_eightLayer_throughput:  4058 fps
 	theoratical latency-free single-op throughput: 9928 fps
  -> GPU
-	latency: 0.000167947090 sec
+	latency: 167.947090 탎ec
 	throughput: 2994 fps
 	raw_singleLayer_throughput: 2748 fps
 	raw_threeLayer_throughput:  3336 fps
 	raw_eightLayer_throughput:  1770 fps
 	theoratical latency-free single-op throughput: 6022 fps
  -> MYRIAD
-	latency: 0.001810431581 sec
+	latency: 1810.431581 탎ec
 	throughput: 487 fps
 	raw_singleLayer_throughput: 477 fps
 	raw_threeLayer_throughput:  496 fps
@@ -210,28 +210,28 @@ big_dense:
 
 simple_conv2d:
  -> CPU
-	latency: 0.000452583936 sec
+	latency: 452.583936 탎ec
 	throughput: 990 fps
 	raw_singleLayer_throughput: 903 fps
 	raw_threeLayer_throughput:  1065 fps
 	raw_eightLayer_throughput:  527 fps
 	theoratical latency-free single-op throughput: 1793 fps
  -> GPU
-	latency: 0.000795317867 sec
+	latency: 795.317867 탎ec
 	throughput: 788 fps
 	raw_singleLayer_throughput: 740 fps
 	raw_threeLayer_throughput:  830 fps
 	raw_eightLayer_throughput:  496 fps
 	theoratical latency-free single-op throughput: 2111 fps
  -> MYRIAD
-	latency: 0.007999990857 sec
+	latency: 7999.990857 탎ec
 	throughput: 94 fps
 	raw_singleLayer_throughput: 90 fps
 	raw_threeLayer_throughput:  97 fps
 	raw_eightLayer_throughput:  67 fps
 	theoratical latency-free single-op throughput: 371 fps
  -> TPU
-	latency: 0.010738965379 sec
+	latency: 10738.965379 탎ec
 	throughput: 93 fps
 	raw_singleLayer_throughput: 93 fps
 	raw_threeLayer_throughput:  92 fps
@@ -240,28 +240,28 @@ simple_conv2d:
 
 dilated_conv2d:
  -> CPU
-	latency: 0.000483445142 sec
+	latency: 483.445142 탎ec
 	throughput: 1079 fps
 	raw_singleLayer_throughput: 997 fps
 	raw_threeLayer_throughput:  1141 fps
 	raw_eightLayer_throughput:  607 fps
 	theoratical latency-free single-op throughput: 2256 fps
  -> GPU
-	latency: 0.000759888424 sec
+	latency: 759.888424 탎ec
 	throughput: 829 fps
 	raw_singleLayer_throughput: 779 fps
 	raw_threeLayer_throughput:  870 fps
 	raw_eightLayer_throughput:  521 fps
 	theoratical latency-free single-op throughput: 2238 fps
  -> MYRIAD
-	latency: 0.008997761032 sec
+	latency: 8997.761032 탎ec
 	throughput: 73 fps
 	raw_singleLayer_throughput: 69 fps
 	raw_threeLayer_throughput:  76 fps
 	raw_eightLayer_throughput:  47 fps
 	theoratical latency-free single-op throughput: 212 fps
  -> TPU
-	latency: to close to runtime(0.009914879690 sec)
+	latency: to close to runtime(9914.879690 탎ec)
 	throughput: 100 fps
 	raw_singleLayer_throughput: 101 fps
 	raw_threeLayer_throughput:  99 fps
@@ -270,28 +270,28 @@ dilated_conv2d:
 
 big_conv2d:
  -> CPU
-	latency: 0.000931400858 sec
+	latency: 931.400858 탎ec
 	throughput: 366 fps
 	raw_singleLayer_throughput: 329 fps
 	raw_threeLayer_throughput:  382 fps
 	raw_eightLayer_throughput:  170 fps
 	theoratical latency-free single-op throughput: 554 fps
  -> GPU
-	latency: 0.000870384527 sec
+	latency: 870.384527 탎ec
 	throughput: 598 fps
 	raw_singleLayer_throughput: 553 fps
 	raw_threeLayer_throughput:  625 fps
 	raw_eightLayer_throughput:  331 fps
 	theoratical latency-free single-op throughput: 1249 fps
  -> MYRIAD
-	latency: 0.008638580972 sec
+	latency: 8638.580972 탎ec
 	throughput: 88 fps
 	raw_singleLayer_throughput: 85 fps
 	raw_threeLayer_throughput:  89 fps
 	raw_eightLayer_throughput:  62 fps
 	theoratical latency-free single-op throughput: 373 fps
  -> TPU
-	latency: 0.010106808702 sec
+	latency: 10106.808702 탎ec
 	throughput: 95 fps
 	raw_singleLayer_throughput: 95 fps
 	raw_threeLayer_throughput:  96 fps
@@ -300,28 +300,28 @@ big_conv2d:
 
 small_conv2d:
  -> CPU
-	latency: 0.000414754942 sec
+	latency: 414.754942 탎ec
 	throughput: 1014 fps
 	raw_singleLayer_throughput: 921 fps
 	raw_threeLayer_throughput:  1101 fps
 	raw_eightLayer_throughput:  531 fps
 	theoratical latency-free single-op throughput: 1749 fps
  -> GPU
-	latency: 0.000721085061 sec
+	latency: 721.085061 탎ec
 	throughput: 913 fps
 	raw_singleLayer_throughput: 861 fps
 	raw_threeLayer_throughput:  961 fps
 	raw_eightLayer_throughput:  598 fps
 	theoratical latency-free single-op throughput: 2670 fps
  -> MYRIAD
-	latency: 0.007107284654 sec
+	latency: 7107.284654 탎ec
 	throughput: 105 fps
 	raw_singleLayer_throughput: 100 fps
 	raw_threeLayer_throughput:  107 fps
 	raw_eightLayer_throughput:  73 fps
 	theoratical latency-free single-op throughput: 407 fps
  -> TPU
-	latency: 0.010648251797 sec
+	latency: 10648.251797 탎ec
 	throughput: 93 fps
 	raw_singleLayer_throughput: 93 fps
 	raw_threeLayer_throughput:  93 fps
@@ -337,21 +337,21 @@ many_conv2d:
 	raw_eightLayer_throughput:  4 fps
 	theoratical latency-free single-op throughput: no estimate possible
  -> GPU
-	latency: 0.000452963449 sec
+	latency: 452.963449 탎ec
 	throughput: 13 fps
 	raw_singleLayer_throughput: 11 fps
 	raw_threeLayer_throughput:  16 fps
 	raw_eightLayer_throughput:  5 fps
 	theoratical latency-free single-op throughput: 14 fps
  -> MYRIAD
-	latency: 0.076364030272 sec
+	latency: 76364.030272 탎ec
 	throughput: 4 fps
 	raw_singleLayer_throughput: 3 fps
 	raw_threeLayer_throughput:  4 fps
 	raw_eightLayer_throughput:  2 fps
 	theoratical latency-free single-op throughput: 5 fps
  -> TPU
-	latency: 0.178219360766 sec
+	latency: 178219.360766 탎ec
 	throughput: 5 fps
 	raw_singleLayer_throughput: 5 fps
 	raw_threeLayer_throughput:  5 fps
@@ -360,28 +360,28 @@ many_conv2d:
 
 few_conv2d:
  -> CPU
-	latency: 0.000364655114 sec
+	latency: 364.655114 탎ec
 	throughput: 1833 fps
 	raw_singleLayer_throughput: 1734 fps
 	raw_threeLayer_throughput:  1915 fps
 	raw_eightLayer_throughput:  1201 fps
 	theoratical latency-free single-op throughput: 5531 fps
  -> GPU
-	latency: 0.000586015700 sec
+	latency: 586.015700 탎ec
 	throughput: 1312 fps
 	raw_singleLayer_throughput: 1262 fps
 	raw_threeLayer_throughput:  1355 fps
 	raw_eightLayer_throughput:  964 fps
 	theoratical latency-free single-op throughput: 5683 fps
  -> MYRIAD
-	latency: 0.004956233098 sec
+	latency: 4956.233098 탎ec
 	throughput: 148 fps
 	raw_singleLayer_throughput: 142 fps
 	raw_threeLayer_throughput:  152 fps
 	raw_eightLayer_throughput:  103 fps
 	theoratical latency-free single-op throughput: 562 fps
  -> TPU
-	latency: 0.004833370149 sec
+	latency: 4833.370149 탎ec
 	throughput: 184 fps
 	raw_singleLayer_throughput: 180 fps
 	raw_threeLayer_throughput:  188 fps
@@ -390,28 +390,28 @@ few_conv2d:
 
 strided_conv2d:
  -> CPU
-	latency: to close to runtime(0.000257708957 sec)
+	latency: to close to runtime(257.708957 탎ec)
 	throughput: 3880 fps
 	raw_singleLayer_throughput: 3880 fps
 	raw_threeLayer_throughput:  3909 fps
 	raw_eightLayer_throughput:  158 fps
 	theoratical latency-free single-op throughput: enormous
  -> GPU
-	latency: 0.000505364380 sec
+	latency: 505.364380 탎ec
 	throughput: 1932 fps
 	raw_singleLayer_throughput: 1932 fps
 	raw_threeLayer_throughput:  1846 fps
 	raw_eightLayer_throughput:  158 fps
 	theoratical latency-free single-op throughput: 82315 fps
  -> MYRIAD
-	latency: 0.003400987974 sec
+	latency: 3400.987974 탎ec
 	throughput: 292 fps
 	raw_singleLayer_throughput: 292 fps
 	raw_threeLayer_throughput:  289 fps
 	raw_eightLayer_throughput:  158 fps
 	theoratical latency-free single-op throughput: 49444 fps
  -> TPU
-	latency: to close to runtime(0.002803665569 sec)
+	latency: to close to runtime(2803.665569 탎ec)
 	throughput: 357 fps
 	raw_singleLayer_throughput: 357 fps
 	raw_threeLayer_throughput:  403 fps
