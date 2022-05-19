@@ -303,20 +303,17 @@ strided_conv2d:
 	throughput: 3951 fps
 	raw_singleLayer_throughput: 3951 fps
 	raw_threeLayer_throughput:  4078 fps
-	raw_eightLayer_throughput:  324 fps
 	theoratical latency-free single-op throughput: enormous
  -> GPU
 	latency: to close to runtime(185.545295 µsec)
 	throughput: 5390 fps
 	raw_singleLayer_throughput: 5390 fps
 	raw_threeLayer_throughput:  5412 fps
-	raw_eightLayer_throughput:  324 fps
 	theoratical latency-free single-op throughput: enormous
  -> MYRIAD
 	latency: to close to runtime(2411.769959 µsec)
 	throughput: 415 fps
 	raw_singleLayer_throughput: 415 fps
 	raw_threeLayer_throughput:  419 fps
-	raw_eightLayer_throughput:  324 fps
 	theoratical latency-free single-op throughput: enormous
 
