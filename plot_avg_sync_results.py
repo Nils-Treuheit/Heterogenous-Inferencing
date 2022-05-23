@@ -291,7 +291,7 @@ for model in models:
 
 for idx in range(4,7): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+1, figsize=(21.5,14))
+    fig = plt.figure(part+4, figsize=(21.5,14))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])
@@ -408,7 +408,7 @@ for model in models:
 
 for idx in range(7,10): clean_figure(idx)
 for part in range(3):
-    fig = plt.figure(part+1, figsize=(21.5,14))
+    fig = plt.figure(part+7, figsize=(21.5,14))
     for idx,dev in enumerate(devices):
         devStats = [val[idx] if len(val)>idx else None for val in statMap.values()][partList[part][0]:partList[part][1]] 
         ax = fig.add_subplot(subplot_pos[idx])

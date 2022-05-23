@@ -3,6 +3,9 @@ import numpy as np
 from glob import glob
 import math
 
+def energy_consum_conv(milli_wh):
+    picoWatt_milliSec = milli_wh*10000000/36   # 1000000000/3600 => milliWatt->picoWatt/h->sec
+    return picoWatt_milliSec
 
 def latency_advanced(one_run, three_run, eight_run):
     lat23 = one_run - (three_run/3)
@@ -284,8 +287,45 @@ def async_infer_res():
         results.write("\n")
     results.close()
 
+def scan_energy_infer():
+    f = open(log_folder+"energy_infer_analysis.log","r")
+    lines = f.readlines()
+    energy_consums = {"1":{},"3":{},"8":{}}
+    layer_conf = 0
+    model = ""
+    for idx, line in enumerate(lines):
+        if idx%14==0: 
+            model = line.split(":")[0].strip()
+            if "stacked" not in model: layer_conf = "1"
+            elif "stacked3" in model: layer_conf = "3"
+            else: layer_conf = "8"
+            energy_consums[layer_conf][model] = dict() 
+        elif idx%14==3: 
+            energy_consums[layer_conf][model]["MYRIAD"] = \
+                float(line.split(":")[-1].strip())
+        elif idx%14==9: 
+            energy_consums[layer_conf][model]["TPU"] = \
+                float(line.split(":")[-1].strip())
+    f.close()
+    return energy_consums["1"]
+
+def energy_infer_res():
+    energy_consums = scan_energy_infer()
+    devices = ["MYRIAD","TPU"]
+    models = list(energy_consums.keys())
+    results = open(result_folder+"energy_infer_res.txt","w")
+
+    for model in models:
+        results.write(model+":\n")
+        for device in devices:
+            energy = energy_consum_conv(energy_consums[model][device])
+            results.write(" -> "+device+"\n")
+            results.write("\tenergy: {0:.2f} pW/sec\n".format(round(energy,2)))
+        results.write("\n")
+    results.close()
 
 # main
 single_infer_res()
 batch_infer_res()
 async_infer_res()
+energy_infer_res()

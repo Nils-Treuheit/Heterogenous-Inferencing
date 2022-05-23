@@ -1,0 +1,84 @@
+relu_act:
+ -> MYRIAD
+	energy: 137.25 pW/sec
+ -> TPU
+	energy: 1.41 pW/sec
+
+leaky_relu_act:
+ -> MYRIAD
+	energy: 134.02 pW/sec
+ -> TPU
+	energy: 0.00 pW/sec
+
+tanh_act:
+ -> MYRIAD
+	energy: 135.10 pW/sec
+ -> TPU
+	energy: 3.30 pW/sec
+
+sigmoid_act:
+ -> MYRIAD
+	energy: 137.25 pW/sec
+ -> TPU
+	energy: 7.06 pW/sec
+
+scalar_mult:
+ -> MYRIAD
+	energy: 137.79 pW/sec
+ -> TPU
+	energy: 1.88 pW/sec
+
+small_dense:
+ -> MYRIAD
+	energy: 138.32 pW/sec
+ -> TPU
+	energy: 6.12 pW/sec
+
+big_dense:
+ -> MYRIAD
+	energy: 162.01 pW/sec
+ -> TPU
+	energy: 213.62 pW/sec
+
+simple_conv2d:
+ -> MYRIAD
+	energy: 2199.20 pW/sec
+ -> TPU
+	energy: 219.46 pW/sec
+
+dilated_conv2d:
+ -> MYRIAD
+	energy: 2600.72 pW/sec
+ -> TPU
+	energy: 220.12 pW/sec
+
+strided_conv2d:
+ -> MYRIAD
+	energy: 651.53 pW/sec
+ -> TPU
+	energy: 52.28 pW/sec
+
+big_conv2d:
+ -> MYRIAD
+	energy: 1940.41 pW/sec
+ -> TPU
+	energy: 302.07 pW/sec
+
+small_conv2d:
+ -> MYRIAD
+	energy: 1863.89 pW/sec
+ -> TPU
+	energy: 209.10 pW/sec
+
+many_conv2d:
+ -> MYRIAD
+	energy: 74017.84 pW/sec
+ -> TPU
+	energy: 9098.96 pW/sec
+
+few_conv2d:
+ -> MYRIAD
+	energy: 1170.11 pW/sec
+ -> TPU
+	energy: 124.61 pW/sec
+
