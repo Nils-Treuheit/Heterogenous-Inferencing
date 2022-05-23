@@ -320,7 +320,7 @@ def energy_infer_res():
         for device in devices:
             energy = energy_consum_conv(energy_consums[model][device])
             results.write(" -> "+device+"\n")
-            results.write("\tenergy: {0:.2f} pW/sec\n".format(round(energy,2)))
+            results.write("\tenergy consumption: {0:.2f} pW/sec\n".format(round(energy,2)))
         results.write("\n")
     results.close()
 
